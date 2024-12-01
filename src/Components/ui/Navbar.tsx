@@ -17,7 +17,7 @@ import clsx from "clsx";
 import { ThemeSwitch } from "./theme-switch";
 import { siteConfig } from "@/src/config/site";
 import { Logo } from "./icon";
-import NavbarDropdown from "./NavbarDropdown";
+// import NavbarDropdown from "./NavbarDropdown";
 import logo from "@/src/assets/logo.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -66,7 +66,7 @@ export const Navbar = () => {
             <ThemeSwitch />
           </NavbarItem>
           <NavbarItem className="hidden sm:flex gap-2">
-            <NavbarDropdown />
+            {/* <NavbarDropdown /> */}
           </NavbarItem>
         </NavbarContent>
 
@@ -99,7 +99,7 @@ export const Navbar = () => {
               </NavbarMenuItem>
             ))}
             <div className="my-3">
-            <NavbarDropdown />
+            {/* <NavbarDropdown /> */}
             </div>
           </div>
         </NavbarMenu>
