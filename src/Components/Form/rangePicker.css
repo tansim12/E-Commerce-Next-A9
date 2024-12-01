@@ -1,0 +1,37 @@
+.custom-label .ant-form-item-label > label {
+    color: white !important; /* Custom label color when isLabelColor is true */
+  }
+  
+  .custom-label .ant-picker {
+    background-color: #333; /* Picker background */
+    color: white; /* Text color */
+  }
+  
+  .custom-label .ant-picker-input input {
+    color: white !important; /* Input text color */
+  }
+  
+  .custom-label .ant-picker-input input::placeholder {
+    color: gray !important; /* Placeholder color */
+    opacity: 1 !important;
+  }
+  
+  .custom-label .ant-picker-dropdown {
+    background-color: #333; /* Dropdown background */
+    color: white; /* Dropdown text color */
+  }
+  
+  .custom-label .ant-picker-cell-selected .ant-picker-cell-inner {
+    background-color: #fcb040 !important; /* Selected date background color */
+    color: black !important;
+  }
+  
+  .custom-label .ant-picker-cell:hover .ant-picker-cell-inner {
+    background-color: #fcb040; /* Hover background */
+    color: white;
+  }
+  
+  .custom-label .ant-picker-arrow {
+    color: white !important; /* Arrow color */
+  }
+  

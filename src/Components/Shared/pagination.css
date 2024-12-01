@@ -1,0 +1,20 @@
+
+.pagination-container .rc-pagination-item-active {
+    /* background-color: #20ac90; Active button color */
+    border-color: #0866ff; /* Active button border */
+    color: white; /* Text color for the active button */
+    font-weight: 800;
+  }
+  
+  /* Customize the border of the quick jumper input field */
+  .pagination-container .rc-pagination-options-quick-jumper input {
+    border-color: black; /* Jumper input field border black */
+  }
+  
+  .pagination-container .rc-pagination-options-quick-jumper input {
+    border-color: black !important; /* Jumper input field border color */
+    margin-left: 0.5rem;
+    box-shadow: 0px 0px 0px .5px #000000;
+    
+  }
+  

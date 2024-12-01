@@ -1,0 +1,43 @@
+.custom-label .ant-form-item-label > label {
+  color: white !important; /* Use !important to override any conflicting styles */
+}
+
+.custom-label .ant-form-item-label > label {
+  color: white !important; /* Label color */
+}
+
+.custom-dropdown .ant-select-selector {
+  background-color: #333; /* Background of the select input */
+  color: white; /* Text color */
+}
+
+.custom-dropdown-menu .ant-select-item {
+  background-color: #333; /* Background of the dropdown items */
+  color: white; /* Text color */
+}
+
+.custom-dropdown-menu .ant-select-item-option-selected {
+  background-color: #fcb040 !important; /* Custom color for selected option */
+  color: black !important; /* Text color of selected option */
+}
+
+.custom-dropdown-menu .ant-select-item:hover {
+  background-color: #fcb040; /* Hover color for dropdown items */
+  color: white;
+}
+
+.custom-label .ant-select-selector {
+  background: #212121 !important;
+}
+.custom-label .ant-select-selection-item {
+  color: #fcb040 !important;
+}
+.custom-label .ant-select-arrow {
+  color: white !important;
+}
+.custom-dropdown .ant-select-selection-placeholder {
+  color: gray !important; /* Change this to any color you want for the placeholder */
+  opacity: 1 !important; /* Ensure it doesn't become transparent */
+}
+
+/* Add more colors as needed */
