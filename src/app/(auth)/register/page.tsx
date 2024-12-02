@@ -2,7 +2,7 @@ import React from 'react';
 
 const RegisterPage = () => {
     return (
-        <div className=" text-black">
+        <div className="">
             RegisterPage
         </div>
     );
