@@ -11,6 +11,7 @@ import { authSchemas } from "../Schemas/auth.schema";
 import CustomInput from "../Components/Form/CustomInput";
 import CustomButton from "../Components/ui/Button/CustomButton";
 import SocialLogin from "../Components/Shared/SocialLogin";
+import { useUserLogin } from "../hooks/auth.hook";
 
 
 const CLoginPage = () => {
@@ -19,21 +20,21 @@ const CLoginPage = () => {
   const redirect = searchParams?.get("redirect");
   const { setIsLoading: userSetLoading } = useUser();
 
-//   const { mutate: handleLogin, isPending, isSuccess } = useUserLogin();
+  const { mutate: handleLogin, isPending, isSuccess } = useUserLogin();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    // handleLogin(data as any);
+    handleLogin(data as any);
     userSetLoading(true);
   };
 
-//   useEffect(() => {
-//     if (!isPending && isSuccess) {
-//       if (redirect) {
-//         navigate.push(redirect);
-//       } else {
-//         navigate.push("/");
-//       }
-//     }
-//   }, [isPending, isSuccess]);
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      if (redirect) {
+        navigate.push(redirect);
+      } else {
+        navigate.push("/");
+      }
+    }
+  }, [isPending, isSuccess]);
 
   return (
     <>

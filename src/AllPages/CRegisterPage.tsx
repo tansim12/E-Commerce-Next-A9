@@ -15,28 +15,32 @@ import { authSchemas } from "../Schemas/auth.schema";
 import CustomInput from "../Components/Form/CustomInput";
 import CustomButton from "../Components/ui/Button/CustomButton";
 import SocialLogin from "../Components/Shared/SocialLogin";
+import { useUserRegister } from "../hooks/auth.hook";
+import Loading from "../Components/ui/Loading/Loading";
 
 const CRegisterPage = () => {
   const navigate = useRouter();
   const { setIsLoading: userSetLoading } = useUser();
-  //   const { mutate: handleRegister, isPending, isSuccess } = useUserRegister();
+    const { mutate: handleRegister, isPending, isSuccess } = useUserRegister();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
+    
     if (data?.password !== data?.confirmPassword) {
       return toast.error("Password are not same");
     }
     const { confirmPassword, ...payload } = data;
-    // handleRegister(payload as any);
+    handleRegister(payload as any);
     userSetLoading(true);
   };
-  //   useEffect(() => {
-  //     if (!isPending && isSuccess) {
-  //       navigate.push("/");
-  //     }
-  //   }, [isPending, isSuccess]);
+    useEffect(() => {
+      if (!isPending && isSuccess) {
+        navigate.push("/");
+      }
+    }, [isPending, isSuccess]);
   return (
     <>
-      {/* {isPending && <Loading />} */}
+      {isPending && <Loading />}
       <div className="flex justify-center items-center min-h-screen light:text-lightText">
         <div className=" space-y-6 rounded-lg  p-10 shadow-lg mt-5 w-screen sm:max-w-lg">
           <div className="flex flex-col space-y-1">

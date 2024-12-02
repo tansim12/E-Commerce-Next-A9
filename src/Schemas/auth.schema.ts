@@ -13,6 +13,12 @@ const signupSchema = z.object({
     })
     .min(6)
     .max(15),
+  confirmPassword: z
+    .string({
+      required_error: "Password is required!",
+    })
+    .min(6)
+    .max(15),
 });
 const loginSchema = z.object({
   email: z.string({

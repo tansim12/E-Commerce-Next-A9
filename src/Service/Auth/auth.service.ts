@@ -29,7 +29,7 @@ export const createRegister = async (payload: FieldValues) => {
 };
 export const createLogin = async (payload: FieldValues) => {
   try {
-    const { data } = await axiosInstance.post("/auth/signin", payload);
+    const { data } = await axiosInstance.post("/auth/login", payload);
     if (data?.success) {
       const cookieStore = cookies(); // Use cookies in server-side context
       cookieStore.set("accessToken", data?.data?.accessToken);
