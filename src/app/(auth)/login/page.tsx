@@ -1,11 +1,12 @@
-import React from 'react';
+import CLoginPage from "@/src/AllPages/CLoginPage";
+import React from "react";
 
 const LoginPage = () => {
-    return (
-        <div className=" text-black">
-            LoginPage
-        </div>
-    );
+  return (
+    <div className=" ">
+      <CLoginPage />
+    </div>
+  );
 };
 
 export default LoginPage;
