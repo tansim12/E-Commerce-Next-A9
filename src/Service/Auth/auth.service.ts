@@ -1,5 +1,6 @@
 "use server";
 interface CustomJwtPayload extends JwtPayload {
+  id: any;
   data?: {
     id: string;
     // other properties of the data object
@@ -50,16 +51,16 @@ export const getCurrentUser = async (): Promise<any | null> => {
       console.warn("No access token found.");
       return null;
     }
-
+    
     const decodedToken = await jwtDecode<CustomJwtPayload>(accessToken);
     if (decodedToken) {
-      const res = await axiosInstance.get(`/user/${decodedToken?.data?.id}`);
+      const res = await axiosInstance.get(`/user/${decodedToken?.id}`);
       return res?.data?.data;
     } else {
       null;
     }
   } catch (error) {
-    console.error("Error decoding token:", error);
+    // console.error("Error decoding token:", error);
     return null;
   }
 };
