@@ -16,7 +16,7 @@ export default function RootLayout({
       <head />
       <body className={`antialiased bg-[#020611] min-h-screen min-w-[100wh]`}>
         <Providers>
-          <main className="container mx-auto sm:px-0">
+          <main className="container mx-auto sm:px-0 text-white">
             {children}
           </main>
         </Providers>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const CHomePage = () => {
     return (
-        <div>
+        <div className='min-h-[200vh]'>
             CHomePage
         </div>
     );
