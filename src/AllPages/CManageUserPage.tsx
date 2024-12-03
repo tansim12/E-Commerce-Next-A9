@@ -91,7 +91,7 @@ const CManageUserPage = () => {
     setDefaultValue(payload);
     setUserId(userProfile?.id as string);
   };
-  console.log(allUserData?.result?.[0].email);
+
 
   return (
     <div>
