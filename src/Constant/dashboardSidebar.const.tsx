@@ -25,19 +25,15 @@ export const sidebarItems: { admin: SidebarItem[]; user: SidebarItem[] } = {
       icon: <FaHome />,
     },
     {
-      name: "My Posts",
-      path: "/admin/my-posts",
-      icon: <BsFillFileEarmarkPostFill />,
-    },
-    {
-      name: "Manage Posts",
-      path: "/admin/manage-posts",
-      icon: <MdOutlineManageSearch />,
-    },
-    {
       name: "Manage User",
       path: "/admin/manage-user",
       icon: <MdOutlineManageAccounts />,
+    },
+
+    {
+      name: "Manage Shop",
+      path: "/admin/manage-shop",
+      icon: <MdOutlineManageSearch />,
     },
     {
       name: "Manage Payment",
