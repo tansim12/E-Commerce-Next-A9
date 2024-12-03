@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <head />
-      <body className={`antialiased bg-[#020611] min-h-screen min-w-[100wh]`}>
+      <body className={`antialiased bg-bgColor min-h-screen min-w-[100wh]`}>
         <Providers>
           <main className="container mx-auto sm:px-0 text-white">
             {children}

@@ -16,7 +16,7 @@ module.exports = {
         primary: "#0866ff", // your base color
         lightText: "#000000", // black text for light mode
         darkText: "#ffffff", // white text for dark mode
-        default: "#000000",
+        bgColor: "#020611",
       },
       animation: {
         "background-shine": "background-shine 2s linear infinite",
