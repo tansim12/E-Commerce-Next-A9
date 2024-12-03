@@ -3,6 +3,7 @@ export const privateRotes = [
   "/profile/:page*",
   "/user/:page*",
   "/admin/:page*",
+ "/vendor/:page*",
   "/user",
   "/login",
   "/register",
