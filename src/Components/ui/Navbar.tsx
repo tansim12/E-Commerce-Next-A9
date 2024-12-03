@@ -61,7 +61,7 @@ export const Navbar = () => {
                 <p className="font-bold text-inherit"></p>
               </NextLink>
             </NavbarBrand>
-            <ul className="hidden lg:flex gap-4 justify-start ml-2">
+            <ul className=" hidden md:flex lg:flex gap-4 justify-start ml-2">
               {siteConfig?.navItems?.map((item) => (
                 <NavbarItem key={item.href} className="text-white">
                   <NextLink
@@ -78,14 +78,16 @@ export const Navbar = () => {
             </ul>
           </NavbarContent>
 
-          <NavbarContent
-            className="hidden sm:flex basis-1/5 sm:basis-full"
-            justify="end"
-          >
-            <NavbarItem className="hidden sm:flex gap-2">
-              <NavbarDropdown />
-            </NavbarItem>
-          </NavbarContent>
+          <div>
+            <NavbarContent
+              className="hidden sm:flex basis-3/5 sm:basis-full  "
+              justify="end"
+            >
+              <NavbarItem className="hidden sm:flex gap-2 ">
+                <NavbarDropdown />
+              </NavbarItem>
+            </NavbarContent>
+          </div>
 
           <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
             <NavbarMenuToggle />
@@ -116,7 +118,7 @@ export const Navbar = () => {
               ))}
               <div className="my-3">
                 <NavbarDropdown />
-                </div>
+              </div>
             </div>
           </NavbarMenu>
         </NextUINavbar>
