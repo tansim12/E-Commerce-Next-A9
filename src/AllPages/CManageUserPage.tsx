@@ -32,14 +32,13 @@ import CustomPagination from "../Components/Shared/CustomPagination";
 import NoFoundData from "../Components/ui/No Found/NoFoundData";
 import { useAdminFindAllUser } from "../hooks/user.hook";
 
+//todo user update করতে হবে
 const CManageUserPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, _setBackdrop] = useState("blur");
-  const [sortValue, setSortValue] = useState("-createdAt");
+  const [sortValue, setSortValue] = useState("desc");
   const handleSort = () => {
-    setSortValue((prev) =>
-      prev === "-createdAt" ? "createdAt" : "-createdAt"
-    );
+    setSortValue((prev) => (prev === "desc" ? "asc" : "desc"));
   };
 
   const [searchValue, setSearchValue] = useState("");
@@ -68,7 +67,8 @@ const CManageUserPage = () => {
     isSuccess,
   } = useAdminFindAllUser(page, pageSize, [
     ...params,
-    { name: "sort", value: sortValue },
+    { name: "sortOrder", value: sortValue },
+    { name: "sortBy", value: "createdAt" },
   ]);
 
   const [meta, setMeta] = useState(allUserData?.meta);
@@ -91,6 +91,7 @@ const CManageUserPage = () => {
     setDefaultValue(payload);
     setUserId(userProfile?.id as string);
   };
+  console.log(allUserData?.result?.[0].email);
 
   return (
     <div>
@@ -151,64 +152,62 @@ const CManageUserPage = () => {
               <TableColumn>Email</TableColumn>
               <TableColumn>Role</TableColumn>
               <TableColumn>Status</TableColumn>
-              <TableColumn>Phone</TableColumn>
-              <TableColumn>Verified</TableColumn>
               <TableColumn>Created At</TableColumn>
               <TableColumn>Actions</TableColumn>
             </TableHeader>
-            <TableBody>
-              {allUserData?.result?.length
-                ? allUserData?.result?.map((user: any) => (
-                    <TableRow key={user._id}>
-                      <TableCell>
-                        <img
-                          src={user.profilePhoto}
-                          alt={`${user.name}'s profile`}
-                          className="h-10 w-10 rounded-full object-cover"
-                        />
-                      </TableCell>
-                      <TableCell>{user.name}</TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell
-                        className={
-                          user.role === "admin"
-                            ? "text-red-500"
-                            : user.role === "user"
-                              ? "text-blue-500"
-                              : "text-gray-500"
-                        }
-                      >
-                        {user.role}
-                      </TableCell>
-                      <TableCell>{user.status}</TableCell>
-                      <TableCell>{user.phone}</TableCell>
-                      <TableCell
-                        className={
-                          user.isVerified ? "text-green-500" : "text-red-500"
-                        }
-                      >
-                        {user.isVerified ? "Yes" : "No"}
-                      </TableCell>
-                      <TableCell>
-                        {moment(user.createdAt).format("ll")}
-                      </TableCell>
-                      <TableCell>
-                        <Button
-                          onClick={() => {
-                            onOpen();
-                            handleEditProfile(user);
-                          }}
-                          className=" flex justify-center items-center gap-3"
-                          color="primary"
-                          size="sm"
+            {allUserData?.result?.length > 0 ? (
+              <TableBody>
+                {allUserData?.result?.length > 0
+                  ? allUserData?.result?.map((user: any) => (
+                      <TableRow key={user?.id}>
+                        <TableCell>
+                          <img
+                            src={
+                              user.userProfile?.[0].profilePhoto
+                                ? user.userProfile?.[0].profilePhoto
+                                : "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg"
+                            }
+                            alt={`${user.name}'s profile`}
+                            className="h-10 w-10 rounded-full object-cover"
+                          />
+                        </TableCell>
+                        <TableCell>{user?.name}</TableCell>
+                        <TableCell>{user?.email}</TableCell>
+                        <TableCell
+                          className={
+                            user?.role === "admin"
+                              ? "text-red-500"
+                              : user?.role === "user"
+                                ? "text-gray-500"
+                                : "text-blue-500"
+                          }
                         >
-                          <FaEdit /> Edit
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                : !isAllUserPending && <NoFoundData />}
-            </TableBody>
+                          {user?.role}
+                        </TableCell>
+                        <TableCell>{user?.status}</TableCell>
+                        <TableCell>
+                          {moment(user?.createdAt).format("ll")}
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            onClick={() => {
+                              onOpen();
+                              handleEditProfile(user);
+                            }}
+                            className=" flex justify-center items-center gap-3"
+                            color="primary"
+                            size="sm"
+                          >
+                            <FaEdit /> Edit
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  : !isAllUserPending && <NoFoundData />}
+              </TableBody>
+            ) : (
+              <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
+            )}
           </Table>
         </div>
 

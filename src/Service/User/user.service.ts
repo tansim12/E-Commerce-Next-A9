@@ -19,12 +19,10 @@ export const adminFindAllUserAction = async (
         params.append(item.name, String(item.value)); // Convert value to string
       });
     }
-  
     try {
-      const res = await axiosInstance.get(`/user?${params.toString()}`);
+      const res = await axiosInstance.get(`/user?${params.toString()}`); 
       return res?.data?.data;
     } catch (error) {
-      console.log(error);
-      
+      console.log(error);   
     }
   };
