@@ -18,8 +18,13 @@ import Loading from "../Loading/Loading";
 import CustomButton from "../Button/CustomButton";
 import { MdWorkspacePremium } from "react-icons/md";
 import { useRouter } from "next/navigation";
-import { useExistAllCategory } from "@/src/hooks/categoryAndSubCategory.hook";
+import {
+  useCategoryBaseSubCategoryFind,
+  useExistAllCategory,
+} from "@/src/hooks/categoryAndSubCategory.hook";
+import CustomSelectWithWatch from "../../Form/CustomSelectWithWatch";
 const CreateShopFrom = () => {
+  const [getCategoryId, setGetCategoryId] = useState(null);
   const { data: existAllCategoryData } = useExistAllCategory();
   const categoryOptions = existAllCategoryData?.map((item: any) => ({
     label: item?.categoryName,
@@ -57,6 +62,17 @@ const CreateShopFrom = () => {
   //     }
   //   }, [isSuccess, isError]);
 
+
+//   sub category 
+  const { data: subCategoryData } =
+    useCategoryBaseSubCategoryFind(getCategoryId);
+    console.log(subCategoryData);
+    
+  const subCategoryOptions = subCategoryData?.map((item: any) => ({
+    label: item?.categoryName,
+    value: item?.id,
+  }));
+
   return (
     <>
       {/* {isPending && <Loading />} */}
@@ -78,11 +94,20 @@ const CreateShopFrom = () => {
 
           <div className=" flex gap-10 w-full items-center my-3">
             <div className="basis-3/5">
-              <CustomSelect
+              <CustomSelectWithWatch
+                changeOnValue={setGetCategoryId}
                 label="Category"
                 name="categoryId"
                 options={categoryOptions}
                 placeholder="Select Category"
+              />
+            </div>
+            <div className="basis-3/5">
+              <CustomSelect
+                label="Sub Category"
+                name="categoryId"
+                options={subCategoryOptions}
+                placeholder="Select Sub Category"
               />
             </div>
             <div className="basis-2/5">

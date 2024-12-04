@@ -117,3 +117,15 @@ export const existAllCategoryAction = async () => {
     console.log(error);
   }
 };
+export const categoryBaseSubCategoryFindAction = async (
+  categoryId: string | null
+) => {
+  try {
+    const res = await axiosInstance.get(
+      `/cAndSubC/category/categoryBaseSubCategory/${categoryId}`
+    ); 
+    return res?.data?.data;
+  } catch (error) {
+    // console.log(error);
+  }
+};

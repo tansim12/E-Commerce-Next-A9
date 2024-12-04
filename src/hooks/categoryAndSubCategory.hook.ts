@@ -7,8 +7,10 @@ import {
   adminFindAllSubCategoryAction,
   adminUpdateCategoryAction,
   adminUpdateSubCategoryAction,
+  categoryBaseSubCategoryFindAction,
   existAllCategoryAction,
 } from "../Service/CategoryAndSubCategory/categoryAndSubCategory.service";
+import { ZodNullableDef } from "zod";
 
 // category
 export const useAdminFindAllCategory = (
@@ -107,5 +109,11 @@ export const useExistAllCategory = () => {
   return useQuery({
     queryKey: ["EXIST_ALL_CATEGORY"],
     queryFn: async () => await existAllCategoryAction(),
+  });
+};
+export const useCategoryBaseSubCategoryFind = (categoryId: string | null) => {
+  return useQuery({
+    queryKey: ["CATEGORY_BASE_SUB_CATEGORY",categoryId],
+    queryFn: async () => await categoryBaseSubCategoryFindAction(categoryId),
   });
 };
