@@ -23,7 +23,7 @@ import {
   useExistAllCategory,
 } from "@/src/hooks/categoryAndSubCategory.hook";
 import CustomSelectWithWatch from "../../Form/CustomSelectWithWatch";
-const CreateShopFrom = () => {
+const CreateShopFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
   const [getCategoryId, setGetCategoryId] = useState(null);
   const { data: existAllCategoryData } = useExistAllCategory();
   const categoryOptions = existAllCategoryData?.map((item: any) => ({
@@ -62,12 +62,11 @@ const CreateShopFrom = () => {
   //     }
   //   }, [isSuccess, isError]);
 
-
-//   sub category 
+  //   sub category
   const { data: subCategoryData } =
     useCategoryBaseSubCategoryFind(getCategoryId);
-    console.log(subCategoryData);
-    
+  console.log(subCategoryData);
+
   const subCategoryOptions = subCategoryData?.map((item: any) => ({
     label: item?.categoryName,
     value: item?.id,
@@ -105,14 +104,16 @@ const CreateShopFrom = () => {
             <div className="basis-3/5">
               <CustomSelect
                 label="Sub Category"
-                name="categoryId"
+                name="subCategoryId"
                 options={subCategoryOptions}
                 placeholder="Select Sub Category"
               />
             </div>
-            <div className="basis-2/5">
-              <CustomToggle label="Is Delete" name="isDelete" />
-            </div>
+            {!isCreate && (
+              <div className="basis-2/5">
+                <CustomToggle label="Is Delete" name="isDelete" />
+              </div>
+            )}
           </div>
           <div className="mb-16">
             {/* @ts-ignore */}

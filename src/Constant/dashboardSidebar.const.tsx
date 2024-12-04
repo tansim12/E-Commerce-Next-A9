@@ -65,6 +65,11 @@ export const sidebarItems: { admin: SidebarItem[]; user: SidebarItem[] ; vendor:
       path: "/vendor/shop-management",
       icon: <MdOutlineManageSearch />,
     },
+    {
+      name: "Shop Management",
+      path: "/vendor/shop-management",
+      icon: <MdOutlineManageSearch />,
+    },
     
   ],
   user: [
