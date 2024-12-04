@@ -5,7 +5,7 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi"; // Import icons for
 
 interface SidebarItemProps {
   name: string;
-  path: string;
+  path?: string;
   icon?: JSX.Element;
   children?: SidebarItemProps[];
 }
@@ -43,7 +43,7 @@ export const SidebarItem = ({
       >
         <div className="flex items-center">
           {icon && <span className="mr-2">{icon}</span>}
-          <span>{name}</span>
+          <span className="text-[12px] font-semibold">{name}</span>
         </div>
         {/* Dropdown Icon */}
         {children ? isOpen ? <FiChevronUp /> : <FiChevronDown /> : null}
@@ -53,9 +53,9 @@ export const SidebarItem = ({
       {children && isOpen && (
         <div className="ml-4">
           {children.map((child) => (
-            <Link key={child.path} href={child.path}>
+            <Link key={child.path} href={child.path? child.path:""}>
               <div
-                className={`block px-4 py-2 my-1 rounded-lg text-white transition-all duration-200 ${
+                className={`block text-[12px] px-5 py-2 my-1 rounded-lg text-white transition-all duration-200 ${
                   pathname === child.path ? "bg-blue-500" : "hover:bg-gray-600"
                 }`}
               >

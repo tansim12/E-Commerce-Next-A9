@@ -1,5 +1,5 @@
 import { FaHome } from "react-icons/fa";
-import { TbTransactionDollar } from "react-icons/tb";
+import { TbCategory, TbTransactionDollar } from "react-icons/tb";
 import { ReactNode } from "react"; // Import ReactNode for JSX types
 import { FiHome, FiSettings, FiUsers } from "react-icons/fi";
 import { BsFillFileEarmarkPostFill } from "react-icons/bs";
@@ -12,7 +12,7 @@ import {
 // Define the type for the sidebar items
 interface SidebarItem {
   name: string;
-  path: string;
+  path?: string;
   icon?: ReactNode; // Allow icon as ReactNode (JSX element)
   children?: SidebarItem[]; // Optional children property for nested links
 }
@@ -29,12 +29,25 @@ export const sidebarItems: { admin: SidebarItem[]; user: SidebarItem[] } = {
       path: "/admin/manage-user",
       icon: <MdOutlineManageAccounts />,
     },
-
     {
       name: "Manage Shop",
       path: "/admin/manage-shop",
       icon: <MdOutlineManageSearch />,
     },
+    {
+      name: "Manage Category",
+      icon: <TbCategory />,
+      children: [
+        { name: "Category", path: "/admin/manage-category/category" },
+        { name: "Sub-Category", path: "/admin/manage-category/sub-category" },
+      ],
+    },
+    {
+      name: "Manage Category",
+      path: "/admin/manage-category",
+      icon: <TbCategory />,
+    },
+
     {
       name: "Manage Payment",
       path: "/admin/manage-payment",
@@ -73,7 +86,7 @@ export const sidebarItems: { admin: SidebarItem[]; user: SidebarItem[] } = {
 //   },
 //   {
 //     name: "Users",
-//     path: "/admin/users",
+//     path: "/admin/users", // its optional when its nested
 //     icon: <FiUsers />,
 //     children: [
 //       { name: "Manage Users", path: "/admin/users/manage" },
