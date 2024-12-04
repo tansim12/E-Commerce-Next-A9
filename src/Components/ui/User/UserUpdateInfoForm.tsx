@@ -6,9 +6,9 @@ import CustomInput from "../../Form/CustomInput";
 import CustomToggle from "../../Form/CustomToggle";
 import CustomSelect from "../../Form/CustomSelect";
 import CustomButton from "../Button/CustomButton";
-// import { useAdminUserProfileUpdate } from "@/src/hooks/userProfile.hook";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { useAdminUserProfileUpdate } from "@/src/hooks/user.hook";
 
 const UserUpdateInfoForm = ({
   defaultValue,
@@ -17,30 +17,30 @@ const UserUpdateInfoForm = ({
   defaultValue: any;
   userId: string;
 }) => {
-//   const {
-//     mutate: handleUserInfoUpdate,
-//     isPending,
-//     data: updatedUserData,
-//     isError,
-//     isSuccess,
-//   } = useAdminUserProfileUpdate();
+  const {
+    mutate: handleUserInfoUpdate,
+    isPending,
+    data: updatedUserData,
+    isError,
+    isSuccess,
+  } = useAdminUserProfileUpdate();
 
-//   useEffect(() => {
-//     if (isError) {
-//       toast.error("User Info update error");
-//     }
+  useEffect(() => {
+    if (isError) {
+      toast.error("User Info update error");
+    }
 
-//     console.log(updatedUserData);
+    console.log(updatedUserData);
     
-//     if (isSuccess || updatedUserData) {
-//       toast.success("User Update Successfully done");
-//       Swal.fire({
-//         title: "Updated!",
-//         text: "Your file has been updated.",
-//         icon: "success",
-//       });
-//     }
-//   }, [isError, isSuccess, updatedUserData]);
+    if (isSuccess || updatedUserData) {
+      toast.success("User Update Successfully done");
+      Swal.fire({
+        title: "Updated!",
+        text: "Your file has been updated.",
+        icon: "success",
+      });
+    }
+  }, [isError, isSuccess, updatedUserData]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const newPayload = {
@@ -57,7 +57,7 @@ const UserUpdateInfoForm = ({
       confirmButtonText: "Yes, Update it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        // handleUserInfoUpdate(newPayload as any);
+        handleUserInfoUpdate(newPayload as any);
       }
     });
   };
@@ -73,6 +73,7 @@ const UserUpdateInfoForm = ({
               options={[
                 { label: "user", value: "user" },
                 { label: "admin", value: "admin" },
+                { label: "vendor", value: "vendor" },
               ]}
               defaultValue={[defaultValue?.role]}
               placeholder="Select Role"
@@ -86,15 +87,13 @@ const UserUpdateInfoForm = ({
           <div>
             <CustomToggle label="User Delete" name="isDelete" />
           </div>
-          <div>
-            <CustomToggle label="User Verify" name="isVerified" />
-          </div>
+          
           <div>
             <div className="basis-1/2">
               <CustomSelect
                 options={[
                   { label: "active", value: "active" },
-                  { label: "block", value: "block" },
+                  { label: "blocked", value: "blocked" },
                 ]}
                 defaultValue={[defaultValue?.status]}
                 placeholder="Select Status"
@@ -103,6 +102,7 @@ const UserUpdateInfoForm = ({
               />
             </div>
           </div>
+          <div></div>
         </div>
 
         <CustomButton name="Submit" />

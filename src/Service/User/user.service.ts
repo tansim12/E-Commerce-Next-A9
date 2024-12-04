@@ -2,6 +2,7 @@
 
 import { axiosInstance } from "@/src/axios/axiosInstance";
 import { TQueryParams } from "@/src/Types/Filter/filter.type";
+import { TUser } from "@/src/Types/User/user.types";
 
 export const adminFindAllUserAction = async (
     page: number,
@@ -24,5 +25,19 @@ export const adminFindAllUserAction = async (
       return res?.data?.data;
     } catch (error) {
       console.log(error);   
+    }
+  };
+
+  export const adminUserUpdateAction = async (
+    userId: string,
+    payload: Partial<TUser>
+  ) => {
+    try {
+      const res = await axiosInstance.put(
+        `/user/admin-update-user/${userId}`,
+        payload
+      );
+      return res?.data?.data;
+    } catch (error) {
     }
   };

@@ -83,7 +83,6 @@ const CManageUserPage = () => {
   const handleEditProfile = (userProfile: Partial<TUser>) => {
     const payload = {
       isDelete: userProfile?.isDelete,
-      //   isVerified: userProfile?.isVerified,
       name: userProfile?.name,
       role: userProfile?.role,
       status: userProfile?.status,
@@ -91,8 +90,7 @@ const CManageUserPage = () => {
     setDefaultValue(payload);
     setUserId(userProfile?.id as string);
   };
-
-
+  
   return (
     <div>
       {/* modal section  */}
@@ -149,9 +147,10 @@ const CManageUserPage = () => {
             <TableHeader>
               <TableColumn>Profile Photo</TableColumn>
               <TableColumn>Name</TableColumn>
-              <TableColumn>Email</TableColumn>
               <TableColumn>Role</TableColumn>
+              <TableColumn>Email</TableColumn>
               <TableColumn>Status</TableColumn>
+              <TableColumn>Deleted</TableColumn>
               <TableColumn>Created At</TableColumn>
               <TableColumn>Actions</TableColumn>
             </TableHeader>
@@ -172,7 +171,7 @@ const CManageUserPage = () => {
                           />
                         </TableCell>
                         <TableCell>{user?.name}</TableCell>
-                        <TableCell>{user?.email}</TableCell>
+
                         <TableCell
                           className={
                             user?.role === "admin"
@@ -184,7 +183,17 @@ const CManageUserPage = () => {
                         >
                           {user?.role}
                         </TableCell>
+                        <TableCell>{user?.email}</TableCell>
                         <TableCell>{user?.status}</TableCell>
+                        <TableCell
+                          className={
+                            user?.isDelete
+                              ? "text-red-500"
+                              : "text-gray-500"
+                          }
+                        >
+                          {user?.isDelete.toString()}
+                        </TableCell>
                         <TableCell>
                           {moment(user?.createdAt).format("ll")}
                         </TableCell>
