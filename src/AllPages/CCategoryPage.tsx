@@ -35,6 +35,7 @@ import { useAdminFindAllCategory } from "../hooks/categoryAndSubCategory.hook";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { BsPlus } from "react-icons/bs";
 import CreateCategory from "../Components/ui/CategoryAndSubCategory/CreateCategory";
+import CategoryForm from "../Components/ui/CategoryAndSubCategory/CategoryForm";
 
 const CManageCategory = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -74,26 +75,21 @@ const CManageCategory = () => {
     { name: "sortBy", value: "createdAt" },
   ]);
 
-  const [meta, setMeta] = useState(allCategoryData?.meta);
   const [defaultValue, setDefaultValue] = useState({});
-  const [userId, setUserId] = useState("");
   useEffect(() => {
     if (isCategoryError) {
       toast.error("All Category data get problem");
     }
   }, []);
 
-  const handleEditCategory = (userProfile: Partial<TUser>) => {
+  const handleEditCategory = (ct: any) => {
     const payload = {
-      isDelete: userProfile?.isDelete,
-      name: userProfile?.name,
-      role: userProfile?.role,
-      status: userProfile?.status,
+      categoryName: ct?.categoryName,
+      isDelete: ct?.isDelete,
+      categoryId: ct?.id,
     };
     setDefaultValue(payload);
-    setUserId(userProfile?.id as string);
   };
-
 
   return (
     <div>
@@ -109,7 +105,7 @@ const CManageCategory = () => {
           cancelText="Cancel"
           size="4xl"
         >
-          <UserUpdateInfoForm defaultValue={defaultValue} userId={userId} />
+          <CategoryForm defaultValue={defaultValue} isCreate={false} />
         </CustomModal>{" "}
       </div>
 
@@ -170,7 +166,13 @@ const CManageCategory = () => {
                         <TableCell>{ct?.admin?.email}</TableCell>
                         <TableCell>{ct?.admin?.status}</TableCell>
 
-                        <TableCell>{ct?.isDelete.toString()}</TableCell>
+                        <TableCell
+                          className={
+                            ct?.isDelete ? "text-red-500" : "text-gray-500"
+                          }
+                        >
+                          {ct?.isDelete.toString()}
+                        </TableCell>
 
                         <TableCell>
                           {moment(ct?.createdAt).format("ll")}

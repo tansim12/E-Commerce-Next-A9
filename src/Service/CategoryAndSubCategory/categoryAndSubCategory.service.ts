@@ -37,3 +37,17 @@ export const adminCreateCategoryAction = async (payload: any) => {
     console.log(error);
   }
 };
+export const adminUpdateCategoryAction = async (
+  categoryId: string,
+  payload: any
+) => {
+  try {
+    const res = await axiosInstance.put(
+      `/cAndSubC/update-category/${categoryId}`,
+      payload
+    );
+    return res.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

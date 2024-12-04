@@ -3,6 +3,7 @@ import { TQueryParams } from "../Types/Filter/filter.type";
 import {
   adminCreateCategoryAction,
   adminFindAllCategory,
+  adminUpdateCategoryAction,
 } from "../Service/CategoryAndSubCategory/categoryAndSubCategory.service";
 
 export const useAdminFindAllCategory = (
@@ -23,6 +24,25 @@ export const useAdminCreateCategory = () => {
     mutationKey: ["ADMIN_CREATE_CATEGORY"],
     mutationFn: async ({ payload }: { payload: any }) => {
       return await adminCreateCategoryAction(payload);
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.refetchQueries(["ADMIN_FIND_ALL_CATEGORY"] as any);
+    },
+  });
+};
+export const useAdminUpdateCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["ADMIN_UPDATE_CATEGORY"],
+    mutationFn: async ({
+      categoryId,
+      payload,
+    }: {
+      categoryId: string;
+      payload: any;
+    }) => {
+      return await adminUpdateCategoryAction(categoryId, payload);
     },
     onSuccess: (_data, variables) => {
       queryClient.refetchQueries(["ADMIN_FIND_ALL_CATEGORY"] as any);

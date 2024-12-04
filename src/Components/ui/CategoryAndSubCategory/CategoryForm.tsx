@@ -7,8 +7,11 @@ import CustomToggle from "../../Form/CustomToggle";
 import CustomButton from "../Button/CustomButton";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
-import { useAdminUserProfileUpdate } from "@/src/hooks/user.hook";
-import { useAdminCreateCategory } from "@/src/hooks/categoryAndSubCategory.hook";
+
+import {
+  useAdminCreateCategory,
+  useAdminUpdateCategory,
+} from "@/src/hooks/categoryAndSubCategory.hook";
 
 const CategoryForm = ({
   defaultValue,
@@ -21,30 +24,70 @@ const CategoryForm = ({
 }) => {
   const {
     mutate: handleCreateCategory,
-    isPending,
-    data: updatedUserData,
-    isError,
-    isSuccess,
+    data: createCategoryData,
+    isError: categoryCreateError,
+    isSuccess: categoryCreateSuccess,
   } = useAdminCreateCategory();
 
+  const {
+    mutate: handleUpdateCategory,
+    data: updatedCategoryData,
+    isError: categoryUpdateError,
+    isSuccess: categoryUpdateSuccess,
+  } = useAdminUpdateCategory();
+
   useEffect(() => {
-    if (isError) {
+    // create
+    if (categoryCreateError) {
       toast.error("Category Create error");
     }
 
-    if (isSuccess || updatedUserData) {
-      toast.success("Category Create Successfully done");
+    if (categoryCreateSuccess ) {
       Swal.fire({
         title: "Create!",
         text: "Your file has been updated.",
         icon: "success",
       });
     }
-  }, [isError, isSuccess, updatedUserData]);
+  }, [
+    categoryCreateError,
+    categoryCreateSuccess,
+    createCategoryData,
+  ]);
+
+
+  useEffect(() => {
+   
+    // update
+    if (categoryUpdateError) {
+      toast.error("Category Update error");
+    }
+
+    if (categoryUpdateSuccess || updatedCategoryData) {
+      
+      Swal.fire({
+        title: "Updated!",
+        text: "Your file has been updated.",
+        icon: "success",
+      });
+    }
+  }, [
+    
+    categoryUpdateSuccess,
+    categoryUpdateError,
+    updatedCategoryData,
+  ]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const newPayload = {
       payload: { ...data },
+    };
+    const updatePayload = {
+      categoryId: data?.categoryId,
+      payload: {
+        categoryName: data?.categoryName,
+        isDelete: data?.isDelete,
+      },
     };
     Swal.fire({
       title: "Are you sure?",
@@ -56,7 +99,12 @@ const CategoryForm = ({
       confirmButtonText: "Yes, Update it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        handleCreateCategory(newPayload as any);
+        if (isCreate) {
+          handleCreateCategory(newPayload as any);
+        }
+        {
+          handleUpdateCategory(updatePayload as any);
+        }
       }
     });
   };
