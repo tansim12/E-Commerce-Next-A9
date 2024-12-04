@@ -32,7 +32,6 @@ import CustomPagination from "../Components/Shared/CustomPagination";
 import NoFoundData from "../Components/ui/No Found/NoFoundData";
 import { useAdminFindAllUser } from "../hooks/user.hook";
 
-//todo user update করতে হবে
 const CManageUserPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, _setBackdrop] = useState("blur");
