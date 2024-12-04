@@ -104,7 +104,7 @@ const CSubCategoryPage = () => {
           cancelText="Cancel"
           size="4xl"
         >
-            <SubCategoryForm defaultValue={defaultValue} isCreate={false} />
+          <SubCategoryForm defaultValue={defaultValue} isCreate={false} />
           {/* <CategoryForm defaultValue={defaultValue} isCreate={false} /> */}
         </CustomModal>{" "}
       </div>
@@ -149,7 +149,10 @@ const CSubCategoryPage = () => {
             bottomContent={isCategoryPending && <ComponentsLoading />}
           >
             <TableHeader>
-              <TableColumn>Category Name</TableColumn>
+              <TableColumn>Sub Category Name</TableColumn>
+              <TableColumn>Main Category</TableColumn>
+              <TableColumn>M. C. IsDelete</TableColumn>
+              <TableColumn>M. C. UpdatedAt</TableColumn>
               <TableColumn>A. Email</TableColumn>
               <TableColumn>Admin Status</TableColumn>
               <TableColumn>C. IsDelete</TableColumn>
@@ -163,6 +166,19 @@ const CSubCategoryPage = () => {
                   ? allCategoryData?.result?.map((ct: any) => (
                       <TableRow key={ct?.id}>
                         <TableCell>{ct?.categoryName}</TableCell>
+                        <TableCell>{ct?.category?.categoryName}</TableCell>
+                        <TableCell
+                          className={
+                            ct?.category?.isDelete
+                              ? "text-red-500"
+                              : "text-gray-500"
+                          }
+                        >
+                          {ct?.category?.isDelete.toString()}
+                        </TableCell>
+                        <TableCell>
+                          {moment(ct?.category?.createdAt).format("ll")}
+                        </TableCell>
                         <TableCell>{ct?.admin?.email}</TableCell>
                         <TableCell>{ct?.admin?.status}</TableCell>
 
