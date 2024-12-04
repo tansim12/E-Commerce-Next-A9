@@ -17,7 +17,11 @@ interface SidebarItem {
   children?: SidebarItem[]; // Optional children property for nested links
 }
 
-export const sidebarItems: { admin: SidebarItem[]; user: SidebarItem[] ; vendor:SidebarItem[] } = {
+export const sidebarItems: {
+  admin: SidebarItem[];
+  user: SidebarItem[];
+  vendor: SidebarItem[];
+} = {
   admin: [
     {
       name: "Dashboard",
@@ -66,11 +70,16 @@ export const sidebarItems: { admin: SidebarItem[]; user: SidebarItem[] ; vendor:
       icon: <MdOutlineManageSearch />,
     },
     {
-      name: "Shop Management",
-      path: "/vendor/shop-management",
-      icon: <MdOutlineManageSearch />,
+      name: "Manage Product",
+      icon: <TbCategory />,
+      children: [
+        {
+          name: "Create Product",
+          path: "/vendor/manage-product/crate-product",
+        },
+        { name: "view Product", path: "/vendor/manage-product/view-product" },
+      ],
     },
-    
   ],
   user: [
     {
