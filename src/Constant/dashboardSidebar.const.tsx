@@ -17,7 +17,7 @@ interface SidebarItem {
   children?: SidebarItem[]; // Optional children property for nested links
 }
 
-export const sidebarItems: { admin: SidebarItem[]; user: SidebarItem[] } = {
+export const sidebarItems: { admin: SidebarItem[]; user: SidebarItem[] ; vendor:SidebarItem[] } = {
   admin: [
     {
       name: "Dashboard",
@@ -53,6 +53,19 @@ export const sidebarItems: { admin: SidebarItem[]; user: SidebarItem[] } = {
       path: "/admin/manage-payment",
       icon: <MdPayment />,
     },
+  ],
+  vendor: [
+    {
+      name: "Dashboard",
+      path: "/vendor/dashboard",
+      icon: <FaHome />,
+    },
+    {
+      name: "Shop Management",
+      path: "/vendor/shop-management",
+      icon: <MdOutlineManageSearch />,
+    },
+    
   ],
   user: [
     {
