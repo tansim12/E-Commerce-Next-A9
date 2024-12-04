@@ -22,18 +22,15 @@ import { FiSearch } from "react-icons/fi";
 
 import { FaEdit, FaSort } from "react-icons/fa";
 
-import { TUser } from "../Types/User/user.types";
 import useDebounce from "../hooks/useDebounce";
 import ComponentsLoading from "../Components/ui/Loading/ComponentsLoading";
 import CustomModal from "../Components/ui/Custom Modal/CustomModal";
-import UserUpdateInfoForm from "../Components/ui/User/UserUpdateInfoForm";
+
 import CreateAtSort from "../Components/Shared/CreateAtSort";
 import CustomPagination from "../Components/Shared/CustomPagination";
 import NoFoundData from "../Components/ui/No Found/NoFoundData";
-import { useAdminFindAllUser } from "../hooks/user.hook";
+
 import { useAdminFindAllCategory } from "../hooks/categoryAndSubCategory.hook";
-import { MdOutlineCreateNewFolder } from "react-icons/md";
-import { BsPlus } from "react-icons/bs";
 import CreateCategory from "../Components/ui/CategoryAndSubCategory/CreateCategory";
 import CategoryForm from "../Components/ui/CategoryAndSubCategory/CategoryForm";
 
