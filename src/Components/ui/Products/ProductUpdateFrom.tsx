@@ -26,7 +26,7 @@ import CustomRangePicker from "../../Form/CustomRangePicker";
 import { useCreateProduct } from "@/src/hooks/product.hook";
 import { productSchema } from "@/src/Schemas/product.schema";
 import { getDateRange } from "@/src/utils/getDateRange";
-const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
+const ProductUpdateFrom = ({ defaultValue }: { defaultValue?: any }) => {
   const [onChangeValue, setOnChangeValue] = useState<any>();
   const [getCategoryId, setGetCategoryId] = useState(null);
   const { data: existAllCategoryData } = useExistAllCategory();
@@ -34,7 +34,7 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
     label: item?.categoryName,
     value: item?.id,
   }));
-  console.log(onChangeValue?.start, onChangeValue?.end);
+
 
   const router = useRouter();
   const {
@@ -81,6 +81,9 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
     value: item?.id,
   }));
 
+  console.log(subCategoryOptions);
+  
+
   return (
     <>
       {isPending && <Loading />}
@@ -91,6 +94,7 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
         <FXForm
           onSubmit={onSubmit}
           resolver={zodResolver(productSchema.createProductValidationSchema)}
+          defaultValues={defaultValue}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <CustomInput
@@ -135,14 +139,14 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
                 label="Sub Category"
                 name="subCategoryId"
                 options={subCategoryOptions}
+                defaultValue={["Bangla"]}
                 placeholder="Select Sub Category"
               />
             </div>
-            {!isCreate && (
-              <div className="basis-2/5">
-                <CustomToggle label="Is Delete" name="isDelete" />
-              </div>
-            )}
+
+            <div className="basis-2/5">
+              <CustomToggle label="Is Delete" name="isDelete" />
+            </div>
           </div>
           <div className="mb-16">
             {/* @ts-ignore */}
@@ -162,4 +166,4 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
   );
 };
 
-export default ProductFrom;
+export default ProductUpdateFrom;

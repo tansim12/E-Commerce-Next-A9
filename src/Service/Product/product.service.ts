@@ -21,7 +21,7 @@ export const findShopAllProductsAction = async (
   
     try {
       const res = await axiosInstance.get(
-        `/product?${params.toString()}`
+        `/product/shop/shop-all-products?${params.toString()}`
       );
       return res?.data?.data;
     } catch (error) {

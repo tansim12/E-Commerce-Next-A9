@@ -135,9 +135,9 @@ const CManageUserPage = () => {
       </div>
 
       {/* table section  */}
-      <div className="container mx-auto p-4">
+      <div>
         {/* Responsive container for horizontal scrolling */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-scroll ">
           <Table
             aria-label="User Management Table with Actions"
             className="min-w-full table-auto"

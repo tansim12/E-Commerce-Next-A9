@@ -137,12 +137,12 @@ const CSubCategoryPage = () => {
       </div>
 
       {/* table section  */}
-      <div className="container mx-auto p-2">
+      <div>
         <div className="flex justify-end text-center py-3">
           <CreateSubCategory />
         </div>
         {/* Responsive container for horizontal scrolling */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-scroll ">
           <Table
             aria-label="User Management Table with Actions"
             className="min-w-full table-auto"
