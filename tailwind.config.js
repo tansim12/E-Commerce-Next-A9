@@ -1,21 +1,18 @@
-// tailwind.config.js
 import { nextui } from "@nextui-org/react";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
   content: [
-    // ...
-    // make sure it's pointing to the ROOT node_module
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        base: "#0866ff", // your base color
-        primary: "#0866ff", // your base color
-        lightText: "#000000", // black text for light mode
-        darkText: "#ffffff", // white text for dark mode
+        base: "#0866ff",
+        primary: "#0866ff",
+        lightText: "#000000",
+        darkText: "#ffffff",
         bgColor: "#020611",
       },
       animation: {
@@ -33,6 +30,9 @@ module.exports = {
       },
     },
   },
-  darkMode: "class", // enables class-based dark mode
+  darkMode: "class",
   plugins: [nextui()],
 };
+
+// Use `export default` for ESM compatibility
+export default config;
