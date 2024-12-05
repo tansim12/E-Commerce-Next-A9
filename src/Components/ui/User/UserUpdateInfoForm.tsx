@@ -61,6 +61,8 @@ const UserUpdateInfoForm = ({
       }
     });
   };
+  console.log(defaultValue);
+  
   return (
     <div>
       <FXForm onSubmit={onSubmit} defaultValues={defaultValue}>

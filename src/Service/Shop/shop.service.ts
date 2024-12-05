@@ -10,3 +10,11 @@ export const createShopAction = async (payload: any) => {
     console.log(error);
   }
 };
+export const vendorFindHisShopAction = async () => {
+  try {
+    const res = await axiosInstance.get(`/shop/vendor/vendor-my-shop`);
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

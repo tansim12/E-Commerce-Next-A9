@@ -1,14 +1,21 @@
+"use client";
 import React from "react";
 import CreateShopFrom from "../Components/ui/Shop/CreateShopFrom";
+import { useVendorFindHisShop } from "../hooks/shop.hook";
+import UpdateShopForm from "../Components/ui/Shop/UpdateShopForm";
+import Loading from "../Components/ui/Loading/Loading";
 
 const CShopManagementPage = () => {
+  const { data: vendorsShopData, isPending } = useVendorFindHisShop();
   return (
     <div>
-      <p className="text-center text-xl font-semibold mb-5">Create And Edit Shop</p>
-
-
+      {isPending && <Loading />}
       <div>
-        <CreateShopFrom  />
+        {vendorsShopData?.name ? (
+          <UpdateShopForm defaultValue={vendorsShopData} />
+        ) : (
+          <CreateShopFrom />
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,15 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createShopAction } from "../Service/Shop/shop.service";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  createShopAction,
+  vendorFindHisShopAction,
+} from "../Service/Shop/shop.service";
+
+export const useVendorFindHisShop = () => {
+  return useQuery({
+    queryKey: ["VENDOR_FIND_HIS_SHOP"],
+    queryFn: async () => await vendorFindHisShopAction(),
+  });
+};
 
 export const useCreateShop = () => {
   const queryClient = useQueryClient();
@@ -11,6 +21,7 @@ export const useCreateShop = () => {
     },
     onSuccess: (_data, _variables) => {
       queryClient.refetchQueries(["FIND_ALL_SHOP"] as any);
+      queryClient.refetchQueries(["VENDOR_FIND_HIS_SHOP"] as any);
     },
   });
 };

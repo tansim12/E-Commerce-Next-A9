@@ -4,6 +4,7 @@ import FXForm from "../../Form/FXForm";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import CustomInput from "../../Form/CustomInput";
 import CustomReactQuill from "../../Form/CustomReactQuill";
+import CustomToggle from "../../Form/CustomToggle";
 import { Button } from "@nextui-org/react";
 import CustomFileUpload from "../../Form/CustomFileUpload";
 import { uploadImagesToImgBB } from "@/src/utils/uploadImagesToImgBB";
@@ -17,15 +18,15 @@ import { useCreateShop, useVendorFindHisShop } from "@/src/hooks/shop.hook";
 import { shopSchema } from "@/src/Schemas/shop.schema";
 import { useUser } from "@/src/Context/user.context";
 
-const CreateShopFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
+const UpdateShopForm = ({ defaultValue }: { defaultValue?: any }) => {
   const { user } = useUser();
   const router = useRouter();
-  const {
-    mutate: handleCreateShop,
-    isPending,
-    isSuccess,
-    isError,
-  } = useCreateShop();
+  //   const {
+  //     mutate: handleCreateShop,
+  //     isPending,
+  //     isSuccess,
+  //     isError,
+  //   } = useCreateShop();
 
   const [selectImages, setSelectImages] = useState([]);
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -40,26 +41,30 @@ const CreateShopFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
       address: data?.address,
       logo: images?.[0],
     };
-    handleCreateShop({ payload: payload as any });
+    // handleCreateShop({ payload: payload as any });
   };
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Shop Create Successfully done");
-      router.push("/vendor/dashboard");
-    }
-    if (isError) {
-      toast?.error("Shop Create Failed 😥");
-    }
-  }, [isSuccess, isError]);
+  //   useEffect(() => {
+  //     if (isSuccess) {
+  //       toast.success("Shop Create Successfully done");
+  //       router.push("/vendor/dashboard");
+  //     }
+  //     if (isError) {
+  //       toast?.error("Shop Create Failed 😥");
+  //     }
+  //   }, [isSuccess, isError]);
 
   return (
     <>
-      {isPending && <Loading />}
-      <p className="text-center text-xl font-semibold mb-5 ">Create Shop</p>
+      {/* {isPending && <Loading />} */}
+
+      <p className="text-center text-xl font-semibold mb-5 ">
+        Update Shop Info
+      </p>
       <div>
         <FXForm
           onSubmit={onSubmit}
           resolver={zodResolver(shopSchema.shopCreateSchema)}
+          defaultValues={defaultValue}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <CustomInput name="name" label="Shop Name" type="text" />
@@ -70,6 +75,11 @@ const CreateShopFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
             />
             <CustomInput name="address" label="Address" type="text" />
             <CustomInput name="shopType" label="Shop Type" type="text" />
+            {defaultValue && (
+              <div className="basis-2/5">
+                <CustomToggle label="Is Delete" name="isDelete" />
+              </div>
+            )}
           </div>
 
           <div className="mb-16">
@@ -90,4 +100,4 @@ const CreateShopFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
   );
 };
 
-export default CreateShopFrom;
+export default UpdateShopForm;
