@@ -7,7 +7,7 @@ type TDatePickerProps = {
   name: string;
   label?: string;
   isLabelColor?: boolean; // For conditional styling
-  changeOnValue?: any;
+  changeOnValue: any;
 };
 
 const CustomRangePicker = ({

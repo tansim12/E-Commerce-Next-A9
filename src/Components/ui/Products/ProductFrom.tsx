@@ -23,7 +23,9 @@ import {
   useExistAllCategory,
 } from "@/src/hooks/categoryAndSubCategory.hook";
 import CustomSelectWithWatch from "../../Form/CustomSelectWithWatch";
+import CustomRangePicker from "../../Form/CustomRangePicker";
 const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
+  const [onChangeValue, setOnChangeValue] = useState(null);
   const [getCategoryId, setGetCategoryId] = useState(null);
   const { data: existAllCategoryData } = useExistAllCategory();
   const categoryOptions = existAllCategoryData?.map((item: any) => ({
@@ -42,13 +44,8 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const images = await uploadImagesToImgBB(selectImages);
 
-    const payload = {
-      title: data?.title,
-      description: data?.description,
-      premium: data?.premium,
-      images,
-      category: data?.category,
-    };
+    console.log(data);
+    
 
     // handleCreatePost(payload as any);
   };
@@ -72,30 +69,48 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
     value: item?.id,
   }));
 
+
+
   return (
     <>
       {/* {isPending && <Loading />} */}
-      <div>
+      <p className="text-center text-2xl font-semibold mb-5 ">
+        Create Products
+      </p>
+      <div className="my-10">
         <FXForm
           onSubmit={onSubmit}
           // resolver={zodResolver(createPostSchema)}
         >
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <CustomInput name="name" label="Shop Name" type="text" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <CustomInput name="productName" label="Product Name *" type="text" />
+            <CustomInput name="price" label="Price *" type="number" />
+            <CustomInput name="quantity" label="Quantity *" type="number" />
+
+            {/* discount  */}
+            <CustomToggle label="Is Active Promo" name="isActivePromo" />
+            <CustomInput name="discount" label="Discount" type="number" />
+            <CustomInput name="promo" label="Promo" type="text" />
+
+            {/* flash sale */}
+            <CustomToggle label="Is Flash Sale Offer" name="isFlashSaleOffer" />
             <CustomInput
-              name="contactNumber"
-              label="Contact Number"
+              name="flashSaleDiscount"
+              label="FlashSale Discount"
               type="text"
             />
-            <CustomInput name="address" label="Address" type="text" />
-            <CustomInput name="shopType" label="Shop Type" type="text" />
+            <CustomRangePicker
+              name="offerDateRange"
+              label="Offer Date Range"
+              changeOnValue={setOnChangeValue}
+            />
           </div>
 
           <div className=" flex gap-10 w-full items-center my-3">
             <div className="basis-3/5">
               <CustomSelectWithWatch
                 changeOnValue={setGetCategoryId}
-                label="Category"
+                label="Category *"
                 name="categoryId"
                 options={categoryOptions}
                 placeholder="Select Category"
@@ -117,16 +132,16 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
           </div>
           <div className="mb-16">
             {/* @ts-ignore */}
-            <CustomReactQuill name="description" label="Description" />
+            <CustomReactQuill name="description" label="Description *" />
           </div>
 
           <CustomFileUpload
             changeOnValue={setSelectImages}
             name="images"
-            label="Images"
+            label="Images *"
           />
 
-          <Button type="submit">Submit</Button>
+          <CustomButton name="Submit" customCss="w-full" />
         </FXForm>
       </div>
     </>
