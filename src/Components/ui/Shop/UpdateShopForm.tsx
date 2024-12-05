@@ -14,48 +14,49 @@ import toast from "react-hot-toast";
 import Loading from "../Loading/Loading";
 
 import { useRouter } from "next/navigation";
-import { useCreateShop, useVendorFindHisShop } from "@/src/hooks/shop.hook";
+import { useUpdateShop } from "@/src/hooks/shop.hook";
 import { shopSchema } from "@/src/Schemas/shop.schema";
-import { useUser } from "@/src/Context/user.context";
+import Image from "next/image";
+import CustomButton from "../Button/CustomButton";
 
 const UpdateShopForm = ({ defaultValue }: { defaultValue?: any }) => {
-  const { user } = useUser();
   const router = useRouter();
-  //   const {
-  //     mutate: handleCreateShop,
-  //     isPending,
-  //     isSuccess,
-  //     isError,
-  //   } = useCreateShop();
+  const {
+    mutate: handleUpdateShop,
+    isPending,
+    isSuccess,
+    isError,
+  } = useUpdateShop();
 
   const [selectImages, setSelectImages] = useState([]);
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const images = await uploadImagesToImgBB(selectImages);
 
     const payload = {
-      vendorId: user?.id,
       name: data?.name,
+      isDelete: data?.isDelete,
       description: data?.description,
       contactNumber: data?.contactNumber,
       shopType: data?.shopType,
       address: data?.address,
-      logo: images?.[0],
+      logo: images?.[0] ? images?.[0] : defaultValue?.logo,
     };
-    // handleCreateShop({ payload: payload as any });
+    
+    handleUpdateShop({ shopId: defaultValue?.id, payload: payload as any });
   };
-  //   useEffect(() => {
-  //     if (isSuccess) {
-  //       toast.success("Shop Create Successfully done");
-  //       router.push("/vendor/dashboard");
-  //     }
-  //     if (isError) {
-  //       toast?.error("Shop Create Failed 😥");
-  //     }
-  //   }, [isSuccess, isError]);
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Shop Update Successfully done");
+      router.push("/vendor/dashboard");
+    }
+    if (isError) {
+      toast?.error("Shop Create Failed 😥");
+    }
+  }, [isSuccess, isError]);
 
   return (
     <>
-      {/* {isPending && <Loading />} */}
+      {isPending && <Loading />}
 
       <p className="text-center text-xl font-semibold mb-5 ">
         Update Shop Info
@@ -63,7 +64,7 @@ const UpdateShopForm = ({ defaultValue }: { defaultValue?: any }) => {
       <div>
         <FXForm
           onSubmit={onSubmit}
-          resolver={zodResolver(shopSchema.shopCreateSchema)}
+          resolver={zodResolver(shopSchema.shopUpdateSchema)}
           defaultValues={defaultValue}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -75,16 +76,29 @@ const UpdateShopForm = ({ defaultValue }: { defaultValue?: any }) => {
             />
             <CustomInput name="address" label="Address" type="text" />
             <CustomInput name="shopType" label="Shop Type" type="text" />
-            {defaultValue && (
-              <div className="basis-2/5">
-                <CustomToggle label="Is Delete" name="isDelete" />
-              </div>
-            )}
           </div>
 
           <div className="mb-16">
             {/* @ts-ignore */}
             <CustomReactQuill name="description" label="Description" />
+          </div>
+
+          <div className="flex  items-center gap-3">
+            {defaultValue && (
+              <div className="basis-2/5">
+                <CustomToggle label="Is Delete" name="isDelete" />
+              </div>
+            )}
+            {defaultValue?.logo && (
+              <div>
+                <Image
+                  src={defaultValue?.logo ? defaultValue?.logo : ""}
+                  alt="logo"
+                  height={150}
+                  width={150}
+                />
+              </div>
+            )}
           </div>
 
           <CustomFileUpload
@@ -93,7 +107,7 @@ const UpdateShopForm = ({ defaultValue }: { defaultValue?: any }) => {
             label="Images"
           />
 
-          <Button type="submit">Submit</Button>
+          <CustomButton name="Submit" customCss="w-full" />
         </FXForm>
       </div>
     </>

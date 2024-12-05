@@ -18,3 +18,11 @@ export const vendorFindHisShopAction = async () => {
     console.log(error);
   }
 };
+export const shopUpdateAction = async (shopId: string, payload: any) => {
+  try {
+    const res = await axiosInstance.put(`/shop/${shopId}`, payload);    
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
