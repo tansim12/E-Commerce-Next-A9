@@ -24,66 +24,81 @@ import {
 } from "@/src/hooks/categoryAndSubCategory.hook";
 import CustomSelectWithWatch from "../../Form/CustomSelectWithWatch";
 import CustomRangePicker from "../../Form/CustomRangePicker";
+import { useCreateProduct } from "@/src/hooks/product.hook";
+import { productSchema } from "@/src/Schemas/product.schema";
+import { getDateRange } from "@/src/utils/getDateRange";
 const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
-  const [onChangeValue, setOnChangeValue] = useState(null);
+  const [onChangeValue, setOnChangeValue] = useState<any>();
   const [getCategoryId, setGetCategoryId] = useState(null);
   const { data: existAllCategoryData } = useExistAllCategory();
   const categoryOptions = existAllCategoryData?.map((item: any) => ({
     label: item?.categoryName,
     value: item?.id,
   }));
+  console.log(onChangeValue?.start, onChangeValue?.end);
 
   const router = useRouter();
-  //   const {
-  //     mutate: handleCreatePost,
-  //     isPending,
-  //     isSuccess,
-  //     isError,
-  //   } = useCreatePost();
+  const {
+    mutate: handleCreateProduct,
+    isPending,
+    isSuccess,
+    isError,
+  } = useCreateProduct();
+
   const [selectImages, setSelectImages] = useState([]);
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const { offerDateRange, ...newData } = data;
     const images = await uploadImagesToImgBB(selectImages);
-
-    console.log(data);
-    
-
-    // handleCreatePost(payload as any);
+    const payload = {
+      payload: {
+        ...newData,
+        images,
+        flashSaleStartDate: onChangeValue?.start
+          ? getDateRange(onChangeValue as any)?.startDateISO
+          : null,
+        flashSaleEndDate: onChangeValue?.end
+          ? getDateRange(onChangeValue as any)?.endDateISO
+          : null,
+      },
+    };
+    handleCreateProduct(payload as any);
   };
-  //   useEffect(() => {
-  //     if (isSuccess) {
-  //       onClose();
-  //       toast.success("Post Create Successfully done");
-  //     }
-  //     if (isError) {
-  //       toast?.error("Post Failed 😥");
-  //     }
-  //   }, [isSuccess, isError]);
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Product Create Successfully done");
+      router.push("/vendor/manage-product/view-product");
+    }
+    if (isError) {
+      toast?.error("Post Failed 😥");
+    }
+  }, [isSuccess, isError]);
 
   //   sub category
   const { data: subCategoryData } =
     useCategoryBaseSubCategoryFind(getCategoryId);
-  console.log(subCategoryData);
 
   const subCategoryOptions = subCategoryData?.map((item: any) => ({
     label: item?.categoryName,
     value: item?.id,
   }));
 
-
-
   return (
     <>
-      {/* {isPending && <Loading />} */}
+      {isPending && <Loading />}
       <p className="text-center text-2xl font-semibold mb-5 ">
         Create Products
       </p>
       <div className="my-10">
         <FXForm
           onSubmit={onSubmit}
-          // resolver={zodResolver(createPostSchema)}
+          resolver={zodResolver(productSchema.createProductValidationSchema)}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <CustomInput name="productName" label="Product Name *" type="text" />
+            <CustomInput
+              name="productName"
+              label="Product Name *"
+              type="text"
+            />
             <CustomInput name="price" label="Price *" type="number" />
             <CustomInput name="quantity" label="Quantity *" type="number" />
 
@@ -97,7 +112,7 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
             <CustomInput
               name="flashSaleDiscount"
               label="FlashSale Discount"
-              type="text"
+              type="number"
             />
             <CustomRangePicker
               name="offerDateRange"
