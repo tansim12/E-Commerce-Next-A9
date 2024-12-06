@@ -40,8 +40,10 @@ export const adminUserUpdateAction = async (
     return res?.data?.data;
   } catch (error) {}
 };
-export const updateMyProfileAction = async (payload: Partial<TUser>) => {
+export const updateMyProfileAction = async (payload: any) => {
   try {
+    console.log(payload);
+    
     const res = await axiosInstance.put(`/user/update-my-profile`, payload);
     return res?.data?.data;
   } catch (error) {}

@@ -1,56 +1,29 @@
 "use client"; // Enable client-side rendering
 import { RxAvatar } from "react-icons/rx";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Tabs,
-  Tab,
-  Spinner,
-  useDisclosure,
-  Avatar,
-} from "@nextui-org/react"; // NextUI Tabs and Tab components
+import { Button, Tabs, Tab, useDisclosure, Spinner } from "@nextui-org/react"; // NextUI Tabs and Tab components
 import Image from "next/image";
 import { useUser } from "../Context/user.context";
-// import {
-//   useGetMyAllPostsData,
-//   useGetUserProfileData,
-//   useUpdateUserProfile,
-// } from "../hooks/userProfile.hook";
-// import Post from "../Componets/ui/NewsFeed/Posts";
-import { TPost } from "../Types/Posts/post.type";
-
 import { MdEditSquare } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
-
 // Import icons from react-icons
 import { FiImage } from "react-icons/fi"; // Feather Icons
 import toast from "react-hot-toast";
-import infiniteScrollFn from "../utils/infiniteScrollFn";
-
 import { FieldValues, SubmitHandler } from "react-hook-form";
-// import FXForm from "../Componets/Form/FXForm";
-// import CustomFileUpload from "../Componets/Form/CustomFileUpload";
-// import CustomButton from "../Componets/ui/Button/CustomButton";
 import { uploadImagesToImgBB } from "../utils/uploadImagesToImgBB";
-import { TUser, TUserProfile } from "../Types/User/user.types";
-// import Loading from "../Componets/ui/Loading/Loading";
-import { FaCheckCircle } from "react-icons/fa";
 import CustomModal from "../Components/ui/Custom Modal/CustomModal";
 import FXForm from "../Components/Form/FXForm";
 import CustomFileUpload from "../Components/Form/CustomFileUpload";
 import CustomButton from "../Components/ui/Button/CustomButton";
 import { useFindMyProfile, useUpdateMyProfile } from "../hooks/user.hook";
-// import CustomReactQuill from "../Componets/Form/CustomReactQuill";
-// import UserInfo from "../Componets/ui/Posts/UserInfo";
 
 const CUserDashboard = () => {
+  const [isLoadingC, setIsLoadingC] = useState(false);
   const { user: loggedInUser } = useUser();
-  const [allPostData, setAllPostData] = useState<TPost[]>([]);
   const [modalType, setModalType] = useState<
     "coverPhoto" | "profilePhoto" | "editProfile" | null
   >(null);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(3);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, _setBackdrop] = useState("blur");
   const [selectImage, setSelectImages] = useState([]);
@@ -83,6 +56,7 @@ const CUserDashboard = () => {
     let uploadedImage;
 
     if (selectImage?.length > 0) {
+      setIsLoadingC(true);
       uploadedImage = await uploadImagesToImgBB(selectImage);
     } else {
       return toast.error("Please Select Photo");
@@ -90,10 +64,12 @@ const CUserDashboard = () => {
 
     if (modalType === "coverPhoto") {
       const payload = { coverPhoto: uploadedImage?.[0] };
-      handleUpdateUserInfoMute(payload as any);
+      handleUpdateUserInfoMute({ payload } as any);
+      setIsLoadingC(false);
     } else if (modalType === "profilePhoto") {
       const payload = { profilePhoto: uploadedImage?.[0] };
-      handleUpdateUserInfoMute(payload as any);
+      handleUpdateUserInfoMute({ payload } as any);
+      setIsLoadingC(false);
     }
 
     onClose();
@@ -105,7 +81,6 @@ const CUserDashboard = () => {
 
     onClose();
   };
-
   return (
     <>
       {/* cover photo update  */}
@@ -119,6 +94,7 @@ const CUserDashboard = () => {
           size="4xl"
         >
           <>
+            {isLoadingC && <Spinner size="lg"/>}
             {/* {updateUserInfoIsPending && <Loading />} */}
             <FXForm onSubmit={handleSubmitPhoto}>
               <CustomFileUpload
@@ -147,6 +123,7 @@ const CUserDashboard = () => {
         >
           {" "}
           <>
+          {isLoadingC && <Spinner size="lg"/>}
             {/* {updateUserInfoIsPending && <Loading />} */}
             <FXForm
               onSubmit={handleBioUpdate}
@@ -168,7 +145,11 @@ const CUserDashboard = () => {
           {/* Cover Photo Section */}
           <div className="relative w-full h-full">
             <Image
-              src={userProfileData?.coverPhoto as string} // Replace with your cover photo path
+              src={
+                userProfileData?.userProfile?.[0]?.coverPhoto
+                  ? userProfileData?.userProfile?.[0]?.coverPhoto
+                  : ""
+              } // Replace with your cover photo path
               layout="fill"
               className="object-cover"
               alt="Cover Photo"
@@ -192,7 +173,11 @@ const CUserDashboard = () => {
               style={{ zIndex: 100 }}
             >
               <Image
-                src={userProfileData?.profilePhoto as string} // Replace with your profile picture path
+                src={
+                  userProfileData?.userProfile?.[0]?.profilePhoto
+                    ? userProfileData?.userProfile?.[0]?.profilePhoto
+                    : ""
+                } // Replace with your profile picture path
                 layout="fill"
                 objectFit="cover"
                 alt="Profile Picture"
@@ -239,15 +224,15 @@ const CUserDashboard = () => {
           <div className="container mx-auto px-4">
             <Tabs aria-label="Profile Tabs" color="primary" variant="bordered">
               <Tab
-                key="posts"
+                key="activities"
                 title={
                   <div className="flex items-center space-x-2">
                     <FiImage /> {/* Image icon */}
-                    <span>Posts</span>
+                    <span>Activities</span>
                   </div>
                 }
               >
-                post
+                activities
               </Tab>
               <Tab
                 key="Followers"
