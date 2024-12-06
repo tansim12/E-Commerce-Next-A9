@@ -32,6 +32,9 @@ const loginSchema = z.object({
     .max(15),
 });
 
+
+
+
 export const authSchemas = {
   signupSchema,
   loginSchema,

@@ -101,7 +101,7 @@ export const forgetPasswordAction = async (payload: any) => {
 export const changePasswordAction = async (token: string, payload: any) => {
   try {
     const res = await axios.post(
-      `${envConfig.baseApi}/auth/password-change`,
+      `${envConfig.baseApi}/auth/reset-password`,
       payload,
       {
         headers: {
