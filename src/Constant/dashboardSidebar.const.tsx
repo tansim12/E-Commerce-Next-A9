@@ -47,8 +47,8 @@ export const sidebarItems: {
       ],
     },
     {
-      name: "Manage Category",
-      path: "/admin/manage-category",
+      name: "Manage Product",
+      path: "/admin/manage-products",
       icon: <TbCategory />,
     },
 

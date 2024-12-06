@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  adminFindAllProductsAction,
   createProductAction,
   findShopAllProductsAction,
   updateProductAction,
@@ -44,12 +45,23 @@ export const useUpdateProduct = () => {
       productId: string;
       payload: any;
     }) => {
-      console.log(productId);
-      
       return await updateProductAction(productId, payload);
     },
     onSuccess: (_data, variables) => {
       queryClient.refetchQueries(["VENDOR_ALL_PRODUCT"] as any);
+      queryClient.refetchQueries(["ADMIN_FIND_PRODUCT"] as any);
     },
+  });
+};
+
+export const useAdminFindAllProducts = (
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["ADMIN_FIND_PRODUCT", page, pageSize, params],
+    queryFn: async () =>
+      await adminFindAllProductsAction(page, pageSize, params),
   });
 };
