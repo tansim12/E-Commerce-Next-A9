@@ -23,12 +23,19 @@ const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
 type PropType = {
-  slides: TSlides[];
-  options?: EmblaOptionsType;
+  searchParams?:any
 };
 
+const options = { loop: true };
+const slides: TSlides[] = [
+  { img: "https://i.ibb.co/SnjRV9n/1.webp", text: "sjfgdjkgkdfjg" },
+  { img: "https://i.ibb.co/qWJSppK/2.webp", text: "sjfgdjkgkdfjg" },
+  { img: "https://i.ibb.co/vc7mQ8s/3.jpg", text: "sjfgdjkgkdfjg" },
+  { img: "https://i.ibb.co/7KrYLQJ/3.webp", text: "sjfgdjkgkdfjg" },
+  { img: "https://i.ibb.co/mG2tw39/4.webp", text: "sjfgdjkgkdfjg" },
+];
+
 const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
     Autoplay({ playOnInit: true, delay: 4000 }), // Autoplay starts automatically
   ]);
