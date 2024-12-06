@@ -22,7 +22,7 @@ const TopSaleProducts = () => {
 
   return (
     <div>
-      <div>
+      <div className="mb-10">
         <Title mainText="Best Selling">
           <TitleTopAnimation />{" "}
         </Title>

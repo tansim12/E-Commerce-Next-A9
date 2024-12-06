@@ -3,6 +3,7 @@ import {
   adminFindAllProductsAction,
   createProductAction,
   findShopAllProductsAction,
+  publicSingleProductAction,
   publicTopSaleProductsAction,
   updateProductAction,
 } from "../Service/Product/product.service";
@@ -75,5 +76,11 @@ export const usePublicTopSaleProducts = (
     queryKey: ["TOP_SALE_PRODUCTS", page, pageSize, params],
     queryFn: async () =>
       await publicTopSaleProductsAction(page, pageSize, params),
+  });
+};
+export const usePublicSingleProduct = (productId: string) => {
+  return useQuery({
+    queryKey: ["PUBLIC_SINGLE_PRODUCT"],
+    queryFn: async () => await publicSingleProductAction(productId),
   });
 };

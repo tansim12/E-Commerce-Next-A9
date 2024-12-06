@@ -98,3 +98,16 @@ export const publicTopSaleProductsAction = async (
     console.log(error);
   }
 };
+
+export const publicSingleProductAction = async (productId: any) => {
+  try {
+    console.log(productId);
+    
+    const res = await axiosInstance.get(
+      `/product/public/single-product/${productId}`
+    );
+    return res.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
