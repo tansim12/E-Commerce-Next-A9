@@ -34,8 +34,8 @@ export const sidebarItems: {
       icon: <MdOutlineManageAccounts />,
     },
     {
-      name: "Manage Shop",
-      path: "/admin/manage-shop",
+      name: "Manage Shops",
+      path: "/admin/manage-shops",
       icon: <MdOutlineManageSearch />,
     },
     {
@@ -47,7 +47,7 @@ export const sidebarItems: {
       ],
     },
     {
-      name: "Manage Product",
+      name: "Manage Products",
       path: "/admin/manage-products",
       icon: <TbCategory />,
     },

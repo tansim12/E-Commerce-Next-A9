@@ -19,7 +19,15 @@ import { shopSchema } from "@/src/Schemas/shop.schema";
 import Image from "next/image";
 import CustomButton from "../Button/CustomButton";
 
-const UpdateShopForm = ({ defaultValue }: { defaultValue?: any }) => {
+const UpdateShopForm = ({
+  defaultValue,
+  isAdminUpdate = false,
+  onClose,
+}: {
+  isAdminUpdate?: boolean;
+  defaultValue?: any;
+  onClose?: any;
+}) => {
   const router = useRouter();
   const {
     mutate: handleUpdateShop,
@@ -41,13 +49,18 @@ const UpdateShopForm = ({ defaultValue }: { defaultValue?: any }) => {
       address: data?.address,
       logo: images?.[0] ? images?.[0] : defaultValue?.logo,
     };
-    
+
     handleUpdateShop({ shopId: defaultValue?.id, payload: payload as any });
   };
   useEffect(() => {
     if (isSuccess) {
       toast.success("Shop Update Successfully done");
-      router.push("/vendor/dashboard");
+
+      if (isAdminUpdate) {
+        onClose();
+      } else {
+        router.push("/vendor/dashboard");
+      }
     }
     if (isError) {
       toast?.error("Shop Create Failed 😥");
@@ -84,7 +97,7 @@ const UpdateShopForm = ({ defaultValue }: { defaultValue?: any }) => {
           </div>
 
           <div className="flex  items-center gap-3">
-            {defaultValue && (
+            {defaultValue && isAdminUpdate && (
               <div className="basis-2/5">
                 <CustomToggle label="Is Delete" name="isDelete" />
               </div>

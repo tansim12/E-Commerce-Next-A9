@@ -1,9 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  adminFindAllShopsAction,
   createShopAction,
   shopUpdateAction,
   vendorFindHisShopAction,
 } from "../Service/Shop/shop.service";
+import { TQueryParams } from "../Types/Filter/filter.type";
 
 export const useVendorFindHisShop = () => {
   return useQuery({
@@ -43,6 +45,18 @@ export const useUpdateShop = () => {
     onSuccess: (_data, _variables) => {
       queryClient.refetchQueries(["FIND_ALL_SHOP"] as any);
       queryClient.refetchQueries(["VENDOR_FIND_HIS_SHOP"] as any);
+      queryClient.refetchQueries(["ADMIN_FIND_Shop"] as any);
     },
+  });
+};
+
+export const useAdminFindAllShops = (
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["ADMIN_FIND_Shop", page, pageSize, params],
+    queryFn: async () => await adminFindAllShopsAction(page, pageSize, params),
   });
 };

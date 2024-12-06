@@ -1,6 +1,7 @@
 "use server";
 
 import { axiosInstance } from "@/src/axios/axiosInstance";
+import { TQueryParams } from "@/src/Types/Filter/filter.type";
 
 export const createShopAction = async (payload: any) => {
   try {
@@ -20,7 +21,34 @@ export const vendorFindHisShopAction = async () => {
 };
 export const shopUpdateAction = async (shopId: string, payload: any) => {
   try {
-    const res = await axiosInstance.put(`/shop/${shopId}`, payload);    
+    const res = await axiosInstance.put(`/shop/${shopId}`, payload);
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const adminFindAllShopsAction = async (
+  page: number,
+  pageSize: number,
+  args: TQueryParams[]
+) => {
+  const params = new URLSearchParams();
+
+  params.append("page", page.toString());
+  params.append("limit", pageSize.toString());
+
+  // Loop through the args to dynamically append query parameters
+  if (args) {
+    args.forEach((item: TQueryParams) => {
+      params.append(item.name, String(item.value)); // Convert value to string
+    });
+  }
+
+  try {
+    const res = await axiosInstance.get(
+      `/shop/admin/find-all-shops?${params.toString()}`
+    );
     return res?.data?.data;
   } catch (error) {
     console.log(error);
