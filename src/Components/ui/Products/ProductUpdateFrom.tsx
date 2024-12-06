@@ -11,7 +11,7 @@ import CustomToggle from "../../Form/CustomToggle";
 import CustomFileUpload from "../../Form/CustomFileUpload";
 import { uploadImagesToImgBB } from "@/src/utils/uploadImagesToImgBB";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { parseDate } from "@internationalized/date";
 import toast from "react-hot-toast";
 import Loading from "../Loading/Loading";
 import CustomButton from "../Button/CustomButton";
@@ -23,10 +23,19 @@ import {
 } from "@/src/hooks/categoryAndSubCategory.hook";
 import CustomSelectWithWatch from "../../Form/CustomSelectWithWatch";
 import CustomRangePicker from "../../Form/CustomRangePicker";
-import { useCreateProduct } from "@/src/hooks/product.hook";
+import { useUpdateProduct } from "@/src/hooks/product.hook";
 import { productSchema } from "@/src/Schemas/product.schema";
 import { getDateRange } from "@/src/utils/getDateRange";
-const ProductUpdateFrom = ({ defaultValue }: { defaultValue?: any }) => {
+import moment from "moment";
+import Image from "next/image";
+const ProductUpdateFrom = ({
+  defaultValue,
+  onClose,
+}: {
+  onClose: any;
+  defaultValue?: any;
+}) => {
+  const { allImages, id, ...mDefaultValue } = defaultValue;
   const [onChangeValue, setOnChangeValue] = useState<any>();
   const [getCategoryId, setGetCategoryId] = useState(null);
   const { data: existAllCategoryData } = useExistAllCategory();
@@ -35,40 +44,42 @@ const ProductUpdateFrom = ({ defaultValue }: { defaultValue?: any }) => {
     value: item?.id,
   }));
 
-
   const router = useRouter();
   const {
-    mutate: handleCreateProduct,
+    mutate: handleUpdateProduct,
     isPending,
     isSuccess,
     isError,
-  } = useCreateProduct();
+  } = useUpdateProduct();
 
   const [selectImages, setSelectImages] = useState([]);
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { offerDateRange, ...newData } = data;
     const images = await uploadImagesToImgBB(selectImages);
     const payload = {
+      productId: id,
       payload: {
         ...newData,
-        images,
+        images: images?.length > 0 ? images : allImages,
         flashSaleStartDate: onChangeValue?.start
           ? getDateRange(onChangeValue as any)?.startDateISO
-          : null,
+          : defaultValue?.flashSaleStartDate,
         flashSaleEndDate: onChangeValue?.end
           ? getDateRange(onChangeValue as any)?.endDateISO
-          : null,
+          : defaultValue?.flashSaleEndDate,
       },
     };
-    handleCreateProduct(payload as any);
+    console.log(payload);
+
+    handleUpdateProduct(payload as any);
   };
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Product Create Successfully done");
-      router.push("/vendor/manage-product/view-product");
+      toast.success("Product Update Successfully done");
+      onClose();
     }
     if (isError) {
-      toast?.error("Post Failed 😥");
+      toast?.error("Product Failed 😥");
     }
   }, [isSuccess, isError]);
 
@@ -80,21 +91,15 @@ const ProductUpdateFrom = ({ defaultValue }: { defaultValue?: any }) => {
     label: item?.categoryName,
     value: item?.id,
   }));
-
-  console.log(subCategoryOptions);
-  
-
   return (
     <>
       {isPending && <Loading />}
-      <p className="text-center text-2xl font-semibold mb-5 ">
-        Create Products
-      </p>
+
       <div className="my-10">
         <FXForm
           onSubmit={onSubmit}
-          resolver={zodResolver(productSchema.createProductValidationSchema)}
-          defaultValues={defaultValue}
+          resolver={zodResolver(productSchema.updateProductValidationSchema)}
+          defaultValues={mDefaultValue}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <CustomInput
@@ -120,6 +125,14 @@ const ProductUpdateFrom = ({ defaultValue }: { defaultValue?: any }) => {
             <CustomRangePicker
               name="offerDateRange"
               label="Offer Date Range"
+              defaultValue={{
+                start: parseDate(
+                  moment(defaultValue?.flashSaleStartDate).format("YYYY-MM-DD")
+                ),
+                end: parseDate(
+                  moment(defaultValue?.flashSaleEndDate).format("YYYY-MM-DD")
+                ),
+              }}
               changeOnValue={setOnChangeValue}
             />
           </div>
@@ -131,6 +144,7 @@ const ProductUpdateFrom = ({ defaultValue }: { defaultValue?: any }) => {
                 label="Category *"
                 name="categoryId"
                 options={categoryOptions}
+                defaultValue={[defaultValue?.categoryId]}
                 placeholder="Select Category"
               />
             </div>
@@ -139,18 +153,31 @@ const ProductUpdateFrom = ({ defaultValue }: { defaultValue?: any }) => {
                 label="Sub Category"
                 name="subCategoryId"
                 options={subCategoryOptions}
-                defaultValue={["Bangla"]}
+                defaultValue={[defaultValue?.subCategoryId]} // Pass the value, not the label
                 placeholder="Select Sub Category"
               />
             </div>
 
-            <div className="basis-2/5">
+            <div className="basis-2/5 ">
               <CustomToggle label="Is Delete" name="isDelete" />
             </div>
           </div>
+            <CustomToggle label="Is Available" name="isAvailable" />
           <div className="mb-16">
             {/* @ts-ignore */}
             <CustomReactQuill name="description" label="Description *" />
+          </div>
+
+          <div className=" flex flex-wrap gap-3 my-5">
+            {allImages?.map((img: string, i: number) => (
+              <Image
+                key={i} // Add a key for each item in the list
+                width={80}
+                height={80}
+                alt={`Image ${i + 1}`} // Provide a meaningful alt text
+                src={img} // Ensure `img` is a valid URL
+              />
+            ))}
           </div>
 
           <CustomFileUpload

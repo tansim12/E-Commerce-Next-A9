@@ -13,6 +13,7 @@ type TPHSelectProps = {
   isLabelColor?: boolean;
   placeholder?: string;
   changeOnValue: any;
+  defaultValue?: string | string[]; // Allow default value to be a string or array
 };
 
 const CustomSelectWithWatch = ({
@@ -24,6 +25,7 @@ const CustomSelectWithWatch = ({
   isLabelColor,
   placeholder,
   changeOnValue,
+  defaultValue,
 }: TPHSelectProps) => {
   const { control } = useFormContext();
   const inputValue = useWatch({
@@ -57,6 +59,7 @@ const CustomSelectWithWatch = ({
               aria-label={label}
               size="lg"
               disabled={disabled}
+              defaultSelectedKeys={defaultValue}
               placeholder={placeholder}
               {...field}
               className={isLabelColor ? "custom-dropdown" : ""}

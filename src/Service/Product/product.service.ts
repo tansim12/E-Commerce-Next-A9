@@ -39,9 +39,10 @@ export const findShopAllProductsAction = async (
   };
   export const updateProductAction = async (productId:string,payload: any) => {
     try {
+
       const res = await axiosInstance.put(`/product/${productId}`, payload);
       return res.data?.data;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };

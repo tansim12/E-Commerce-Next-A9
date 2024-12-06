@@ -79,9 +79,9 @@ const CViewProductPage = () => {
   }, []);
 
   const handleEditProduct = (pd: any) => {
-console.log(pd?.subCategory?.id,pd?.subCategory?.categoryName);
-
     const payload = {
+      id: pd?.id,
+      isAvailable:pd?.isAvailable,
       productName: pd?.productName,
       isFlashSaleOffer: pd?.isFlashSaleOffer,
       flashSaleDiscount: pd?.flashSaleDiscount,
@@ -91,16 +91,13 @@ console.log(pd?.subCategory?.id,pd?.subCategory?.categoryName);
       quantity: pd?.quantity,
       price: pd?.price,
       categoryId: pd?.categoryId,
-      subCategoryId: {
-        value:pd?.subCategory?.id,
-        label:pd?.subCategory?.categoryName,
-      },
+      subCategoryId: pd?.subCategoryId,
       description: pd?.description,
       isDelete: pd?.isDelete,
       allImages: pd?.images,
-      
+      flashSaleStartDate: pd?.flashSaleStartDate,
+      flashSaleEndDate: pd?.flashSaleEndDate,
     };
-// console.log(payload);
 
     setDefaultValue(payload);
   };
@@ -119,7 +116,7 @@ console.log(pd?.subCategory?.id,pd?.subCategory?.categoryName);
           cancelText="Cancel"
           size="4xl"
         >
-          <ProductUpdateFrom defaultValue={defaultValue} />
+          <ProductUpdateFrom defaultValue={defaultValue} onClose={onClose} />
         </CustomModal>{" "}
       </div>
 

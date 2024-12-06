@@ -8,6 +8,7 @@ type TDatePickerProps = {
   label?: string;
   isLabelColor?: boolean; // For conditional styling
   changeOnValue: any;
+  defaultValue?: any;
 };
 
 const CustomRangePicker = ({
@@ -15,6 +16,7 @@ const CustomRangePicker = ({
   label,
   isLabelColor = false, // Default value as false
   changeOnValue,
+  defaultValue,
 }: TDatePickerProps) => {
   const { control } = useFormContext();
   const inputValue = useWatch({
@@ -31,17 +33,14 @@ const CustomRangePicker = ({
       className={`custom-date-picker ${isLabelColor ? "custom-label" : ""}`}
       style={{ marginBottom: "20px" }}
     >
-      {label && (
-        <label className="block  font-semibold mb-2">
-          {label}
-        </label>
-      )}
+      {label && <label className="block  font-semibold mb-2">{label}</label>}
       <Controller
         name={name}
         control={control}
         render={({ field, fieldState: { error } }) => (
           <>
             <DateRangePicker
+              defaultValue={defaultValue}
               {...field}
               calendarProps={{
                 classNames: {
