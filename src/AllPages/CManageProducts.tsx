@@ -135,7 +135,7 @@ const CManageProducts = () => {
               aria-label="Search"
               fullWidth
               endContent={<FiSearch size={20} />}
-              onChange={(e) => setSearchValue(e.target.value)}
+              onChange={(e:any) => setSearchValue(e.target.value)}
             />
           </div>
 

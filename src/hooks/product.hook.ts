@@ -3,6 +3,7 @@ import {
   adminFindAllProductsAction,
   createProductAction,
   findShopAllProductsAction,
+  publicTopSaleProductsAction,
   updateProductAction,
 } from "../Service/Product/product.service";
 import { TQueryParams } from "../Types/Filter/filter.type";
@@ -63,5 +64,16 @@ export const useAdminFindAllProducts = (
     queryKey: ["ADMIN_FIND_PRODUCT", page, pageSize, params],
     queryFn: async () =>
       await adminFindAllProductsAction(page, pageSize, params),
+  });
+};
+export const usePublicTopSaleProducts = (
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["TOP_SALE_PRODUCTS", page, pageSize, params],
+    queryFn: async () =>
+      await publicTopSaleProductsAction(page, pageSize, params),
   });
 };
