@@ -42,12 +42,7 @@ export default function NavbarDropdown() {
             </div>
           </DropdownTrigger>
           <DropdownMenu aria-label="Static Actions">
-            <DropdownItem
-              onClick={() => handleNavigation(`/profile/${user?.id}`)}
-              color="primary"
-            >
-              Profile
-            </DropdownItem>
+           
             <DropdownItem
               onClick={() => handleNavigation(`/${user?.role}/dashboard`)}
               color="primary"
