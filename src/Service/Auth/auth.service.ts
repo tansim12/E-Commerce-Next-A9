@@ -94,7 +94,7 @@ export const forgetPasswordAction = async (payload: any) => {
     const res = await axiosInstance.post(`/auth/forget-password`, payload);
     return res.data; // Return response data if needed
   } catch (error) {
-    throw error; // Optionally re-throw the error if you want to propagate it
+    
   }
 };
 

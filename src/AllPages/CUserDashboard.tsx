@@ -16,6 +16,10 @@ import FXForm from "../Components/Form/FXForm";
 import CustomFileUpload from "../Components/Form/CustomFileUpload";
 import CustomButton from "../Components/ui/Button/CustomButton";
 import { useFindMyProfile, useUpdateMyProfile } from "../hooks/user.hook";
+import CustomReactQuill from "../Components/Form/CustomReactQuill";
+import CustomInput from "../Components/Form/CustomInput";
+import CustomSelect from "../Components/Form/CustomSelect";
+import UserInfo from "../Components/ui/User/UserInfo";
 
 const CUserDashboard = () => {
   const [isLoadingC, setIsLoadingC] = useState(false);
@@ -75,12 +79,18 @@ const CUserDashboard = () => {
     onClose();
     setSelectImages([]);
   };
+
   const handleBioUpdate: SubmitHandler<FieldValues> = (data) => {
-    const payload = { bio: data?.bio };
-    // handleUpdateUserInfoMute(payload as any);
+    const payload = {
+      payload: {
+        ...data,
+      },
+    };
+    handleUpdateUserInfoMute(payload as any);
 
     onClose();
   };
+
   return (
     <>
       {/* cover photo update  */}
@@ -94,7 +104,7 @@ const CUserDashboard = () => {
           size="4xl"
         >
           <>
-            {isLoadingC && <Spinner size="lg"/>}
+            {isLoadingC && <Spinner size="lg" />}
             {/* {updateUserInfoIsPending && <Loading />} */}
             <FXForm onSubmit={handleSubmitPhoto}>
               <CustomFileUpload
@@ -123,13 +133,38 @@ const CUserDashboard = () => {
         >
           {" "}
           <>
-          {isLoadingC && <Spinner size="lg"/>}
+            {isLoadingC && <Spinner size="lg" />}
             {/* {updateUserInfoIsPending && <Loading />} */}
             <FXForm
               onSubmit={handleBioUpdate}
-              //   defaultValues={{ bio: userProfileData?.bio }}
+              defaultValues={{
+                bio: userProfileData?.userProfile?.bio,
+                gender: userProfileData?.userProfile?.[0]?.gender,
+                contactNumber: userProfileData?.userProfile?.[0]?.contactNumber,
+                name: userProfileData?.name,
+              }}
             >
               <div className="mb-16">
+                <div className="flex items-center justify-between  gap-2">
+                  <CustomInput name="name" label="Name" type="string" />
+                  <CustomInput
+                    name="contactNumber"
+                    label="Contact Number"
+                    type="string"
+                  />
+                  <div className="flex-1">
+                    <CustomSelect
+                      name="gender"
+                      label="Gender"
+                      placeholder="Select gender"
+                      options={[
+                        { label: "male", value: "male" },
+                        { label: "female", value: "female" },
+                      ]}
+                      defaultValue={[userProfileData?.userProfile?.[0]?.gender]}
+                    />
+                  </div>
+                </div>
                 {/* @ts-ignore */}
                 <CustomReactQuill name="bio" label="Bio" />
               </div>
@@ -200,8 +235,18 @@ const CUserDashboard = () => {
         {/* User Info Section */}
         <div className="text-center mt-20">
           <h1 className="text-2xl font-bold flex gap-3 justify-center items-center">
-            {loggedInUser?.name}{" "}
+            {userProfileData?.name}{" "}
           </h1>
+          {userProfileData?.userProfile?.[0].bio?.length ? (
+            <div
+              className="my-3"
+              dangerouslySetInnerHTML={{
+                __html: userProfileData?.userProfile?.[0].bio,
+              }}
+            ></div>
+          ) : (
+            "Added Bio"
+          )}
 
           {/* Action Buttons */}
           <div className="mt-4 flex justify-center gap-2">
@@ -257,7 +302,9 @@ const CUserDashboard = () => {
                 }
               >
                 {/* Videos Content (You can replace this with actual content) */}
-                <div className="text-center py-10">setting</div>
+                <div className="text-center py-10">
+                  <UserInfo loggedInUser={userProfileData} />
+                </div>
               </Tab>
             </Tabs>
           </div>

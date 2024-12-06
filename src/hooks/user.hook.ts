@@ -7,6 +7,7 @@ import {
   updateMyProfileAction,
 } from "../Service/User/user.service";
 import { TUser } from "../Types/User/user.types";
+import { forgetPasswordAction } from "../Service/Auth/auth.service";
 
 export const useAdminFindAllUser = (
   page: number,
