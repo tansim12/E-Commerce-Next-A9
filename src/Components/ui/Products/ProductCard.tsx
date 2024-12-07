@@ -16,10 +16,18 @@ import { useRouter } from "next/navigation";
 // import { useAppDispatch } from "../../../Redux/hook";
 // import { addToCartAction } from "../../../Redux/Features/AddToCart/addToCart.slice";
 
-const ProductCard = ({ showBuyButton, item }: any) => {
+const ProductCard = ({
+  showBuyButton,
+  item,
+  isFlashSale,
+}: {
+  showBuyButton?: any;
+  item: any;
+  isFlashSale?: boolean;
+}) => {
   //   const updateAddToCart = useAppDispatch();
   const [hoverOption, setHoverOption] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleMouseEnter = () => {
     setHoverOption(true);
@@ -30,7 +38,7 @@ const ProductCard = ({ showBuyButton, item }: any) => {
   };
 
   const clickDetailsPage = (id: string) => {
-    router.push(`/products/${id}`)
+    router.push(`/products/${id}`);
   };
 
   //   const handleAddToCartButton = (data: any) => {
@@ -55,49 +63,51 @@ const ProductCard = ({ showBuyButton, item }: any) => {
           <div className=" absolute top-0 flex items-center justify-center bg-gray-500  h-[50%] w-[100%]  opacity-70 rounded-b-full">
             <div className=" text-black flex items-center justify-center gap-3 my-auto">
               {/* details */}
-           
-                <TbListDetails
-                  onClick={() => clickDetailsPage(item?.id as string)}
-                  size={38}
-                  className="text-black cursor-pointer"
-                />
-            
+
+              <TbListDetails
+                onClick={() => clickDetailsPage(item?.id as string)}
+                size={38}
+                className="text-black cursor-pointer"
+              />
 
               {/* wishlist */}
-              
-                <FaRegHeart size={38} className="text-black cursor-pointer" />
-              
+
+              <FaRegHeart size={38} className="text-black cursor-pointer" />
 
               {/* add to cart */}
-             
-                <IoCartOutline
-                  //   onClick={() => {
-                  //     if (item?.availability === availableProduct.STOCKOUT) {
-                  //       toast.error("This Product Stock Out 😢");
-                  //     } else {
-                  //       handleAddToCartButton({
-                  //         _id: item?._id,
-                  //         image: item?.image?.[0],
-                  //         buyQuantity: 1,
-                  //         name: item?.name,
-                  //         price: discountPrice(item?.price, item?.discount),
-                  //         quantity: item?.quantity,
-                  //       });
-                  //     }
-                  //     updateAddToCart(addToCartAction({}));
-                  //   }}
-                  size={38}
-                  className="text-black cursor-pointer"
-                />
-             
+
+              <IoCartOutline
+                //   onClick={() => {
+                //     if (item?.availability === availableProduct.STOCKOUT) {
+                //       toast.error("This Product Stock Out 😢");
+                //     } else {
+                //       handleAddToCartButton({
+                //         _id: item?._id,
+                //         image: item?.image?.[0],
+                //         buyQuantity: 1,
+                //         name: item?.name,
+                //         price: discountPrice(item?.price, item?.discount),
+                //         quantity: item?.quantity,
+                //       });
+                //     }
+                //     updateAddToCart(addToCartAction({}));
+                //   }}
+                size={38}
+                className="text-black cursor-pointer"
+              />
             </div>
           </div>
         )}
 
         {/* discount */}
-        {item?.discount !== undefined && item?.discount > 0 && (
+        {item?.discount !== undefined && item?.discount > 0 && !isFlashSale && (
           <div className="absolute bg-secondary text-white top-5 py-1 px-2 text-sm rounded-r-full">
             <p>Save: {item?.discount}৳</p>
+          </div>
+        )}
+        {isFlashSale && (
+          <div className="absolute bg-primary text-white top-5 py-1 px-2 text-sm rounded-r-full">
+            <p>Flash Offer: {item?.flashSaleDiscount}৳</p>
           </div>
         )}
         <br />
@@ -140,11 +150,9 @@ const ProductCard = ({ showBuyButton, item }: any) => {
             onClick={() => clickDetailsPage(item?.id as string)}
             className="font-light mt-3 hover:underline hover:text-primary hover:cursor-pointer"
             dangerouslySetInnerHTML={{
-              __html: item?.description?.slice(0, 50)
+              __html: item?.description?.slice(0, 50),
             }}
-          >
-            
-          </p>
+          ></p>
         </div>
 
         {/* price div */}
@@ -152,7 +160,11 @@ const ProductCard = ({ showBuyButton, item }: any) => {
           {/* real price */}
           <p className="font-bold text-2xl text-primary">
             {" "}
-            {discountPrice(item?.price, item?.discount)}৳
+            {discountPrice(
+              item?.price,
+              isFlashSale ? item?.flashSaleDiscount : item?.discount
+            )}
+            ৳
           </p>
           {item?.discount && (
             <p className="text-gray-500 line-through">

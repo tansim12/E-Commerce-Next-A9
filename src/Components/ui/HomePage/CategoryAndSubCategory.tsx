@@ -20,8 +20,6 @@ interface SubCategory {
 
 const CategoryAndSubCategory = () => {
 const { data:categories} = usePublicFindAllCategoryAndSubCategory()
-console.log(categories);
-
   const router = useRouter();
 
   const handleNavigate = (type: "category" | "subCategory", id: string) => {

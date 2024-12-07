@@ -3,6 +3,7 @@ import {
   adminFindAllProductsAction,
   createProductAction,
   findShopAllProductsAction,
+  publicFlashSaleProductsAction,
   publicSingleProductAction,
   publicTopSaleProductsAction,
   updateProductAction,
@@ -82,5 +83,17 @@ export const usePublicSingleProduct = (productId: string) => {
   return useQuery({
     queryKey: ["PUBLIC_SINGLE_PRODUCT"],
     queryFn: async () => await publicSingleProductAction(productId),
+  });
+};
+
+export const usePublicFlashSaleProducts = (
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["FLASH_SALE_PRODUCTS", page, pageSize, params],
+    queryFn: async () =>
+      await publicFlashSaleProductsAction(page, pageSize, params),
   });
 };

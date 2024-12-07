@@ -8,7 +8,7 @@ export interface TSlides {
   img: string;
   text: string;
 }
-const CHomePage = ({ searchParams }: { searchParams?: any }) => {
+const CHomePage = () => {
   return (
     <div className="">
       <div className="mb-10 pt-4  w-full">
@@ -16,7 +16,7 @@ const CHomePage = ({ searchParams }: { searchParams?: any }) => {
       </div>
       {/* slider Section  */}
       <div>
-        <EmblaCarousel searchParams={searchParams} />
+        <EmblaCarousel />
       </div>
       {/* top sale  product */}
       <div className="my-10">

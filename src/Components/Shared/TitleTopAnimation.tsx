@@ -1,14 +1,20 @@
 import Lottie from "lottie-react";
-import top10 from "../../assets/Animation/topSell.json";
 
-const TitleTopAnimation = () => {
+const TitleTopAnimation = ({
+  jsonFile,
+  isFlashSale = false,
+}: {
+  jsonFile: any;
+  isFlashSale?: any;
+}) => {
   return (
     <div>
       <Lottie
-        animationData={top10}
+        animationData={jsonFile}
         loop={true}
         autoplay={true}
-        className="w-16 sm:w-24"
+        style={{width:isFlashSale && 400}}
+        className={`w-16 sm:w-24`}
       ></Lottie>
     </div>
   );
