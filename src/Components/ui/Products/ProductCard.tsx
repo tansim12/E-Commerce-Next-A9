@@ -10,6 +10,7 @@ import { TbListDetails } from "react-icons/tb";
 import toast from "react-hot-toast";
 import { discountPrice } from "@/src/utils/discountPrice";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 // import { TCartData } from "../../../types/addToCart.type";
 // import { availableProduct, TProduct } from "../../../types/products.type";
 // import { useAppDispatch } from "../../../Redux/hook";
@@ -18,6 +19,7 @@ import Image from "next/image";
 const ProductCard = ({ showBuyButton, item }: any) => {
   //   const updateAddToCart = useAppDispatch();
   const [hoverOption, setHoverOption] = useState(false);
+  const router = useRouter()
 
   const handleMouseEnter = () => {
     setHoverOption(true);
@@ -28,7 +30,7 @@ const ProductCard = ({ showBuyButton, item }: any) => {
   };
 
   const clickDetailsPage = (id: string) => {
-    // navigate(`/product-details/${id}`);
+    router.push(`/products/${id}`)
   };
 
   //   const handleAddToCartButton = (data: any) => {
@@ -50,20 +52,20 @@ const ProductCard = ({ showBuyButton, item }: any) => {
       >
         {/* is hover div  */}
         {hoverOption && (
-          <div className=" absolute top-0 flex items-center justify-center bg-black  h-[50%] w-[100%]  opacity-50 rounded-b-full">
-            <div className=" text-white flex items-center justify-center gap-3 my-auto">
+          <div className=" absolute top-0 flex items-center justify-center bg-gray-500  h-[50%] w-[100%]  opacity-70 rounded-b-full">
+            <div className=" text-black flex items-center justify-center gap-3 my-auto">
               {/* details */}
               <Tooltip content="Details" color="secondary" placement="bottom">
                 <TbListDetails
                   onClick={() => clickDetailsPage(item?.id as string)}
                   size={38}
-                  className="text-white cursor-pointer"
+                  className="text-black cursor-pointer"
                 />
               </Tooltip>
 
               {/* wishlist */}
               <Tooltip content="Wishlist" color="secondary" placement="bottom">
-                <FaRegHeart size={38} className="text-white cursor-pointer" />
+                <FaRegHeart size={38} className="text-black cursor-pointer" />
               </Tooltip>
 
               {/* add to cart */}
@@ -89,7 +91,7 @@ const ProductCard = ({ showBuyButton, item }: any) => {
                   //     updateAddToCart(addToCartAction({}));
                   //   }}
                   size={38}
-                  className="text-white cursor-pointer"
+                  className="text-black cursor-pointer"
                 />
               </Tooltip>
             </div>
@@ -139,7 +141,7 @@ const ProductCard = ({ showBuyButton, item }: any) => {
           </div>
 
           <p
-            onClick={() => clickDetailsPage(item?._id as string)}
+            onClick={() => clickDetailsPage(item?.id as string)}
             className="font-light mt-3 hover:underline hover:text-primary hover:cursor-pointer"
             dangerouslySetInnerHTML={{
               __html: item?.description?.slice(0, 50)

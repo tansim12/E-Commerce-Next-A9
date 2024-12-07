@@ -4,7 +4,7 @@ import React from 'react';
 
 const ProductDetailsPage = ({params}:{params:any}) => {  
     return (
-        <div>
+        <div className='pt-10'>
             <CProductDetailsPage id={params?.id} />
         </div>
     );

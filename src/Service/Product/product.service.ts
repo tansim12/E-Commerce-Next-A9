@@ -100,9 +100,7 @@ export const publicTopSaleProductsAction = async (
 };
 
 export const publicSingleProductAction = async (productId: any) => {
-  try {
-    console.log(productId);
-    
+  try { 
     const res = await axiosInstance.get(
       `/product/public/single-product/${productId}`
     );
