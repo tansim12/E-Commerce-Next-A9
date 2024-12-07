@@ -17,11 +17,11 @@ const ShopProfile = ({ item }: { item: any }) => {
         <div>
           <div className="flex justify-between gap-1 items-center">
             <p className="font-semibold">Name:</p>
-            <p>{item?.name.slice(0,15)}</p>
+            <p>{item?.name?.slice(0,15)}</p>
           </div>
           <div className="flex justify-between gap-1 items-center">
             <p className="font-semibold">Type:</p>
-            <p>{item?.shopType.slice(0,15)}</p>
+            <p>{item?.shopType?.slice(0,15)}</p>
           </div>
           <div className="flex justify-between gap-1 items-center">
             <p className="font-semibold">Followers:</p>

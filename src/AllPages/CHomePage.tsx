@@ -15,7 +15,7 @@ const CHomePage = () => {
         <CategoryAndSubCategory />
       </div>
       {/* slider Section  */}
-      <div>
+      <div className="mx-2">
         <EmblaCarousel />
       </div>
       {/* top sale  product */}

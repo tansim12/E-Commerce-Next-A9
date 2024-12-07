@@ -138,10 +138,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
               </span>
             </div>
 
-            <div className="flex items-center mb-2">
-              <span className="w-24 font-semibold">Brand:</span>
-              <span>Reebok</span>
-            </div>
+            
           </div>
           <div className="mt-4">
             <div className="flex items-center mb-1">
@@ -151,7 +148,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
                 type="number"
                 min={1}
                 value={buyQuantity as never}
-                onChange={(e) => setBuyQuantity(e.target.valueAsNumber)}
+                onChange={(e:any) => setBuyQuantity(e.target.valueAsNumber)}
               />
             </div>
             <p>
@@ -204,7 +201,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
 
       <div className="border-b my-8 min-h-[40vh]">
         <div className="container mx-auto px-4">
-          <Tabs aria-label="Profile Tabs" color="primary" variant="bordered">
+          <Tabs aria-label="Profile Tabs" color="primary" variant="bordered" >
             <Tab
               key="Details"
               title={
