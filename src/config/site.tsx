@@ -16,14 +16,6 @@ export const siteConfig = {
       label: "About",
       href: "/about",
     },
-    {
-      label: "Contact-Us",
-      href: "/contact-us",
-    },
-    {
-      label: "Package",
-      href: "/all-package",
-    },
   ],
   navMenuItems: [
     {
@@ -31,16 +23,12 @@ export const siteConfig = {
       href: "/",
     },
     {
+      label: "Products",
+      href: "/products",
+    },
+    {
       label: "About",
       href: "/about",
-    },
-    {
-      label: "Contact-Us",
-      href: "/contact-us",
-    },
-    {
-      label: "Package",
-      href: "/all-package",
     },
   ],
 };

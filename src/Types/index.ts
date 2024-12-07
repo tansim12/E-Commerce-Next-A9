@@ -9,3 +9,14 @@ export interface ITitle {
   additionalText?: string;
   children?:ReactNode
 }
+
+export interface TCartData {
+  id: string;
+  shopId:string,
+  shopName:string,
+  productName: string;
+  price: number;
+  buyQuantity: number;
+  image: string;
+  quantity:number
+}

@@ -1,104 +1,129 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { RxCross1 } from "react-icons/rx";
+import { getAddToCartData } from "../utils/getLCData";
+import { handleRemoveFromCart } from "../utils/addToCartFn";
 
 const CCartPage = () => {
+  const [cartData, setCartData] = useState<any[]>([]);
+  const [removeItem, setRemoveItem] = useState<any>(false);
+
+  // Load cart data from localStorage
+  useEffect(() => {
+    const data = getAddToCartData();
+    setCartData(data || []);
+  }, [removeItem]);
+
+  // Handle quantity changes
+  const handleQuantityChange = (id: string, newQuantity: number) => {
+    setCartData((prevCartData) =>
+      prevCartData.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              buyQuantity: Math.min(Math.max(newQuantity, 1), item.quantity), // Clamp between 1 and available quantity
+            }
+          : item
+      )
+    );
+  };
+
+
+
+  // Calculate total price
+  const calculateTotal = () => {
+    return cartData.reduce((total, item) => total + item.price * item.buyQuantity, 0);
+  };
+
+  if (!cartData.length) {
+    return <div className="p-6 text-center">Your cart is empty.</div>;
+  }
+
   return (
     <div className="p-6">
-      <div className="max-w-4xl mx-auto border-primary border shadow-md rounded-lg overflow-hidden">
+      <div className="mx-auto border-primary border shadow-md rounded-lg overflow-hidden">
         <div className="p-6 border-b">
           <h1 className="text-2xl font-bold">Shopping Cart</h1>
         </div>
-        <table className="min-w-full table-auto">
-          <thead>
-            <tr>
-              <th className="p-4 text-left">Image</th>
-              <th className="p-4 text-left">Product Name</th>
-              <th className="p-4 text-left">Model</th>
-              <th className="p-4 text-left">Quantity</th>
-              <th className="p-4 text-left">Unit Price</th>
-              <th className="p-4 text-left">Total</th>
-              <th className="p-4 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-t">
-              <td className="p-4">
-                <img
-                  src="/placeholder-laptop.jpg"
-                  alt="Laptop"
-                  className="w-16 h-16 object-cover rounded"
-                />
-              </td>
-              <td className="p-4">Lenovo IdeaPad Slim 3</td>
-              <td className="p-4">IdeaPad Slim 3 14ABR8</td>
-              <td className="p-4">
-                <input
-                  type="number"
-                  min="1"
-                  defaultValue="1"
-                  className="w-16 border border-gray-300 rounded px-2"
-                />
-              </td>
-              <td className="p-4">70,000৳</td>
-              <td className="p-4 font-bold text-red-600">70,000৳</td>
-              <td className="p-4">
-                <button
-                  className="text-red-500 hover:text-red-700"
-                  title="Remove Item"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
+
+        <div className="overflow-x-auto">
+          <table className="min-w-full table-auto">
+            <thead>
+              <tr className="text-sm md:text-[16px]">
+                <th className="p-4 text-left">Image</th>
+                <th className="p-4 text-left">Product Name</th>
+                <th className="p-4 text-left">Shop Name</th>
+                <th className="p-4 text-left">Quantity</th>
+                <th className="p-4 text-left">Actions</th>
+                <th className="p-4 text-left">Unit Price</th>
+                <th className="p-4 text-left">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartData.map((item) => (
+                <tr key={item.id} className="border-t">
+                  <td className="p-4">
+                    <img
+                      src={item.image}
+                      alt={item.productName}
+                      className="w-16 h-16 object-cover rounded"
                     />
-                  </svg>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  </td>
+                  <td className="p-4">{item.productName}</td>
+                  <td className="p-4">{item.shopName}</td>
+                  <td className="p-4">
+                    <input
+                      type="number"
+                      min="1"
+                      value={item.buyQuantity}
+                      onChange={(e) =>
+                        handleQuantityChange(item.id, parseInt(e.target.value) || 1)
+                      }
+                      className="w-16 border border-gray-300 rounded px-2"
+                    />
+                    <p className="text-sm text-gray-500">
+                      Max: {item.quantity}
+                    </p>
+                  </td>
+                  <td className="p-4">
+                    <button
+                      onClick={() => {
+                        handleRemoveFromCart(item.id)
+                        setRemoveItem((pre:any)=>!pre)
+                      }}
+                      className="text-red-500 hover:text-red-700"
+                      title="Remove Item"
+                    >
+                      <RxCross1 />
+                    </button>
+                  </td>
+                  <td className="p-4">{item.price.toLocaleString()}৳</td>
+                  <td className="p-4 font-bold text-red-600">
+                    {(item.price * item.buyQuantity).toLocaleString()}৳
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
         <div className="p-6 border-t">
           <div className="flex justify-between items-center">
             <p className="text-xl font-bold">Sub-Total:</p>
-            <p className="text-xl font-bold text-red-600">70,000৳</p>
+            <p className="text-xl font-bold text-red-600">
+              {calculateTotal().toLocaleString()}৳
+            </p>
           </div>
           <div className="flex justify-between items-center mt-2">
             <p className="text-xl font-bold">Total:</p>
-            <p className="text-xl font-bold text-red-600">70,000৳</p>
+            <p className="text-xl font-bold text-red-600">
+              {calculateTotal().toLocaleString()}৳
+            </p>
           </div>
         </div>
-        <div className="p-6 border-t">
-          <p className="mb-4">What would you like to do next?</p>
-          <div className="flex flex-wrap gap-4">
-            <input
-              type="text"
-              placeholder="Promo / Coupon Code"
-              className="flex-1 border border-gray-300 rounded px-4 py-2"
-            />
-            <button className="bg-blue-600 text-white px-4 py-2 rounded">
-              Apply Coupon
-            </button>
-            <input
-              type="text"
-              placeholder="Gift Voucher Code"
-              className="flex-1 border border-gray-300 rounded px-4 py-2"
-            />
-            <button className="bg-purple-600 text-white px-4 py-2 rounded">
-              Apply Voucher
-            </button>
-          </div>
-        </div>
-        <div className="p-6 border-t flex justify-between">
-          <button className="bg-blue-500 text-white px-6 py-2 rounded">
-            Continue Shopping
-          </button>
+
+        <div className="p-6 border-t flex justify-end">
           <button className="bg-green-500 text-white px-6 py-2 rounded">
             Confirm Order
           </button>

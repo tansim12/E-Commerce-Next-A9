@@ -1,21 +1,13 @@
-import { Tooltip } from "@nextui-org/react";
 import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { TbListDetails } from "react-icons/tb";
-// import Button from "../../Re-useable/Button";
-// import { ICard } from "../../../types/card.type";
-// import { discountPrice } from "../../../utils/discountPrice";
-// import { handleAddToCart } from "../../../utils/addToCartFn";
 import toast from "react-hot-toast";
 import { discountPrice } from "@/src/utils/discountPrice";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import NewCustomButton from "./NewCustomButton";
-// import { TCartData } from "../../../types/addToCart.type";
-// import { availableProduct, TProduct } from "../../../types/products.type";
-// import { useAppDispatch } from "../../../Redux/hook";
-// import { addToCartAction } from "../../../Redux/Features/AddToCart/addToCart.slice";
+import { handleAddToCart } from "@/src/utils/addToCartFn";
 
 const ProductCard = ({
   showBuyButton,
@@ -42,14 +34,14 @@ const ProductCard = ({
     router.push(`/products/${id}`);
   };
 
-  //   const handleAddToCartButton = (data: any) => {
-  //     const result = handleAddToCart(data);
-  //     if (result?.status === true) {
-  //       toast.success(result?.message);
-  //     } else {
-  //       toast?.error(result?.message);
-  //     }
-  //   };
+  const handleAddToCartButton = (data: any) => {
+    const result = handleAddToCart(data);
+    if (result?.status === true) {
+      toast.success(result?.message);
+    } else {
+      toast?.error(result?.message);
+    }
+  };
 
   return (
     <div className=" border border-white  shadow-2xl rounded-lg overflow-hidden relative">
@@ -78,21 +70,23 @@ const ProductCard = ({
               {/* add to cart */}
 
               <IoCartOutline
-                //   onClick={() => {
-                //     if (item?.availability === availableProduct.STOCKOUT) {
-                //       toast.error("This Product Stock Out 😢");
-                //     } else {
-                //       handleAddToCartButton({
-                //         _id: item?._id,
-                //         image: item?.image?.[0],
-                //         buyQuantity: 1,
-                //         name: item?.name,
-                //         price: discountPrice(item?.price, item?.discount),
-                //         quantity: item?.quantity,
-                //       });
-                //     }
-                //     updateAddToCart(addToCartAction({}));
-                //   }}
+                onClick={() => {
+                  if (item?.isAvailable !== true) {
+                    toast.error("This Product Stock Out 😢");
+                  } else {
+                    handleAddToCartButton({
+                      id: item?.id,
+                      shopName: item?.shop?.name,
+                      image: item?.images?.[0],
+                      buyQuantity: 1,
+                      productName: item?.productName,
+                      shopId: item?.shopId,
+                      price: discountPrice(item?.price, item?.discount),
+                      quantity: item?.quantity,
+                    });
+                  }
+                  // updateAddToCart(addToCartAction({}));
+                }}
                 size={38}
                 className="text-black cursor-pointer"
               />
