@@ -55,25 +55,21 @@ const ProductCard = ({ showBuyButton, item }: any) => {
           <div className=" absolute top-0 flex items-center justify-center bg-gray-500  h-[50%] w-[100%]  opacity-70 rounded-b-full">
             <div className=" text-black flex items-center justify-center gap-3 my-auto">
               {/* details */}
-              <Tooltip content="Details" color="secondary" placement="bottom">
+           
                 <TbListDetails
                   onClick={() => clickDetailsPage(item?.id as string)}
                   size={38}
                   className="text-black cursor-pointer"
                 />
-              </Tooltip>
+            
 
               {/* wishlist */}
-              <Tooltip content="Wishlist" color="secondary" placement="bottom">
+              
                 <FaRegHeart size={38} className="text-black cursor-pointer" />
-              </Tooltip>
+              
 
               {/* add to cart */}
-              <Tooltip
-                content="Add To Cart"
-                color="secondary"
-                placement="bottom"
-              >
+             
                 <IoCartOutline
                   //   onClick={() => {
                   //     if (item?.availability === availableProduct.STOCKOUT) {
@@ -93,7 +89,7 @@ const ProductCard = ({ showBuyButton, item }: any) => {
                   size={38}
                   className="text-black cursor-pointer"
                 />
-              </Tooltip>
+             
             </div>
           </div>
         )}
