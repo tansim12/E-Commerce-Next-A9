@@ -47,18 +47,25 @@ const CCartPage = () => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!promoValue) return toast.error("Please enter a promo code");
-
     const payload = {
       payload: { ...promoValue },
     };
-
-    console.log(promoValue);
     handleCheckPromoCheck(payload);
   };
 
   useEffect(() => {
     if (data?.status === 200) {
       toast.success(data?.message);
+      // Check for valid ID and update the price of the matching item
+      const updatedCartData = cartData.map((item) =>
+        item.id === data.id
+          ? { ...item, price: data.newUnitPrice } // Update the price with the new unit price
+          : item
+      );
+      setCartData(updatedCartData); // Set the updated cart data
+    }
+    if (data?.status === 400) {
+      toast.error(data?.message);
     }
   }, [data]);
 
