@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 // import { handleAddToCart } from "../../utils/addToCartFn";
 // import { TCartData } from "../../types/addToCart.type";
 import toast from "react-hot-toast";
-
+import { GoCodeReview } from "react-icons/go";
 // import { buyingData } from "../../Redux/Features/Check Out/checkOut.slice";
 // import { addToCartAction } from "../../Redux/Features/AddToCart/addToCart.slice";
 import { Button, Input, Tabs, Tab } from "@nextui-org/react";
@@ -254,18 +254,18 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
               </div>
             </Tab>
             <Tab
-              key="Settings"
+              key="Review"
               title={
                 <div className="flex items-center space-x-2">
-                  <IoSettingsOutline />
+                  <GoCodeReview />
                   {/* Video icon */}
-                  <span>Settings</span>
+                  <span>Review</span>
                 </div>
               }
             >
-              {/* Videos Content (You can replace this with actual content) */}
+              {/* // todo review section  */}
               <div className="text-center py-10">
-                <span>user info</span>
+                <span>Review</span>
               </div>
             </Tab>
           </Tabs>
