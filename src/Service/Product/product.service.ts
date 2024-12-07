@@ -100,7 +100,7 @@ export const publicTopSaleProductsAction = async (
 };
 
 export const publicSingleProductAction = async (productId: any) => {
-  try { 
+  try {
     const res = await axiosInstance.get(
       `/product/public/single-product/${productId}`
     );
@@ -132,6 +132,15 @@ export const publicFlashSaleProductsAction = async (
       `/product/public/flash-sale/products?${params.toString()}`
     );
     return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const publicPromoCheckAction = async (payload: any) => {
+  try {
+    const res = await axiosInstance.post(`/product/promo/check`, payload);
+    return res.data?.data;
   } catch (error) {
     console.log(error);
   }

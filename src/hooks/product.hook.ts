@@ -4,6 +4,7 @@ import {
   createProductAction,
   findShopAllProductsAction,
   publicFlashSaleProductsAction,
+  publicPromoCheckAction,
   publicSingleProductAction,
   publicTopSaleProductsAction,
   updateProductAction,
@@ -95,5 +96,14 @@ export const usePublicFlashSaleProducts = (
     queryKey: ["FLASH_SALE_PRODUCTS", page, pageSize, params],
     queryFn: async () =>
       await publicFlashSaleProductsAction(page, pageSize, params),
+  });
+};
+
+export const usePublicPromoCheck = () => {
+  return useMutation({
+    mutationKey: ["PROMO_CHECK"],
+    mutationFn: async ({ payload }: { payload: any }) => {
+      return await publicPromoCheckAction(payload);
+    },
   });
 };
