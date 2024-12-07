@@ -29,7 +29,7 @@ const FlashSaleProducts = () => {
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5  gap-3">
           {productData?.result?.map((pd: any) => (
-            <ProductCard item={pd} isFlashSale={true} />
+            <ProductCard item={pd} isFlashSale={true} showBuyButton={true} />
           ))}
         </div>
       </div>

@@ -19,6 +19,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import NavbarDropdown from "./NavbarDropdown";
 import { useEffect, useState } from "react";
+import Cart from "./Cart";
 
 export const Navbar = () => {
   const pathName = usePathname();
@@ -83,13 +84,20 @@ export const Navbar = () => {
               className="hidden sm:flex basis-3/5 sm:basis-full  "
               justify="end"
             >
-              <NavbarItem className="hidden sm:flex gap-2 ">
+              <NavbarItem className="hidden sm:flex justify-center items-center gap-2 ">
+                <div className="mr-5 cursor-pointer">
+                  <Cart />
+                </div>
                 <NavbarDropdown />
               </NavbarItem>
             </NavbarContent>
           </div>
 
           <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+            <div className="mr-3">
+              {" "}
+              <Cart />
+            </div>
             <NavbarMenuToggle />
           </NavbarContent>
 

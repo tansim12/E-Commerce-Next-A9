@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { discountPrice } from "@/src/utils/discountPrice";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import NewCustomButton from "./NewCustomButton";
 // import { TCartData } from "../../../types/addToCart.type";
 // import { availableProduct, TProduct } from "../../../types/products.type";
 // import { useAppDispatch } from "../../../Redux/hook";
@@ -51,7 +52,7 @@ const ProductCard = ({
   //   };
 
   return (
-    <div className=" border border-white  shadow-2xl rounded-lg overflow-hidden">
+    <div className=" border border-white  shadow-2xl rounded-lg overflow-hidden relative">
       {/* main div  */}
       <div
         onMouseEnter={handleMouseEnter}
@@ -150,7 +151,7 @@ const ProductCard = ({
             onClick={() => clickDetailsPage(item?.id as string)}
             className="font-light mt-3 hover:underline hover:text-primary hover:cursor-pointer"
             dangerouslySetInnerHTML={{
-              __html: item?.description?.slice(0, 50),
+              __html: item?.description?.slice(0, 35),
             }}
           ></p>
         </div>
@@ -173,11 +174,10 @@ const ProductCard = ({
           )}
         </div>
       </div>
-
       {/* buy button div */}
       {showBuyButton && (
-        <div className="p-3">
-          {/* <Button item={item as TProduct} name="Buy Now" /> */}
+        <div className="p-3 ">
+          <NewCustomButton item={item} name="Buy Now" />
         </div>
       )}
     </div>
