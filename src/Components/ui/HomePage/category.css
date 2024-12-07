@@ -1,0 +1,40 @@
+.embla {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .embla__container {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* Add space between slides */
+  }
+  
+  .embla__slide {
+    position: relative;
+    flex-shrink: 0;
+    width: 180px; /* Adjust the width of each category */
+    padding: 0 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .embla__slide:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Customize navigation buttons */
+  button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

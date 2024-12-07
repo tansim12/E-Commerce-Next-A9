@@ -123,7 +123,16 @@ export const categoryBaseSubCategoryFindAction = async (
   try {
     const res = await axiosInstance.get(
       `/cAndSubC/category/categoryBaseSubCategory/${categoryId}`
-    ); 
+    );
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const publicFindAllCategoryAndSubCategoryAction = async () => {
+  try {
+    const res = await axiosInstance.get(`/cAndSubC`);
     return res?.data?.data;
   } catch (error) {
     console.log(error);

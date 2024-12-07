@@ -9,6 +9,7 @@ import {
   adminUpdateSubCategoryAction,
   categoryBaseSubCategoryFindAction,
   existAllCategoryAction,
+  publicFindAllCategoryAndSubCategoryAction,
 } from "../Service/CategoryAndSubCategory/categoryAndSubCategory.service";
 import { ZodNullableDef } from "zod";
 
@@ -113,7 +114,13 @@ export const useExistAllCategory = () => {
 };
 export const useCategoryBaseSubCategoryFind = (categoryId: string | null) => {
   return useQuery({
-    queryKey: ["CATEGORY_BASE_SUB_CATEGORY",categoryId],
+    queryKey: ["CATEGORY_BASE_SUB_CATEGORY", categoryId],
     queryFn: async () => await categoryBaseSubCategoryFindAction(categoryId),
+  });
+};
+export const usePublicFindAllCategoryAndSubCategory = () => {
+  return useQuery({
+    queryKey: ["PUBLIC_FIND_ALL_CATEGORY_AND_SUBCATEGORY"],
+    queryFn: async () => await publicFindAllCategoryAndSubCategoryAction(),
   });
 };
