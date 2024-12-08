@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import NewCustomButton from "./NewCustomButton";
 import { handleAddToCart } from "@/src/utils/addToCartFn";
+import { useAdditional } from "@/src/Context/aditional.context";
 
 const ProductCard = ({
   showBuyButton,
@@ -33,11 +34,12 @@ const ProductCard = ({
   const clickDetailsPage = (id: string) => {
     router.push(`/products/${id}`);
   };
-
+  const { setIsLoadingAdditional } = useAdditional();
   const handleAddToCartButton = (data: any) => {
     const result = handleAddToCart(data);
     if (result?.status === true) {
       toast.success(result?.message);
+      setIsLoadingAdditional((pre: any) => !pre);
     } else {
       toast?.error(result?.message);
     }
@@ -108,7 +110,7 @@ const ProductCard = ({
         <br />
         <br />
         {/* img div */}
-        <div className="flex justify-center items-center p-2 hover:cursor-pointer">
+        <div className="flex justify-center items-center  hover:cursor-pointer">
           <Image
             height={128}
             width={200}

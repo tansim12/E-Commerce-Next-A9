@@ -6,12 +6,16 @@ import { handleRemoveFromCart } from "../utils/addToCartFn";
 import { usePublicPromoCheck } from "../hooks/product.hook";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import toast from "react-hot-toast";
+import { useAdditional } from "../Context/aditional.context";
+import emptyPhoto from "../assets/empty-cart.png";
+import Image from "next/image";
 
 const CCartPage = () => {
   const [cartData, setCartData] = useState<any[]>([]);
   const [removeItem, setRemoveItem] = useState<any>(false);
   const [promoValue, setPromoValue] = useState({});
   const [discount, setDiscount] = useState<number>(0); // Store the discount
+  const { setIsLoadingAdditional } = useAdditional();
 
   // Load cart data from localStorage
   useEffect(() => {
@@ -78,7 +82,18 @@ const CCartPage = () => {
   };
 
   if (!cartData.length) {
-    return <div className="p-6 text-center">Your cart is empty.</div>;
+    return (
+      <div className="p-6 text-center">
+        <Image
+          width={300}
+          height={300}
+          src={emptyPhoto}
+          alt="Cart is empty"
+          className="mx-auto"
+        />
+        <p>Your cart is empty.</p>
+      </div>
+    );
   }
 
   return (
@@ -152,6 +167,7 @@ const CCartPage = () => {
                       <button
                         onClick={() => {
                           handleRemoveFromCart(item?.id);
+                          setIsLoadingAdditional((pre: any) => !pre);
                           setRemoveItem((pre: any) => !pre);
                         }}
                         className="text-red-500 hover:text-red-700"

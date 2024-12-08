@@ -8,20 +8,23 @@ import { Toaster } from "react-hot-toast";
 import { UserContextProvider } from "@/src/Context/user.context";
 import { ThemeProviderProps } from "next-themes/dist/types";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { AdditionalContextProvider } from "@/src/Context/aditional.context";
 
 export interface ProvidersProps {
   children: React.ReactNode;
-    themeProps?: ThemeProviderProps;
+  themeProps?: ThemeProviderProps;
 }
 
-export function Providers({ children,themeProps }: ProvidersProps) {
+export function Providers({ children, themeProps }: ProvidersProps) {
   const router = useRouter();
   const queryClient = new QueryClient();
   return (
     <NextUIProvider navigate={router.push}>
-       <NextThemesProvider {...themeProps}>
+      <NextThemesProvider {...themeProps}>
         <QueryClientProvider client={queryClient}>
-          <UserContextProvider>{children}</UserContextProvider>
+          <UserContextProvider>
+            <AdditionalContextProvider>{children}</AdditionalContextProvider>
+          </UserContextProvider>
         </QueryClientProvider>
         <Toaster />
       </NextThemesProvider>
