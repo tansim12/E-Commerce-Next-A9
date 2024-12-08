@@ -9,13 +9,17 @@ import toast from "react-hot-toast";
 import { useAdditional } from "../Context/aditional.context";
 import emptyPhoto from "../assets/empty-cart.png";
 import Image from "next/image";
+import { useUser } from "../Context/user.context";
+import { useRouter } from "next/navigation";
 
 const CCartPage = () => {
+  const router = useRouter();
   const [cartData, setCartData] = useState<any[]>([]);
   const [removeItem, setRemoveItem] = useState<any>(false);
   const [promoValue, setPromoValue] = useState({});
   const [discount, setDiscount] = useState<number>(0); // Store the discount
   const { setIsLoadingAdditional } = useAdditional();
+  const { user } = useUser();
 
   // Load cart data from localStorage
   useEffect(() => {
@@ -63,7 +67,7 @@ const CCartPage = () => {
       // Check for valid ID and update the price of the matching item
       const updatedCartData = cartData.map((item) =>
         item.id === data.id
-          ? { ...item, price: data.newUnitPrice } // Update the price with the new unit price
+          ? { ...item, price: data.newUnitPrice, isPromoUse: true } // Update the price with the new unit price
           : item
       );
       setCartData(updatedCartData); // Set the updated cart data
@@ -73,12 +77,17 @@ const CCartPage = () => {
     }
   }, [data]);
 
-  console.log(data);
-
   // Apply discount to the total price
   const discountedTotal = () => {
     const total = calculateTotal();
     return total - (total * discount) / 100;
+  };
+
+  const handleConfirmOrder = () => {
+    if (!user) {
+      return router.push("/login");
+    }
+    console.log(cartData);
   };
 
   if (!cartData.length) {
@@ -202,7 +211,10 @@ const CCartPage = () => {
           </div>
 
           <div className="p-6 border-t flex justify-end">
-            <button className="bg-green-500 text-white px-6 py-2 rounded">
+            <button
+              onClick={handleConfirmOrder}
+              className="bg-green-500 text-white px-6 py-2 rounded"
+            >
               Confirm Order
             </button>
           </div>
