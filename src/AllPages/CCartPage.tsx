@@ -11,6 +11,8 @@ import emptyPhoto from "../assets/empty-cart.png";
 import Image from "next/image";
 import { useUser } from "../Context/user.context";
 import { useRouter } from "next/navigation";
+import { useCreatePayment } from "../hooks/payment.hook";
+import ComponentsLoading from "../Components/ui/Loading/ComponentsLoading";
 
 const CCartPage = () => {
   const router = useRouter();
@@ -83,12 +85,31 @@ const CCartPage = () => {
     return total - (total * discount) / 100;
   };
 
+  const {
+    data: paymentData,
+    mutate: handleCratePayment,
+    isError,
+    isPending,
+  } = useCreatePayment();
+
   const handleConfirmOrder = () => {
     if (!user) {
       return router.push("/login");
     }
-    console.log(cartData);
+    const payload = {
+      payload: cartData,
+    };
+    handleCratePayment(payload);
   };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error("Payment Some thing went wrong, please new add to cart");
+    }
+    if (paymentData) {
+      window.location.href = paymentData.url;
+    }
+  }, [isError, paymentData]);
 
   if (!cartData.length) {
     return (
@@ -107,6 +128,7 @@ const CCartPage = () => {
 
   return (
     <>
+      {isPending && <ComponentsLoading />}
       <div className="p-6">
         <div className="mx-auto border-primary border shadow-md rounded-lg overflow-hidden">
           <div className="p-6 border-b">
@@ -140,7 +162,7 @@ const CCartPage = () => {
                     <td className="p-4">{item?.shopName}</td>
                     <td className="p-1">
                       <input
-                        required={true}
+                        required
                         onChange={(e) =>
                           setPromoValue({
                             id: item.id,
