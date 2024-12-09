@@ -1,30 +1,24 @@
-// import { useAppDispatch } from "../../Redux/hook";
-//
-
 import { useAdditional } from "@/src/Context/aditional.context";
 import { handleAddToCart } from "@/src/utils/addToCartFn";
 import { discountPrice } from "@/src/utils/discountPrice";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-// import { buyingData } from "../../Redux/Features/Check Out/checkOut.slice";
-
 const NewCustomButton = ({ name, item }: { name: any; item: any }) => {
   const navigate = useRouter();
   const { setIsLoadingAdditional } = useAdditional();
   const handleAddToCartButton = (data: any) => {
     console.log(data);
-    
+
     const result = handleAddToCart(data);
     if (result?.status === true) {
       toast.success(result?.message);
       setIsLoadingAdditional((pre: any) => !pre);
-      navigate.push("/cart")
+      navigate.push("/cart");
     } else {
       toast?.error(result?.message);
     }
   };
-  
 
   return (
     <div className="flex justify-center items-center mb-3">
