@@ -51,6 +51,11 @@ export const sidebarItems: {
       path: "/admin/manage-products",
       icon: <TbCategory />,
     },
+    {
+      name: "Payments",
+      path: "/admin/payment-history",
+      icon: <TbTransactionDollar />,
+    },
 
     {
       name: "Manage Payment",
@@ -79,6 +84,11 @@ export const sidebarItems: {
         },
         { name: "view Product", path: "/vendor/manage-product/view-product" },
       ],
+    },
+    {
+      name: "Payments",
+      path: "/vendor/payment-history",
+      icon: <TbTransactionDollar />,
     },
   ],
   user: [

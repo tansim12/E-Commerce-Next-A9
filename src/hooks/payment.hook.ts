@@ -1,6 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { paymentCreateAction } from "../Service/Payment/payment.service";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { myAllPaymentHistoryAction, paymentCreateAction } from "../Service/Payment/payment.service";
 import toast from "react-hot-toast";
+import { TQueryParams } from "../Types/Filter/filter.type";
 
 export const useCreatePayment = () => {
   const queryClient = useQueryClient();
@@ -17,5 +18,18 @@ export const useCreatePayment = () => {
     onError(error, variables, context) {
       toast.error("Payment Some thing went wrong, please new add to cart");
     },
+  });
+};
+
+
+export const useMyAllPaymentHistory = (
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["MY_ALL_PAYMENT_HISTORY", page, pageSize, params],
+    queryFn: async () =>
+      await myAllPaymentHistoryAction(page, pageSize, params),
   });
 };
