@@ -17,7 +17,7 @@ const CustomDrawer = ({
       style={{ zIndex: 999 }} // Increase z-index of the overlay
     >
       <div
-        className={`fixed rounded-lg left-0  h-full top-10 w-64 bg-black shadow-lg transition-transform transform ${
+        className={`fixed rounded-lg left-0  h-full  w-64 bg-bgColor  shadow-lg transition-transform transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{ zIndex: 999 }} // Increase z-index of the drawer itself

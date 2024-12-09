@@ -8,6 +8,9 @@ const config = {
   ],
   theme: {
     extend: {
+      extend: {
+        scrollbar: ["rounded"], // Optional: Add rounded corners
+      },
       colors: {
         base: "#0866ff",
         primary: "#0866ff",
@@ -31,7 +34,7 @@ const config = {
     },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [nextui(), require("tailwind-scrollbar")],
 };
 
 // Use `export default` for ESM compatibility
