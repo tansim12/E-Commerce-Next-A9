@@ -161,11 +161,11 @@ export const publicAllProductsAction = async (
     args.forEach((item: TQueryParams) => {
       params.append(item.name, String(item.value)); // Convert value to string
     });
-  }
+  } 
   try {
     const res = await axiosInstance.get(`/product?${params.toString()}`);
     return res?.data?.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };

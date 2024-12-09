@@ -8,18 +8,9 @@ import { Input } from "@nextui-org/react";
 import React, { EventHandler, useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { Slider } from "@nextui-org/react";
-const filterFields = [
-  {
-    name: "isAvailable",
-    value: premiumData,
-  },
-  {
-    name: "category",
-    value: categoryData,
-  },
-];
+
 const PostFilterSidebar = () => {
-  const [value, setValue] = React.useState([0, 100000]);
+  const [value, setValue] = React.useState([0, 10000]);
 
   const { data: categories } = usePublicFindAllCategoryAndSubCategory();
   const { setParams } = useUser();
@@ -72,12 +63,18 @@ const PostFilterSidebar = () => {
     }
   }, [searchTerm]);
 
-  useEffect(() => {
-    setParams(filters);
-  }, [filters, searchTerm]);
 
   console.log(value);
   
+  useEffect(() => {
+    const priceRange = [
+        { name: "priceStart", value: value?.[0] },
+        { name: "priceEnd", value: value?.[1] },
+      ];
+    setParams([...priceRange,...filters]);
+  }, [filters, searchTerm,value]);
+
+
   return (
     <div>
       {/* Scrollable container with Tailwind scrollbar classes */}
