@@ -1,10 +1,10 @@
 export const premiumData = [
   {
-    name: "Premium",
+    name: "Available",
     value: true,
   },
   {
-    name: "Free",
+    name: "Stock Out",
     value: false,
   },
 ];
