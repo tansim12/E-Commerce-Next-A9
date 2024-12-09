@@ -162,9 +162,6 @@ export const publicAllProductsAction = async (
       params.append(item.name, String(item.value)); // Convert value to string
     });
   }
-
-  console.log(params.toString());
-  
   try {
     const res = await axiosInstance.get(`/product?${params.toString()}`);
     return res?.data?.data;

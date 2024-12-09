@@ -20,6 +20,7 @@ import { usePathname } from "next/navigation";
 import NavbarDropdown from "./NavbarDropdown";
 import { useEffect, useState } from "react";
 import Cart from "./Cart";
+import NavSearch from "./Nav/NavSearch";
 
 export const Navbar = () => {
   const pathName = usePathname();
@@ -85,7 +86,10 @@ export const Navbar = () => {
               justify="end"
             >
               <NavbarItem className="hidden sm:flex justify-center items-center gap-2 ">
-                <div className="mr-5 cursor-pointer">
+                <div className="mr-2 cursor-pointer">
+                  <NavSearch />
+                </div>
+                <div className="mr-3 cursor-pointer">
                   <Cart />
                 </div>
                 <NavbarDropdown />
@@ -94,7 +98,11 @@ export const Navbar = () => {
           </div>
 
           <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-            <div className="mr-3">
+            <div className="mr-1">
+              {" "}
+              <NavSearch />
+            </div>
+            <div className="mr-2">
               {" "}
               <Cart />
             </div>

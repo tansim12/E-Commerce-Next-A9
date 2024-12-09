@@ -1,10 +1,10 @@
 import CProductsPage from "@/src/AllPages/CProductsPage";
 import React from "react";
 
-const ProductsPage = () => {
+const ProductsPage = ({ searchParams }: { searchParams: any }) => {
   return (
     <div>
-      <CProductsPage />
+      <CProductsPage searchParams={searchParams} />
     </div>
   );
 };
