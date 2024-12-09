@@ -1,36 +1,52 @@
 // import { useAppDispatch } from "../../Redux/hook";
 //
 
+import { useAdditional } from "@/src/Context/aditional.context";
+import { handleAddToCart } from "@/src/utils/addToCartFn";
+import { discountPrice } from "@/src/utils/discountPrice";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 // import { buyingData } from "../../Redux/Features/Check Out/checkOut.slice";
 
 const NewCustomButton = ({ name, item }: { name: any; item: any }) => {
   const navigate = useRouter();
-  //   const updateBuyingData = useAppDispatch();
-  // handleCheckOutPage
-  //   const handleCheckOutPage = () => {
-  //     updateBuyingData(
-  //       buyingData([
-  //         {
-  //           _id: item?._id,
-  //           name: item?.name,
-  //           image: item?.image?.[0],
-  //           quantity: item?.quantity,
-  //           buyQuantity: 1,
-  //           price: item?.price,
-  //         },
-  //       ])
-  //     );
-  //     navigate("/checkout");
-  //   };
+  const { setIsLoadingAdditional } = useAdditional();
+  const handleAddToCartButton = (data: any) => {
+    console.log(data);
+    
+    const result = handleAddToCart(data);
+    if (result?.status === true) {
+      toast.success(result?.message);
+      setIsLoadingAdditional((pre: any) => !pre);
+      navigate.push("/cart")
+    } else {
+      toast?.error(result?.message);
+    }
+  };
+  
 
   return (
     <div className="flex justify-center items-center mb-3">
       {item?.isAvailable !== false ? (
         <button
-          //   onClick={handleCheckOutPage}
-          disabled={item?.isAvailable === true}
+          onClick={() => {
+            if (item?.isAvailable !== true) {
+              toast.error("This Product Stock Out 😢");
+            } else {
+              handleAddToCartButton({
+                id: item?.id,
+                shopName: item?.shop?.name,
+                image: item?.images?.[0],
+                buyQuantity: 1,
+                productName: item?.productName,
+                shopId: item?.shopId,
+                price: discountPrice(item?.price, item?.discount),
+                quantity: item?.quantity,
+              });
+            }
+          }}
+          disabled={item?.isAvailable !== true}
           className="group relative z-10 h-10 w-full overflow-hidden bg-white text-xl text-black  font-bold  border-2 rounded-md hover:cursor-pointer"
         >
           <span className="absolute -inset-8 origin-left rotate-12 scale-x-0 transform bg-white transition-transform duration-700 group-hover:scale-x-50 group-hover:duration-300"></span>

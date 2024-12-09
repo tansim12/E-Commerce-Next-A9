@@ -87,7 +87,7 @@ const ProductCard = ({
                       quantity: item?.quantity,
                     });
                   }
-                  // updateAddToCart(addToCartAction({}));
+                  
                 }}
                 size={38}
                 className="text-black cursor-pointer"
