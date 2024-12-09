@@ -145,3 +145,30 @@ export const publicPromoCheckAction = async (payload: any) => {
     console.log(error);
   }
 };
+
+export const publicAllProductsAction = async (
+  page: number,
+  pageSize: number,
+  args: TQueryParams[]
+) => {
+  const params = new URLSearchParams();
+
+  params.append("page", page.toString());
+  params.append("limit", pageSize.toString());
+
+  // Loop through the args to dynamically append query parameters
+  if (args) {
+    args.forEach((item: TQueryParams) => {
+      params.append(item.name, String(item.value)); // Convert value to string
+    });
+  }
+
+  console.log(params.toString());
+  
+  try {
+    const res = await axiosInstance.get(`/product?${params.toString()}`);
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

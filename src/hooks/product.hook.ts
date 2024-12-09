@@ -3,6 +3,7 @@ import {
   adminFindAllProductsAction,
   createProductAction,
   findShopAllProductsAction,
+  publicAllProductsAction,
   publicFlashSaleProductsAction,
   publicPromoCheckAction,
   publicSingleProductAction,
@@ -105,5 +106,16 @@ export const usePublicPromoCheck = () => {
     mutationFn: async ({ payload }: { payload: any }) => {
       return await publicPromoCheckAction(payload);
     },
+  });
+};
+
+export const usePublicAllProducts = (
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["PUBLIC_ALL_PRODUCTS", page, pageSize, params],
+    queryFn: async () => await publicAllProductsAction(page, pageSize, params),
   });
 };

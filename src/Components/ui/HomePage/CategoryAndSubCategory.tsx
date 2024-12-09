@@ -20,9 +20,9 @@ const CategoryAndSubCategory = () => {
 
   const handleNavigate = (type: "category" | "subCategory", id: string) => {
     if (type === "category") {
-      router.push(`/products?category=${id}`);
+      router.push(`/products?categoryId=${id}`);
     } else {
-      router.push(`/products?subCategory=${id}`);
+      router.push(`/products?subCategoryId=${id}`);
     }
   };
 
