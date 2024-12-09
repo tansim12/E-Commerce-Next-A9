@@ -16,7 +16,7 @@ const CProductsPage = ({ searchParams }: { searchParams: any }) => {
     name: key,
     value: value,
   }));
-  console.log(newParams);
+
 
   const { params } = useUser();
   const [allPostData, setAllPostData] = useState([]);
@@ -29,7 +29,6 @@ const CProductsPage = ({ searchParams }: { searchParams: any }) => {
     // params
     [...params, ...(newParams as TQueryParams[])]
   );
-  console.log(params);
 
   // Handle params change
   useEffect(() => {

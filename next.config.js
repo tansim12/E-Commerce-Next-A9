@@ -8,6 +8,7 @@ const nextConfig = {
         pathname: '/**', // Allows any path
       },
     ],
+    // unoptimized: true,
   },
 };
 

@@ -63,17 +63,18 @@ const PostFilterSidebar = () => {
     }
   }, [searchTerm]);
 
-
-  console.log(value);
-  
+  //   const searchTerm = useDebounce(searchValue, 700);
   useEffect(() => {
     const priceRange = [
-        { name: "priceStart", value: value?.[0] },
-        { name: "priceEnd", value: value?.[1] },
-      ];
-    setParams([...priceRange,...filters]);
-  }, [filters, searchTerm,value]);
+      { name: "priceStart", value: 0 },
+      { name: "priceEnd", value: 10000 },
+    ];
+    setParams([...filters, ...priceRange]);
 
+    console.log([...filters, ...priceRange], ".........");
+
+    // setParams([...filters]);
+  }, [filters, searchTerm]);
 
   return (
     <div>
@@ -99,7 +100,7 @@ const PostFilterSidebar = () => {
             label="Budget"
             maxValue={10000}
             minValue={0}
-            step={10}
+            step={1000}
             value={value}
             onChange={setValue as any}
           />
