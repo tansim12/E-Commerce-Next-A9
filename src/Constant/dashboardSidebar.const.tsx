@@ -28,10 +28,16 @@ export const sidebarItems: {
       path: "/admin/dashboard",
       icon: <FaHome />,
     },
+
     {
       name: "Manage User",
       path: "/admin/manage-user",
       icon: <MdOutlineManageAccounts />,
+    },
+    {
+      name: "Manage Payment",
+      path: "/admin/manage-payment",
+      icon: <TbCategory />,
     },
     {
       name: "Manage Shops",
@@ -56,12 +62,6 @@ export const sidebarItems: {
       path: "/admin/payment-history",
       icon: <TbTransactionDollar />,
     },
-
-    {
-      name: "Manage Payment",
-      path: "/admin/manage-payment",
-      icon: <MdPayment />,
-    },
   ],
   vendor: [
     {
@@ -73,6 +73,11 @@ export const sidebarItems: {
       name: "Shop Management",
       path: "/vendor/shop-management",
       icon: <MdOutlineManageSearch />,
+    },
+    {
+      name: "Manage Payment",
+      path: "/vendor/manage-payment",
+      icon: <TbCategory />,
     },
     {
       name: "Manage Product",
