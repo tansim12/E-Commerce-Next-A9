@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import NewCustomButton from "./NewCustomButton";
 import { handleAddToCart } from "@/src/utils/addToCartFn";
 import { useAdditional } from "@/src/Context/aditional.context";
+import CompareButton from "../Button/CompareButton";
 
 const ProductCard = ({
   showBuyButton,
@@ -172,8 +173,13 @@ const ProductCard = ({
       </div>
       {/* buy button div */}
       {showBuyButton && (
-        <div className="p-3 ">
+        <div className="px-3 ">
           <NewCustomButton item={item} name="Buy Now" />
+        </div>
+      )}
+      {showBuyButton && (
+        <div className="px-3 ">
+          <CompareButton />
         </div>
       )}
     </div>

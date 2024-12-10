@@ -140,8 +140,9 @@ const CCartPage = () => {
               <thead>
                 <tr className="text-sm md:text-[16px]">
                   <th className="p-4 text-left">Image</th>
+               
                   <th className="p-4 text-left">Product Name</th>
-                  <th className="p-4 text-left">Shop Name</th>
+                  <th className="p-4 text-left">Promo</th>
                   <th className="p-4 text-left">Quantity</th>
                   <th className="p-4 text-left">Actions</th>
                   <th className="p-4 text-left">Unit Price</th>
@@ -159,7 +160,6 @@ const CCartPage = () => {
                       />
                     </td>
                     <td className="p-4">{item?.productName}</td>
-                    <td className="p-4">{item?.shopName}</td>
                     <td className="p-1">
                       <input
                         required
