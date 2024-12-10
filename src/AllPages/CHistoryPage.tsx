@@ -50,7 +50,9 @@ const CHistoryPage = () => {
               ))}
             </div>
           ) : (
-            <span>No data</span>
+            <span className="text-xl flex justify-center items-center ">
+              No data 😥
+            </span>
           )}
         </div>
       </div>

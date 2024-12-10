@@ -2,6 +2,8 @@ import React from "react";
 import EmblaCarousel from "../Components/ui/Slider/EmblaCarousel";
 import TopSaleProducts from "../Components/ui/HomePage/TopSaleProducts";
 import FlashSaleProducts from "../Components/ui/HomePage/FlashSaleProducts";
+import ScrollToTopButton from "../Components/ui/ScrollTopButton/ScrollToTopButton";
+import Footer from "../Components/ui/Footer/Footer";
 
 export interface TSlides {
   img: string;
@@ -9,8 +11,7 @@ export interface TSlides {
 }
 const CHomePage = () => {
   return (
-    <div className="">
-      
+    <div className="relative">
       {/* slider Section  */}
       <div className="mx-2">
         <EmblaCarousel />
@@ -22,6 +23,16 @@ const CHomePage = () => {
       {/* flash sale product */}
       <div className="my-10">
         <FlashSaleProducts />
+      </div>
+
+      {/* scroll button  */}
+      <div className="absolute">
+        <ScrollToTopButton />
+      </div>
+
+      {/* footer section  */}
+      <div>
+        <Footer />
       </div>
     </div>
   );
