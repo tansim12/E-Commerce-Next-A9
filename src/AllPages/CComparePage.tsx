@@ -4,17 +4,35 @@ import CompareActionButton from "../Components/ui/Products/CompareActionButton";
 import { getCompareProductLC } from "../utils/getComparProductLC";
 import { useGetCompareProducts } from "../hooks/product.hook";
 import ComponentsLoading from "../Components/ui/Loading/ComponentsLoading";
+import CompareNavigate from "../Components/ui/Products/CompareNavigate";
+import { FaRemoveFormat } from "react-icons/fa";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { removeCompareProductsLC } from "../utils/compareSaveProductLC";
+import toast from "react-hot-toast";
 
 const CComparePage = () => {
   const [compareIds, setCompareIds] = useState([]);
+  const [change, setChange] = useState(false);
 
   useEffect(() => {
     const savedProducts = getCompareProductLC();
     setCompareIds(savedProducts);
-  }, []);
+  }, [change]);
   const ids = compareIds?.map((item: any) => item?.productId);
 
   const { data: products, isLoading } = useGetCompareProducts(ids ? ids : []);
+
+  const handleRemove = (id: any) => {
+    console.log(id);
+    
+    const result = removeCompareProductsLC(id);
+    if (result?.status === 200) {
+      toast.success(result?.message);
+      setChange((pre: any) => !pre);
+    } else {
+      toast.error(result);
+    }
+  };
   return (
     <>
       {isLoading && <ComponentsLoading />}
@@ -30,13 +48,19 @@ const CComparePage = () => {
                   <th className="border px-4 py-2">Attribute</th>
                   {products?.map((product: any) => (
                     <th key={product?.id} className="border px-4 py-2">
-                      <div className="flex flex-col items-center">
+                      <div className="flex flex-col items-center relative">
                         <img
                           src={product?.images[0]}
                           alt={product?.productName}
                           className="w-32 h-32 object-cover mb-2"
                         />
                         <p className="font-semibold">{product?.productName}</p>
+                        <button
+                          onClick={() => handleRemove(product?.id)}
+                          className="absolute top-0 right-0"
+                        >
+                          <RiDeleteBin5Line size={28} color="red" />
+                        </button>
                       </div>
                     </th>
                   ))}
@@ -157,7 +181,7 @@ const CComparePage = () => {
             </table>
           </div>
         ) : (
-          <span>Hello</span>
+          <CompareNavigate />
         )}
       </div>
     </>

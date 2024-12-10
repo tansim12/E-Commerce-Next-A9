@@ -48,3 +48,32 @@ export const compareProductSaveLC = (
     message: "Product Added Successfully done",
   };
 };
+
+export const removeCompareProductsLC = (productId: string):any => {
+  const localStorageKey = "savedProducts";
+
+  // Retrieve the current saved products
+  const savedProducts: Product[] = JSON.parse(
+    localStorage.getItem(localStorageKey) || "[]"
+  );
+
+  // Check if the product exists
+  const productIndex = savedProducts.findIndex(
+    (product) => product.productId === productId
+  );
+
+  if (productIndex === -1) {
+    return `Product not exist in the saved list.`;
+  }
+
+  // Remove the product from the array
+  savedProducts.splice(productIndex, 1);
+
+  // Save the updated list back to localStorage
+  localStorage.setItem(localStorageKey, JSON.stringify(savedProducts));
+
+  return {
+    status: 200,
+    message: `Product has been removed successfully.`,
+  };
+};
