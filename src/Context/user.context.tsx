@@ -50,7 +50,7 @@ export const UserContextProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading,
     setParams,
     params,
-  };
+  } ;
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
 };
 

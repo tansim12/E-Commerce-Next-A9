@@ -1,7 +1,10 @@
 "use client";
+import { useCreatePayment } from "@/src/hooks/payment.hook";
+import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import toast from "react-hot-toast";
+import ComponentsLoading from "../Loading/ComponentsLoading";
 
 interface IUserInfo {
   email: string;
@@ -14,13 +17,7 @@ interface IUserInfo {
   zip: string;
 }
 
-const CheckOutFrom = ({
-  totalPrice,
-  newCartItem,
-}: {
-  totalPrice: number;
-  newCartItem: Partial<any>;
-}) => {
+const CheckOutFrom = ({ orderData }: { orderData: any }) => {
   const isLoading = false;
   const {
     register,
@@ -28,17 +25,34 @@ const CheckOutFrom = ({
     formState: { errors },
   } = useForm<IUserInfo>();
 
+  const {
+    data: paymentData,
+    mutate: handleCratePayment,
+    isError,
+    isPending,
+  } = useCreatePayment();
+
   const onSubmit: SubmitHandler<IUserInfo> = async (data) => {
     const payload = {
-      userInfo: data,
-      buyingProduct: newCartItem,
-      totalPrice,
+      payload: orderData?.cartData,
     };
-    // const res = await postCheckOutData(payload).unwrap();
+    handleCratePayment(payload);
   };
+
+  
+  useEffect(() => {
+    if (isError) {
+      toast.error("Payment Some thing went wrong, please new add to cart");
+    }
+    if (paymentData) {
+      window.location.href = paymentData.url;
+    }
+  }, [isError, paymentData]);
+
 
   return (
     <div>
+      {isPending && <ComponentsLoading />}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="">
           <label className="mt-4 mb-2 block text-sm font-medium">Email</label>
@@ -174,29 +188,27 @@ const CheckOutFrom = ({
           <div className="mt-6 border-t border-b py-2">
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium ">Subtotal</p>
-              <p className="font-semibold ">{totalPrice}৳</p>
+              <p className="font-semibold ">{orderData?.total} BDT</p>
             </div>
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium ">Tax</p>
-              <p className="font-semibold ">00 ৳</p>
+              <p className="font-semibold ">00 BDT</p>
             </div>
           </div>
           <div className="mt-6 flex items-center justify-between">
             <p className="text-sm font-medium ">Total</p>
-            <p className="text-2xl font-semibold ">
-              {totalPrice}৳
-            </p>
+            <p className="text-2xl font-semibold ">{orderData?.total} BDT</p>
           </div>
 
           <button
-            disabled={totalPrice <= 0 || isLoading}
+            disabled={orderData?.total <= 0 || isLoading}
             type="submit"
             className={`mt-4 mb-8 w-full ${
               isLoading
                 ? "rounded-full flex justify-center items-center"
                 : "rounded-md"
             } px-6 py-3 font-medium text-white ${
-              totalPrice <= 0 ? "bg-gray-400" : "bg-secondary"
+              orderData?.total <= 0 ? "bg-gray-400" : "bg-secondary"
             }`}
           >
             {isLoading ? (

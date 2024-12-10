@@ -2,9 +2,13 @@
 import { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import CheckOutFrom from "../Components/ui/CheckOut/CheckOutFrom";
+import { useAdditional } from "../Context/aditional.context";
 
 const CCheckoutPage = () => {
   const [cartItems, setCartItems] = useState<any>([]);
+  const {orderData} = useAdditional()
+  console.log({orderData});
+  
 
 
   useEffect(() => {
@@ -114,46 +118,33 @@ const CCheckoutPage = () => {
           </p>
           <div className="mt-8 space-y-3 rounded-lg border  px-2 py-4 sm:px-6">
             {/* showing buyingCart data  */}
-            {cartItems?.length ? (
-              cartItems?.map((item:any) => (
-                <div
-                  key={item.id}
-                  className="flex justify-between items-center my-4  border-b-2 p-2 relative "
-                >
-                  <button
-                    // onClick={() => handleDeleteCartData(item?._id)}
-                    className="absolute top-0 left-0"
-                  >
-                    <MdDeleteForever size={25} color="#2b2b2b" />
-                  </button>
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-12 h-12 object-contain"
-                  />
-                  <div className="flex-1 ml-4">
-                    <p className="text-sm font-semibold">{item.name}</p>
-                    <div className="text-gray-500">
-                      {item.price}৳ × {item.buyQuantity} ={" "}
-                      {item.price * item.buyQuantity}৳
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <button
-                      // onClick={() => handleQuantityChange(item._id, 1)}
-                      className="bg-green-600 text-white px-2 py-1 font-bold rounded-md"
-                    >
-                      +
-                    </button>
-                    <button
-                      // onClick={() => handleQuantityChange(item._id, -1)}
-                      className="bg-red-600 text-white px-2 py-1 font-bold rounded-md mt-1"
-                    >
-                      -
-                    </button>
-                  </div>
-                </div>
-              ))
+            {orderData?.cartData?.length ? (
+              <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse border border-gray-200">
+                <thead className="">
+                  <tr>
+                    <th className="border border-gray-300 px-4 py-2 text-left">
+                      Product Name
+                    </th>
+                    <th className="border border-gray-300 px-4 py-2 text-left">
+                      Buy Quantity
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orderData?.cartData?.map((item:any) => (
+                    <tr key={item.id} className="hover:bg-gray-900">
+                      <td className="border border-gray-300 px-4 py-2">
+                        {item.productName}
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        {item.buyQuantity}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             ) : (
               <span className="flex justify-center items-center text-secondary">
                 There Is No Data Available 😢
@@ -220,8 +211,7 @@ const CCheckoutPage = () => {
           {/* checkout form  */}
           <div className="mt-20">
             <CheckOutFrom
-              newCartItem={[] as Partial<any>}
-              totalPrice={200}
+              orderData={orderData}
             />
           </div>
         </div>

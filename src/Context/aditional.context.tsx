@@ -28,7 +28,7 @@ export const AdditionalContextProvider = ({
   const [isLoadingAdditional, setIsLoadingAdditional] = useState(true);
   const [cartData, setCartData] = useState<TCartData[]>([]);
   const [totalCartProducts, setTotalCartProducts] = useState(0);
-  const [orderData, setOrderData] = useState([]);
+  const [orderData, setOrderData] = useState({});
 
   useEffect(() => {
     const handleUser = async () => {

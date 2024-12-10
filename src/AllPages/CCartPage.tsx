@@ -11,8 +11,7 @@ import emptyPhoto from "../assets/empty-cart.png";
 import Image from "next/image";
 import { useUser } from "../Context/user.context";
 import { useRouter } from "next/navigation";
-import { useCreatePayment } from "../hooks/payment.hook";
-import ComponentsLoading from "../Components/ui/Loading/ComponentsLoading";
+
 
 const CCartPage = () => {
   const router = useRouter();
@@ -22,7 +21,7 @@ const CCartPage = () => {
   const [discount, setDiscount] = useState<number>(0); // Store the discount
   const { setIsLoadingAdditional } = useAdditional();
   const { user } = useUser();
-  const {setOrderData} = useAdditional()
+  const { setOrderData } = useAdditional();
 
   // Load cart data from localStorage
   useEffect(() => {
@@ -86,31 +85,6 @@ const CCartPage = () => {
     return total - (total * discount) / 100;
   };
 
-  const {
-    data: paymentData,
-    mutate: handleCratePayment,
-    isError,
-    isPending,
-  } = useCreatePayment();
-
-  const handleConfirmOrder = () => {
-    if (!user) {
-      return router.push("/login");
-    }
-    const payload = {
-      payload: cartData,
-    };
-    handleCratePayment(payload);
-  };
-
-  useEffect(() => {
-    if (isError) {
-      toast.error("Payment Some thing went wrong, please new add to cart");
-    }
-    if (paymentData) {
-      window.location.href = paymentData.url;
-    }
-  }, [isError, paymentData]);
 
   if (!cartData.length) {
     return (
@@ -127,9 +101,21 @@ const CCartPage = () => {
     );
   }
 
+  const handleCheckout = () => {
+    if (!user) {
+      return router.push("/login");
+    }
+    const payload = {
+      total: discountedTotal().toLocaleString(),
+      subTotal: calculateTotal().toLocaleString(),
+      cartData,
+    };
+    setOrderData(payload);
+    router.push("/checkout");
+  };
   return (
     <>
-      {isPending && <ComponentsLoading />}
+      
       <div className="p-6">
         <div className="mx-auto border-primary border shadow-md rounded-lg overflow-hidden">
           <div className="p-6 border-b">
@@ -141,7 +127,7 @@ const CCartPage = () => {
               <thead>
                 <tr className="text-sm md:text-[16px]">
                   <th className="p-4 text-left">Image</th>
-               
+
                   <th className="p-4 text-left">Product Name</th>
                   <th className="p-4 text-left">Promo</th>
                   <th className="p-4 text-left">Quantity</th>
@@ -222,23 +208,23 @@ const CCartPage = () => {
             <div className="flex justify-between items-center">
               <p className="text-xl font-bold">Sub-Total:</p>
               <p className="text-xl font-bold text-red-600">
-                {calculateTotal().toLocaleString()}৳
+                {calculateTotal().toLocaleString()} BDT
               </p>
             </div>
             <div className="flex justify-between items-center mt-2">
               <p className="text-xl font-bold">Total:</p>
               <p className="text-xl font-bold text-red-600">
-                {discountedTotal().toLocaleString()}৳
+                {discountedTotal().toLocaleString()} BDT
               </p>
             </div>
           </div>
 
           <div className="p-6 border-t flex justify-end">
             <button
-              onClick={handleConfirmOrder}
+              onClick={handleCheckout}
               className="bg-green-500 text-white px-6 py-2 rounded"
             >
-              Confirm Order
+              Checkout
             </button>
           </div>
         </div>
