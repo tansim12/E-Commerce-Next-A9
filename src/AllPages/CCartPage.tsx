@@ -22,6 +22,7 @@ const CCartPage = () => {
   const [discount, setDiscount] = useState<number>(0); // Store the discount
   const { setIsLoadingAdditional } = useAdditional();
   const { user } = useUser();
+  const {setOrderData} = useAdditional()
 
   // Load cart data from localStorage
   useEffect(() => {

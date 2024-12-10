@@ -11,6 +11,8 @@ import { getAddToCartData } from "../utils/getLCData";
 type TProviderValue = {
   cartData: TCartData[];
   setCartData: React.Dispatch<React.SetStateAction<TCartData[]>>;
+  orderData: any;
+  setOrderData: any;
   isLoadingAdditional: boolean;
   setIsLoadingAdditional: React.Dispatch<React.SetStateAction<boolean>>;
   totalCartProducts: number;
@@ -26,6 +28,7 @@ export const AdditionalContextProvider = ({
   const [isLoadingAdditional, setIsLoadingAdditional] = useState(true);
   const [cartData, setCartData] = useState<TCartData[]>([]);
   const [totalCartProducts, setTotalCartProducts] = useState(0);
+  const [orderData, setOrderData] = useState([]);
 
   useEffect(() => {
     const handleUser = async () => {
@@ -44,6 +47,8 @@ export const AdditionalContextProvider = ({
     isLoadingAdditional,
     setIsLoadingAdditional,
     totalCartProducts,
+    orderData,
+    setOrderData,
   };
 
   return (
