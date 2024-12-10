@@ -22,9 +22,7 @@ const CComparePage = () => {
 
   const { data: products, isLoading } = useGetCompareProducts(ids ? ids : []);
 
-  const handleRemove = (id: any) => {
-    console.log(id);
-    
+  const handleRemove = (id: any) => {  
     const result = removeCompareProductsLC(id);
     if (result?.status === 200) {
       toast.success(result?.message);

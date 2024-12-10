@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 
-
 import toast from "react-hot-toast";
 import { GoCodeReview } from "react-icons/go";
 import { Button, Input, Tabs, Tab } from "@nextui-org/react";
@@ -17,6 +16,8 @@ import { usePublicSingleProduct } from "../hooks/product.hook";
 import { useRouter } from "next/navigation";
 import { BsShop } from "react-icons/bs";
 import ShopProfile from "../Components/ui/Shop/ShopProfile";
+import { trackViewedProduct } from "../utils/productHistorySaveLC";
+
 
 const CProductDetailsPage = ({ id }: { id: any }) => {
   const router = useRouter();
@@ -28,11 +29,12 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
     isSuccess,
   } = usePublicSingleProduct(id);
 
-
-
   const relatedProductData = productData?.relatedProduct;
   const productDetails = productData?.result;
-  console.log({ relatedProductData, productDetails });
+
+  useEffect(() => {
+    trackViewedProduct(productDetails?.id, productDetails?.shopId);
+  }, [productDetails]);
 
   // const {result, resentProducts} = productData
 
@@ -49,9 +51,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
 
   //   const updateBuyingData = useAppDispatch();
   // handleCheckOutPage
-  const handleCheckOutPage = (item: Partial<any>) => {
-   
-  };
+  const handleCheckOutPage = (item: Partial<any>) => {};
 
   return (
     <div className="container mx-auto ">
@@ -118,8 +118,6 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
                   : "N/A"}
               </span>
             </div>
-
-            
           </div>
           <div className="mt-4">
             <div className="flex items-center mb-1">
@@ -129,7 +127,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
                 type="number"
                 min={1}
                 value={buyQuantity as never}
-                onChange={(e:any) => setBuyQuantity(e.target.valueAsNumber)}
+                onChange={(e: any) => setBuyQuantity(e.target.valueAsNumber)}
               />
             </div>
             <p>
@@ -182,7 +180,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
 
       <div className="border-b my-8 min-h-[40vh]">
         <div className="container mx-auto px-4">
-          <Tabs aria-label="Profile Tabs" color="primary" variant="bordered" >
+          <Tabs aria-label="Profile Tabs" color="primary" variant="bordered">
             <Tab
               key="Details"
               title={
