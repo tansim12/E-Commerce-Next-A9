@@ -33,7 +33,7 @@ const ProductCard = ({
   };
 
   const clickDetailsPage = (id: string) => {
-    router.push(`/products/${id}`);
+    router.push(`/product-details/${id}`);
   };
   const { setIsLoadingAdditional } = useAdditional();
   const handleAddToCartButton = (data: any) => {

@@ -16,6 +16,10 @@ export const siteConfig = {
       label: "Compare",
       href: "/compare",
     },
+    {
+      label: "History",
+      href: "/history",
+    },
   ],
   navMenuItems: [
     {
@@ -29,6 +33,10 @@ export const siteConfig = {
     {
       label: "Compare",
       href: "/compare",
+    },
+    {
+      label: "History",
+      href: "/history",
     },
   ],
 };

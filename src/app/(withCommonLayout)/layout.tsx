@@ -10,7 +10,7 @@ const CommonLayout = ({ children }: childrenProps) => {
       <div className="mb-10 pt-20  w-full">
         <CategoryAndSubCategory />
       </div>
-      <div className="mt-20">{children}</div>
+      <div className="">{children}</div>
     </div>
   );
 };

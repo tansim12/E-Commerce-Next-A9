@@ -1,14 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 
-// import { availableProduct, TProduct } from "../../types/products.type";
-// import { discountPrice } from "../../utils/discountPrice";
-// import { handleAddToCart } from "../../utils/addToCartFn";
-// import { TCartData } from "../../types/addToCart.type";
+
 import toast from "react-hot-toast";
 import { GoCodeReview } from "react-icons/go";
-// import { buyingData } from "../../Redux/Features/Check Out/checkOut.slice";
-// import { addToCartAction } from "../../Redux/Features/AddToCart/addToCart.slice";
 import { Button, Input, Tabs, Tab } from "@nextui-org/react";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
@@ -25,7 +20,6 @@ import ShopProfile from "../Components/ui/Shop/ShopProfile";
 
 const CProductDetailsPage = ({ id }: { id: any }) => {
   const router = useRouter();
-  //   const updateAddToCart = useAppDispatch();
 
   const {
     data: productData,
@@ -34,8 +28,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
     isSuccess,
   } = usePublicSingleProduct(id);
 
-  //   const { id } = useParams();
-  //   const { data } = useGetOneProductQuery(id);
+
 
   const relatedProductData = productData?.relatedProduct;
   const productDetails = productData?.result;
@@ -57,19 +50,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
   //   const updateBuyingData = useAppDispatch();
   // handleCheckOutPage
   const handleCheckOutPage = (item: Partial<any>) => {
-    // updateBuyingData(
-    //   buyingData([
-    //     {
-    //       _id: item?._id,
-    //       name: item?.name,
-    //       image: item?.image?.[0],
-    //       quantity: item?.quantity,
-    //       buyQuantity: buyQuantity,
-    //       price: item?.price,
-    //     },
-    //   ])
-    // );
-    // navigate("/checkout");
+   
   };
 
   return (
@@ -273,51 +254,3 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
 };
 
 export default CProductDetailsPage;
-
-// "result": {
-//             "id": "65b0f522-2175-478a-a5d0-32a307cc8abd",
-//             "productName": "Bangla Book",
-//             "quantity": 10,
-//             "isAvailable": true,
-//             "totalBuy": 10,
-//             "price": 500,
-//             "discount": 50,
-//             "promo": "PROMO",
-//             "isActivePromo": true,
-//             "isFlashSaleOffer": true,
-//             "flashSaleDiscount": 100,
-//             "flashSaleStartDate": "2024-12-16T18:00:00.000Z",
-//             "flashSaleEndDate": "2024-12-25T18:00:00.000Z",
-//             "shopId": "b4c4e012-5e67-4ed2-af9f-f3ecb170207e",
-//             "description": "<p>Book</p>",
-//             "totalSubmitRating": 0,
-//             "averageRating": 0,
-//             "images": [
-//                 "https://i.ibb.co/HFShx5W/istockphoto-516982507-612x612.jpg",
-//                 "https://i.ibb.co/qmZyP2P/istockphoto-519319260-612x612.jpg",
-//                 "https://i.ibb.co/7yc7dDx/istockphoto-521706772-612x612.jpg"
-//             ],
-//             "categoryId": "c401aab6-f018-4969-aac2-43db3dc9a2c3",
-//             "subCategoryId": "72598561-c2a8-4957-8855-26964aeb4212",
-//             "isDelete": false,
-//             "createdAt": "2024-12-06T18:11:17.710Z",
-//             "updatedAt": "2024-12-06T18:12:18.747Z",
-//             "category": {
-//                 "categoryName": "Book",
-//                 "id": "c401aab6-f018-4969-aac2-43db3dc9a2c3"
-//             },
-//             "subCategory": {
-//                 "categoryName": "Bangla",
-//                 "id": "72598561-c2a8-4957-8855-26964aeb4212"
-//             }
-//         },
-
-// "shop": {
-//                 "logo": "https://i.ibb.co/59Qnc32/istockphoto-519319260-612x612.jpg",
-//                 "name": "Shopno",
-//                 "_count": {
-//                     "shopReview": 0,
-//                     "shopFollow": 0,
-//                     "product": 6
-//                 }
-//             }
