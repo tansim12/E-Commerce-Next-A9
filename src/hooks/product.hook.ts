@@ -5,6 +5,7 @@ import {
   findShopAllProductsAction,
   publicAllProductsAction,
   publicFlashSaleProductsAction,
+  publicProductCompareAction,
   publicPromoCheckAction,
   publicSingleProductAction,
   publicTopSaleProductsAction,
@@ -117,5 +118,11 @@ export const usePublicAllProducts = (
   return useQuery({
     queryKey: ["PUBLIC_ALL_PRODUCTS", page, pageSize, params],
     queryFn: async () => await publicAllProductsAction(page, pageSize, params),
+  });
+};
+export const useGetCompareProducts = (payload: any) => {
+  return useQuery({
+    queryKey: ["COMPARE_PRODUCTS",payload],
+    queryFn: async () => await publicProductCompareAction(payload),
   });
 };

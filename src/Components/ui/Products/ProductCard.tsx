@@ -179,7 +179,7 @@ const ProductCard = ({
       )}
       {showBuyButton && (
         <div className="px-3 ">
-          <CompareButton />
+          <CompareButton item={item} />
         </div>
       )}
     </div>

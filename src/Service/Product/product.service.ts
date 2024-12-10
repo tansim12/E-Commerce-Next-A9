@@ -163,11 +163,23 @@ export const publicAllProductsAction = async (
     });
   }
   console.log(params.toString());
-  
+
   try {
     const res = await axiosInstance.get(`/product?${params.toString()}`);
     return res?.data?.data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const publicProductCompareAction = async (payload: any) => {
+  try {
+    const res = await axiosInstance.post(
+      `/product/compare/compare-products`,
+      payload
+    );
+    return res.data?.data;
+  } catch (error) {
+    // console.log(error);
   }
 };
