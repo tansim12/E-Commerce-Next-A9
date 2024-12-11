@@ -74,8 +74,6 @@ export const publicFindSingleShopAction = async (
 
   try {
     const res = await axiosInstance.get(`/shop/${shopId}?${params.toString()}`);
-    console.log(res?.data?.data);
-    
     return res?.data?.data;
   } catch (error) {
     console.log(error);
