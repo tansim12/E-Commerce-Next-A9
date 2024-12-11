@@ -85,6 +85,7 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
             </div>
 
             <div
+             className="text-center"
               dangerouslySetInnerHTML={{
                 __html: data?.description ? data?.description : "N/A",
               }}
@@ -95,7 +96,7 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
 
       {/* product show div  */}
       <div className="my-10">
-        <p className="text-2xl text-center font-bold mb-5">Shop Products </p>
+        <p className="text-2xl text-center font-bold mb-10">Shop Products </p>
         {shopProducts?.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {shopProducts?.map((item: any) => (

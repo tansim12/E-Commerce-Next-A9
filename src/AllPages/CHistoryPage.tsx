@@ -33,7 +33,7 @@ const CHistoryPage = () => {
 
   return (
     <>
-      <div>
+      <div className="min-h-screen">
         <div>
           {products?.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -51,7 +51,7 @@ const CHistoryPage = () => {
             </div>
           ) : (
             <span className="text-xl flex justify-center items-center ">
-              No data 😥
+              No history 😥
             </span>
           )}
         </div>
