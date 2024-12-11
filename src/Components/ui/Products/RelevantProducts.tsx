@@ -4,8 +4,10 @@ import { usePublicRelevantProducts } from "@/src/hooks/product.hook";
 import { getHistoryData } from "@/src/utils/productHistorySaveLC";
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import infiniteScrollFn from "@/src/utils/infiniteScrollFn";
 
 const RelevantProducts = () => {
+  const [allProductsData, setAllProductsData] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [compareIds, setCompareIds] = useState([]);
@@ -25,17 +27,26 @@ const RelevantProducts = () => {
     pageSize,
     []
   );
-  console.log({ data });
+  useEffect(() => {
+    if (data?.result) {
+      if (page > 1) {
+        setAllProductsData((prevData) => [...prevData, ...data?.result] as any);
+      } else {
+        setAllProductsData([...data?.result] as any);
+      }
+    }
+  }, [data, page]);
+  infiniteScrollFn(page, setPage, data?.meta?.total, pageSize);
 
   return (
     <>
       <div className="my-28">
         <div>
-            <p className="text-3xl text-center my-10 font-bold">Your Products</p>
+          <p className="text-3xl text-center my-10 font-bold">Your Products</p>
         </div>
-        {data?.result?.length ? (
+        {allProductsData?.length ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {data?.result?.map((item: any) => <ProductCard item={item} />)}
+            {allProductsData?.map((item: any) => <ProductCard item={item} />)}
           </div>
         ) : (
           <span className="text-center text-2xl">No Data </span>
