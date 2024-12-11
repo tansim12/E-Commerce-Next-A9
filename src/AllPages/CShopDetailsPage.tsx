@@ -1,13 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TQueryParams } from "../Types/Filter/filter.type";
 import { usePublicFindSingleShop } from "../hooks/shop.hook";
 import Image from "next/image";
 import { Rating } from "@smastrom/react-rating";
 import moment from "moment";
 import ProductCard from "../Components/ui/Products/ProductCard";
+import infiniteScrollFn from "../utils/infiniteScrollFn";
+import ComponentsLoading from "../Components/ui/Loading/ComponentsLoading";
 
 const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
+  const [allProductsData, setAllProductsData] = useState([]);
   const [params, setParams] = useState<TQueryParams[] | []>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -22,8 +25,22 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
   const data = shopData?.result;
   const shopProducts = shopData?.result?.product;
 
+  useEffect(() => {
+    if (shopData?.result?.product) {
+      if (page > 1) {
+        setAllProductsData(
+          (prevData) => [...prevData, ...shopData?.result?.product] as any
+        );
+      } else {
+        setAllProductsData([...shopData?.result?.product] as any);
+      }
+    }
+  }, [data, page]);
+  infiniteScrollFn(page, setPage, shopData?.meta?.total, pageSize);
+
   return (
     <>
+      {isShopDataPending && <ComponentsLoading />}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 justify-between items-center">
         {/* shop details div  */}
         <div>
@@ -85,7 +102,7 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
             </div>
 
             <div
-             className="text-center"
+              className="text-center"
               dangerouslySetInnerHTML={{
                 __html: data?.description ? data?.description : "N/A",
               }}
@@ -97,9 +114,9 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
       {/* product show div  */}
       <div className="my-10">
         <p className="text-2xl text-center font-bold mb-10">Shop Products </p>
-        {shopProducts?.length > 0 ? (
+        {allProductsData?.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {shopProducts?.map((item: any) => (
+            {allProductsData?.map((item: any) => (
               <ProductCard item={item} showBuyButton={true} />
             ))}
           </div>
