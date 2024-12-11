@@ -1,3 +1,4 @@
+import Footer from "@/src/Components/ui/Footer/Footer";
 import CategoryAndSubCategory from "@/src/Components/ui/HomePage/CategoryAndSubCategory";
 import { Navbar } from "@/src/Components/ui/Navbar";
 import { childrenProps } from "@/src/Types";
@@ -11,6 +12,10 @@ const CommonLayout = ({ children }: childrenProps) => {
         <CategoryAndSubCategory />
       </div>
       <div className="">{children}</div>
+      {/* footer section  */}
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 };

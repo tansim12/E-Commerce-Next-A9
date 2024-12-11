@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   adminFindAllShopsAction,
   createShopAction,
+  publicFindSingleShopAction,
   shopUpdateAction,
   vendorFindHisShopAction,
 } from "../Service/Shop/shop.service";
@@ -58,5 +59,17 @@ export const useAdminFindAllShops = (
   return useQuery({
     queryKey: ["ADMIN_FIND_Shop", page, pageSize, params],
     queryFn: async () => await adminFindAllShopsAction(page, pageSize, params),
+  });
+};
+export const usePublicFindSingleShop = (
+  shopId: string,
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["PUBLIC_FIND_SINGLE_SHOP", shopId, page, pageSize, params],
+    queryFn: async () =>
+      await publicFindSingleShopAction(shopId, page, pageSize, params),
   });
 };

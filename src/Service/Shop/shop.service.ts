@@ -54,3 +54,30 @@ export const adminFindAllShopsAction = async (
     console.log(error);
   }
 };
+export const publicFindSingleShopAction = async (
+  shopId: string,
+  page: number,
+  pageSize: number,
+  args: TQueryParams[]
+) => {
+  const params = new URLSearchParams();
+
+  params.append("page", page.toString());
+  params.append("limit", pageSize.toString());
+
+  // Loop through the args to dynamically append query parameters
+  if (args) {
+    args.forEach((item: TQueryParams) => {
+      params.append(item.name, String(item.value)); // Convert value to string
+    });
+  }
+
+  try {
+    const res = await axiosInstance.get(`/shop/${shopId}?${params.toString()}`);
+    console.log(res?.data?.data);
+    
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

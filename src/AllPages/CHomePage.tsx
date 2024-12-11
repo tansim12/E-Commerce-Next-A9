@@ -3,7 +3,6 @@ import EmblaCarousel from "../Components/ui/Slider/EmblaCarousel";
 import TopSaleProducts from "../Components/ui/HomePage/TopSaleProducts";
 import FlashSaleProducts from "../Components/ui/HomePage/FlashSaleProducts";
 import ScrollToTopButton from "../Components/ui/ScrollTopButton/ScrollToTopButton";
-import Footer from "../Components/ui/Footer/Footer";
 
 export interface TSlides {
   img: string;
@@ -30,10 +29,7 @@ const CHomePage = () => {
         <ScrollToTopButton />
       </div>
 
-      {/* footer section  */}
-      <div>
-        <Footer />
-      </div>
+     
     </div>
   );
 };

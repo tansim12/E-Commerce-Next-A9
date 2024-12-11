@@ -17,11 +17,14 @@ import { useRouter } from "next/navigation";
 import { BsShop } from "react-icons/bs";
 import ShopProfile from "../Components/ui/Shop/ShopProfile";
 import { trackViewedProduct } from "../utils/productHistorySaveLC";
-
+import { useAdditional } from "../Context/aditional.context";
+import { handleAddToCart } from "../utils/addToCartFn";
+import moment from "moment";
+import ProductCard from "../Components/ui/Products/ProductCard";
 
 const CProductDetailsPage = ({ id }: { id: any }) => {
   const router = useRouter();
-
+  const { setIsLoadingAdditional } = useAdditional();
   const {
     data: productData,
     isPending: isProductDataPending,
@@ -39,19 +42,27 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
   // const {result, resentProducts} = productData
 
   const [buyQuantity, setBuyQuantity] = useState(1);
-  //   const handleAddToCartButton = (data: Partial<any>) => {
-  //     updateAddToCart(addToCartAction("increment"));
-  //     const result = handleAddToCart(data);
-  //     if (result?.status === true) {
-  //       toast.success(result?.message);
-  //     } else {
-  //       toast?.error(result?.message);
-  //     }
-  //   };
 
-  //   const updateBuyingData = useAppDispatch();
-  // handleCheckOutPage
-  const handleCheckOutPage = (item: Partial<any>) => {};
+  const handleAddToCartButton = (data: any) => {
+    const result = handleAddToCart(data);
+    if (result?.status === true) {
+      toast.success(result?.message);
+      setIsLoadingAdditional((pre: any) => !pre);
+    } else {
+      toast?.error(result?.message);
+    }
+  };
+
+  const handleAddToCartButtonBuy = (data: any) => {
+    const result = handleAddToCart(data);
+    if (result?.status === true) {
+      toast.success(result?.message);
+      setIsLoadingAdditional((pre: any) => !pre);
+      router.push("/cart");
+    } else {
+      toast?.error(result?.message);
+    }
+  };
 
   return (
     <div className="container mx-auto ">
@@ -110,13 +121,36 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
             </div>
             <div className="flex items-center mb-2">
               <span className="w-24 font-semibold ">Promo:</span>
-              <span>
+              <span className=" text-primary">
                 {productDetails?.promo &&
                 productDetails?.isFlashSaleOffer &&
                 productDetails?.isActivePromo
                   ? productDetails?.promo
                   : "N/A"}
               </span>
+            </div>
+            <div className="flex items-center mb-2">
+              <span className="w-40 font-semibold ">Flash Sale Discount :</span>
+              <span>
+                {productDetails?.promo &&
+                productDetails?.isFlashSaleOffer &&
+                productDetails?.isActivePromo
+                  ? productDetails?.flashSaleDiscount
+                  : "N/A"}
+              </span>
+            </div>
+            <div className="flex items-center mb-2">
+              <span className="w-40 font-semibold ">Flash Sale Date :</span>
+              {productDetails?.promo &&
+              productDetails?.isFlashSaleOffer &&
+              productDetails?.isActivePromo ? (
+                <span>
+                  {moment(productDetails?.flashSaleStartDate).format("ll")} -{" "}
+                  {moment(productDetails?.flashSaleEndDate).format("ll")}
+                </span>
+              ) : (
+                <span>N/A</span>
+              )}
             </div>
           </div>
           <div className="mt-4">
@@ -145,7 +179,25 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
                 productDetails?.isAvailable !== true ||
                 buyQuantity > (productDetails?.quantity as number)
               }
-              onClick={() => handleCheckOutPage(productDetails)}
+              onClick={() => {
+                if (productDetails?.isAvailable !== true) {
+                  toast.error("This Product Stock Out 😢");
+                } else {
+                  handleAddToCartButtonBuy({
+                    id: productDetails?.id,
+                    shopName: productDetails?.shop?.name,
+                    image: productDetails?.images?.[0],
+                    buyQuantity: 1,
+                    productName: productDetails?.productName,
+                    shopId: productDetails?.shopId,
+                    price: discountPrice(
+                      productDetails?.price,
+                      productDetails?.discount
+                    ),
+                    quantity: productDetails?.quantity,
+                  });
+                }
+              }}
               color="primary"
             >
               Buy Now
@@ -155,25 +207,50 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
                 productDetails?.isAvailable !== true ||
                 buyQuantity > (productDetails?.quantity as number)
               }
-              //   onClick={() =>
-              //     handleAddToCartButton({
-              //       _id: productData?._id,
-              //       image: productData?.image?.[0],
-              //       buyQuantity: buyQuantity,
-              //       name: productData?.name,
-              //       price: discountPrice(
-              //         productData?.price,
-              //         productData?.discount
-              //       ),
-              //       quantity: productData?.quantity,
-              //     })
-              //   }
+              onClick={() => {
+                if (productDetails?.isAvailable !== true) {
+                  toast.error("This Product Stock Out 😢");
+                } else {
+                  handleAddToCartButton({
+                    id: productDetails?.id,
+                    shopName: productDetails?.shop?.name,
+                    image: productDetails?.images?.[0],
+                    buyQuantity: 1,
+                    productName: productDetails?.productName,
+                    shopId: productDetails?.shopId,
+                    price: discountPrice(
+                      productDetails?.price,
+                      productDetails?.discount
+                    ),
+                    quantity: productDetails?.quantity,
+                  });
+                }
+              }}
             >
               Add to Cart
             </Button>
-            <Button>Save</Button>
+            <Button
+              onClick={() => router.push(`/shop/${productDetails?.shopId}`)}
+            >
+              Go To Shop
+            </Button>
           </div>
         </div>
+      </div>
+
+      {/* related products  */}
+      <div className="my-10">
+        <p className="text-3xl font-bold text-center mb-5">Related Products</p>
+
+        {relatedProductData?.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {relatedProductData?.map((item: any) => (
+              <ProductCard item={item} showBuyButton={true} />
+            ))}
+          </div>
+        ) : (
+          <span>NO related data here</span>
+        )}
       </div>
 
       {/* Tabs Section */}
