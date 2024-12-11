@@ -1,7 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   adminFindAllShopsAction,
+  createFollowAndUnFollowShopAction,
   createShopAction,
+  findSingleUserFollowAction,
   publicFindSingleShopAction,
   shopUpdateAction,
   vendorFindHisShopAction,
@@ -71,5 +73,27 @@ export const usePublicFindSingleShop = (
     queryKey: ["PUBLIC_FIND_SINGLE_SHOP", shopId, page, pageSize, params],
     queryFn: async () =>
       await publicFindSingleShopAction(shopId, page, pageSize, params),
+  });
+};
+
+export const useFindSingleUserFollow = () => {
+  return useQuery({
+    queryKey: ["SINGLE_USER_SHOP_FOLLOW"],
+    queryFn: async () => await findSingleUserFollowAction(),
+  });
+};
+
+export const useCreateFollowAndUnFollowShop = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["CREATE_SHOP_FOLLOW_AND_UNFOLLOW"],
+    mutationFn: async ({ payload }: { payload: any }) => {
+      return await createFollowAndUnFollowShopAction(payload);
+    },
+    onSuccess: (_data, _variables) => {
+      queryClient.refetchQueries(["SINGLE_USER_SHOP_FOLLOW"] as any);
+      queryClient.refetchQueries(["PUBLIC_FIND_SINGLE_SHOP"] as any);
+    },
   });
 };

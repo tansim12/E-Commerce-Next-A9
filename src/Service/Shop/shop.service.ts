@@ -79,3 +79,22 @@ export const publicFindSingleShopAction = async (
     console.log(error);
   }
 };
+
+export const findSingleUserFollowAction = async () => {
+  try {
+    const res = await axiosInstance.get(`/shop/user/shop-following`);
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const createFollowAndUnFollowShopAction = async (payload: any) => {
+  try {
+    console.log(payload);
+    
+    const res = await axiosInstance.post(`/shop/user/shop-following`, payload);
+    return res?.data?.data;
+  } catch (error) {
+    // console.log(error);
+  }
+};

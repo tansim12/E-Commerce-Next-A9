@@ -8,6 +8,7 @@ import moment from "moment";
 import ProductCard from "../Components/ui/Products/ProductCard";
 import infiniteScrollFn from "../utils/infiniteScrollFn";
 import ComponentsLoading from "../Components/ui/Loading/ComponentsLoading";
+import ShopFollowButton from "../Components/ui/Shop/ShopFollowButton";
 
 const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
   const [allProductsData, setAllProductsData] = useState([]);
@@ -98,6 +99,9 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
                   "https://i.ibb.co/59Qnc32/istockphoto-519319260-612x612.jpg"
                 }
               />
+            </div>
+            <div className="flex justify-center items-center my-3">
+              <ShopFollowButton shopId={data?.id} />
             </div>
 
             <div
