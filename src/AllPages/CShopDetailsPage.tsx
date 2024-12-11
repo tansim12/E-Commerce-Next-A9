@@ -35,7 +35,7 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
         setAllProductsData([...shopData?.result?.product] as any);
       }
     }
-  }, [data, page]);
+  }, [shopData?.result?.product, page]);
   infiniteScrollFn(page, setPage, shopData?.meta?.total, pageSize);
 
   return (
