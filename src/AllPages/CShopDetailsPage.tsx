@@ -53,35 +53,34 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
                 ({data?._count?.payment} orders)
               </span>
               {data?.isDelete === false && (
-                <span className="ml-2 text-green-600">Active</span>
+                <span className="ml-2 text-green-600"> Active</span>
               )}
 
               {data?.isDelete === true && (
-                <span className="ml-2 text-red-600">Deleted</span>
+                <span className="ml-2 text-red-600"> Deleted</span>
               )}
             </div>
 
             <div className="mt-4">
               <div className="flex items-center mb-2">
-                <span className="w-40 font-semibold">Shop Type:</span>
-                <span>{data?.shopType}</span>
+                <span className=" font-semibold mr-3">Shop Type:</span>
+                <span> {data?.shopType}</span>
               </div>
 
               <div className="flex items-center mb-2">
-                <span className=" font-semibold ">Contact Number:</span>
-                <span>{data?.contactNumber ? data?.contactNumber : "N/A"}</span>
-              </div>
-              <div className="flex items-center mb-2">
-                <span className=" font-semibold ">Address :</span>
-                <span>{data?.address ? data?.address : "N/A"}</span>
+                <span className=" font-semibold mr-3">Contact Number:</span>
+                <span>
+                  {" "}
+                  {data?.contactNumber ? data?.contactNumber : "N/A"}
+                </span>
               </div>
 
               <div className="flex items-center mb-2">
-                <span className=" font-semibold ">Address :</span>
-                <span>{data?.address ? data?.address : "N/A"}</span>
+                <span className=" font-semibold mr-3">Address :</span>
+                <span> {data?.address ? data?.address : "N/A"}</span>
               </div>
               <div className="flex items-center mb-2">
-                <span className=" font-semibold ">Shop Register : </span>
+                <span className=" font-semibold mr-3">Shop Register : </span>
                 <span> {moment(data?.createdAt).format("ll")}</span>
               </div>
             </div>
