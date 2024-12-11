@@ -1,10 +1,15 @@
 interface RecentProduct {
   productId: string;
   shopId: string;
+  categoryId: string;
   viewedAt?: string; // Timestamp of when the product was viewed
 }
 
-export const trackViewedProduct = (productId: string, shopId: string) => {
+export const trackViewedProduct = (
+  productId: string,
+  shopId: string,
+  categoryId: string
+) => {
   const localStorageKey = "recentProducts";
   const maxRecentProducts = 10;
   if (!productId || !shopId) {
@@ -29,6 +34,7 @@ export const trackViewedProduct = (productId: string, shopId: string) => {
   // Add the new product to the beginning of the array
   recentProducts.unshift({
     productId,
+    categoryId,
     shopId,
     viewedAt: new Date().toISOString(),
   });
@@ -40,7 +46,6 @@ export const trackViewedProduct = (productId: string, shopId: string) => {
   localStorage.setItem(localStorageKey, JSON.stringify(updatedProducts));
 };
 
-
 export const getHistoryData = () => {
   const localStorageKey = "recentProducts";
   // Retrieve the saved data from local storage and parse it
@@ -50,8 +55,7 @@ export const getHistoryData = () => {
   return savedProducts;
 };
 
-
-export const removeHistoryProductsLC = (productId: string):any => {
+export const removeHistoryProductsLC = (productId: string): any => {
   const localStorageKey = "recentProducts";
 
   // Retrieve the current saved products

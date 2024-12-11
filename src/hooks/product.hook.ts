@@ -7,6 +7,7 @@ import {
   publicFlashSaleProductsAction,
   publicProductCompareAction,
   publicPromoCheckAction,
+  publicRelevantProductActions,
   publicSingleProductAction,
   publicTopSaleProductsAction,
   updateProductAction,
@@ -120,9 +121,22 @@ export const usePublicAllProducts = (
     queryFn: async () => await publicAllProductsAction(page, pageSize, params),
   });
 };
+
+export const usePublicRelevantProducts = (
+  payload: any,
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["PUBLIC_RELEVANT_PRODUCTS", payload, page, pageSize, params],
+    queryFn: async () =>
+      await publicRelevantProductActions(payload, page, pageSize, params),
+  });
+};
 export const useGetCompareProducts = (payload: any) => {
   return useQuery({
-    queryKey: ["COMPARE_PRODUCTS",payload],
+    queryKey: ["COMPARE_PRODUCTS", payload],
     queryFn: async () => await publicProductCompareAction(payload),
   });
 };

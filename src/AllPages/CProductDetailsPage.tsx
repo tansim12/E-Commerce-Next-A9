@@ -36,8 +36,12 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
   const productDetails = productData?.result;
 
   useEffect(() => {
-    trackViewedProduct(productDetails?.id, productDetails?.shopId);
-  }, [productDetails]);
+    trackViewedProduct(
+      productDetails?.id,
+      productDetails?.shopId,
+      productDetails?.categoryId
+    );
+  }, [productDetails, productData, isSuccess]);
 
   // const {result, resentProducts} = productData
 

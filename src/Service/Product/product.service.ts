@@ -162,10 +162,36 @@ export const publicAllProductsAction = async (
       params.append(item.name, String(item.value)); // Convert value to string
     });
   }
-  console.log(params.toString());
-
   try {
     const res = await axiosInstance.get(`/product?${params.toString()}`);
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const publicRelevantProductActions = async (
+  payload: any,
+  page: number,
+  pageSize: number,
+  args: TQueryParams[]
+) => {
+  const params = new URLSearchParams();
+
+  params.append("page", page.toString());
+  params.append("limit", pageSize.toString());
+
+  // Loop through the args to dynamically append query parameters
+  if (args) {
+    args.forEach((item: TQueryParams) => {
+      params.append(item.name, String(item.value)); // Convert value to string
+    });
+  }
+
+  try {
+    const res = await axiosInstance.post(
+      `/product/relevant/relevant-products?${params.toString()}`,
+      payload
+    );
     return res?.data?.data;
   } catch (error) {
     console.log(error);

@@ -3,6 +3,7 @@ import EmblaCarousel from "../Components/ui/Slider/EmblaCarousel";
 import TopSaleProducts from "../Components/ui/HomePage/TopSaleProducts";
 import FlashSaleProducts from "../Components/ui/HomePage/FlashSaleProducts";
 import ScrollToTopButton from "../Components/ui/ScrollTopButton/ScrollToTopButton";
+import RelevantProducts from "../Components/ui/Products/RelevantProducts";
 
 export interface TSlides {
   img: string;
@@ -28,7 +29,11 @@ const CHomePage = () => {
       <div className="absolute">
         <ScrollToTopButton />
       </div>
-
+      
+      {/* relevant products  */}
+      <div>
+        <RelevantProducts />
+      </div>
      
     </div>
   );
