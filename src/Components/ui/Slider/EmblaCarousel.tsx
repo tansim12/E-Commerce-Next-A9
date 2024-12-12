@@ -27,13 +27,24 @@ type PropType = {
 };
 
 const options = { loop: true };
-const slides: TSlides[] = [
-  { img: "https://i.ibb.co/SnjRV9n/1.webp", text: "sjfgdjkgkdfjg" },
-  { img: "https://i.ibb.co/qWJSppK/2.webp", text: "sjfgdjkgkdfjg" },
-  { img: "https://i.ibb.co/vc7mQ8s/3.jpg", text: "sjfgdjkgkdfjg" },
-  { img: "https://i.ibb.co/7KrYLQJ/3.webp", text: "sjfgdjkgkdfjg" },
-  { img: "https://i.ibb.co/mG2tw39/4.webp", text: "sjfgdjkgkdfjg" },
+const slides  = 
+
+[
+  { img: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1733981434/70882182_9670381_tnv494.jpg", text: "sjfgdjkgkdfjg" },
+  { img: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1733981951/rb_2148795109_r3cazf.png", text: "sjfgdjkgkdfjg" },
+  { img: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1733981950/rb_2148795108_vufkn3.png", text: "sjfgdjkgkdfjg" },
+  { img: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1733981952/rb_2148897327_y6nu8p.png", text: "sjfgdjkgkdfjg" },
+  // { img: "https://i.ibb.co/mG2tw39/4.webp", text: "sjfgdjkgkdfjg" },
 ];
+
+
+// [
+//   { img: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1733979963/1_gr6ez6.jpg", text: "sjfgdjkgkdfjg" },
+//   { img: "https://i.ibb.co/qWJSppK/2.webp", text: "sjfgdjkgkdfjg" },
+//   { img: "https://i.ibb.co/vc7mQ8s/3.jpg", text: "sjfgdjkgkdfjg" },
+//   { img: "https://i.ibb.co/7KrYLQJ/3.webp", text: "sjfgdjkgkdfjg" },
+//   { img: "https://i.ibb.co/mG2tw39/4.webp", text: "sjfgdjkgkdfjg" },
+// ];
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
@@ -119,13 +130,13 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   }, [emblaApi, tweenScale]);
 
   return (
-    <div className="embla h-96">
+    <div className="embla sm:h-72 md:h-96 z-10">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container rounded-xl">
-          {slides.map((item, index) => (
+          {slides?.map((item:any, index:number) => (
             <div className="embla__slide" key={index}>
               <div className="embla__slide__number">
-                <img src={item?.img} className="" alt="" />
+                <img src={item?.img}  className="object-contain" alt="" />
               </div>
             </div>
           ))}

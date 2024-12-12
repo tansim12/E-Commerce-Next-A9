@@ -28,7 +28,7 @@ const CategoryAndSubCategory = () => {
 
   return (
     <div className=" ">
-      <div className=" relative flex   items-center space-x-2   shadow-md shadow-white border-2 border-primary py-3 px-2 rounded-xl">
+      <div className=" relative flex flex-wrap   items-center   shadow-md border-2 border-primary py-1 rounded-xl">
         {categories?.map((category: Category) => (
           <div key={category.id} className="group relative">
             <button
