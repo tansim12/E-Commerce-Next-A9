@@ -1,7 +1,7 @@
 import { nextui } from "@nextui-org/react";
 
 /** @type {import('tailwindcss').Config} */
-const config = {
+module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
@@ -37,5 +37,3 @@ const config = {
   plugins: [nextui(), require("tailwind-scrollbar")],
 };
 
-// Use `export default` for ESM compatibility
-export default config;
