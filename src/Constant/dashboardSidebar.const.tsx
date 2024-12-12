@@ -90,11 +90,11 @@ export const sidebarItems: {
         { name: "view Product", path: "/vendor/manage-product/view-product" },
       ],
     },
-    {
-      name: "Payments",
-      path: "/vendor/payment-history",
-      icon: <TbTransactionDollar />,
-    },
+    // {
+    //   name: "Payments",
+    //   path: "/vendor/payment-history",
+    //   icon: <TbTransactionDollar />,
+    // },
   ],
   user: [
     {

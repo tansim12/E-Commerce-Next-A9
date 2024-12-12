@@ -23,12 +23,12 @@ import ComponentsLoading from "../Components/ui/Loading/ComponentsLoading";
 import CreateAtSort from "../Components/Shared/CreateAtSort";
 import CustomPagination from "../Components/Shared/CustomPagination";
 
-import { useShopAllPaymentHistory } from "../hooks/payment.hook";
+import { useAdminAllPaymentHistory, useShopAllPaymentHistory } from "../hooks/payment.hook";
 import CustomModal from "../Components/ui/Custom Modal/CustomModal";
 import PaymentUpdateForm from "../Components/ui/Products/PaymentUpdateForm";
 import AdminAndVendorUpdateRepliedForm from "../Components/ui/Payment/AdminAndVendorUpdateRepliedForm";
 
-const CManagePaymentPage = () => {
+const CAdminManagePaymentPage = () => {
   const [defaultValue, setDefaultValue] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, _setBackdrop] = useState("blur");
@@ -61,7 +61,7 @@ const CManagePaymentPage = () => {
     isPending: isHistoryPending,
     isError: isHistoryError,
     isSuccess,
-  } = useShopAllPaymentHistory(page, pageSize, [
+  } = useAdminAllPaymentHistory(page, pageSize, [
     ...params,
     { name: "sortOrder", value: sortValue },
     { name: "sortBy", value: "createdAt" },
@@ -269,4 +269,4 @@ const CManagePaymentPage = () => {
   );
 };
 
-export default CManagePaymentPage;
+export default CAdminManagePaymentPage;

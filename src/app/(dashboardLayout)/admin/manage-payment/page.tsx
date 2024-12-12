@@ -1,10 +1,10 @@
-import CManagePaymentPage from '@/src/AllPages/CManagePaymentPage';
+import CAdminManagePaymentPage from '@/src/AllPages/CAdminManagePaymentPage';
 import React from 'react';
 
 const page = () => {
     return (
         <div>
-            <CManagePaymentPage />
+            <CAdminManagePaymentPage />
         </div>
     );
 };
