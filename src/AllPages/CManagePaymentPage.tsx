@@ -24,12 +24,9 @@ import CreateAtSort from "../Components/Shared/CreateAtSort";
 import CustomPagination from "../Components/Shared/CustomPagination";
 
 import {
-  useAdminAllPaymentHistory,
-  useMyAllPaymentHistory,
+  useShopAllPaymentHistory,
 } from "../hooks/payment.hook";
 import CustomModal from "../Components/ui/Custom Modal/CustomModal";
-import FXForm from "../Components/Form/FXForm";
-import CustomSelect from "../Components/Form/CustomSelect";
 import PaymentUpdateForm from "../Components/ui/Products/PaymentUpdateForm";
 
 const CManagePaymentPage = () => {
@@ -65,7 +62,7 @@ const CManagePaymentPage = () => {
     isPending: isHistoryPending,
     isError: isHistoryError,
     isSuccess,
-  } = useAdminAllPaymentHistory(page, pageSize, [
+  } = useShopAllPaymentHistory(page, pageSize, [
     ...params,
     { name: "sortOrder", value: sortValue },
     { name: "sortBy", value: "createdAt" },

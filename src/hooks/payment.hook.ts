@@ -4,6 +4,7 @@ import {
   myAllPaymentHistoryAction,
   paymentCreateAction,
   paymentUpdateAction,
+  shopAllPaymentHistoryAction,
 } from "../Service/Payment/payment.service";
 import toast from "react-hot-toast";
 import { TQueryParams } from "../Types/Filter/filter.type";
@@ -19,6 +20,7 @@ export const useCreatePayment = () => {
      
       queryClient.refetchQueries(["MY_ALL_PAYMENT_HISTORY"] as any);
       queryClient.refetchQueries(["ADMIN_ALL_PAYMENT_HISTORY"] as any);
+      queryClient.refetchQueries(["SHOP_ALL_PAYMENT_HISTORY"] as any);
     },
     onError(error, variables, context) {
       toast.error("Payment Some thing went wrong, please new add to cart");
@@ -48,6 +50,17 @@ export const useAdminAllPaymentHistory = (
       await adminAllPaymentHistoryAction(page, pageSize, params),
   });
 };
+export const useShopAllPaymentHistory = (
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["SHOP_ALL_PAYMENT_HISTORY", page, pageSize, params],
+    queryFn: async () =>
+      await shopAllPaymentHistoryAction(page, pageSize, params),
+  });
+};
 
 export const useUpdatePayment = () => {
   const queryClient = useQueryClient();
@@ -65,6 +78,7 @@ export const useUpdatePayment = () => {
     onSuccess: (_data, _variables) => {
  
       queryClient.refetchQueries(["ADMIN_ALL_PAYMENT_HISTORY"] as any);
+      queryClient.refetchQueries(["SHOP_ALL_PAYMENT_HISTORY"] as any);
       queryClient.refetchQueries(["MY_ALL_PAYMENT_HISTORY"] as any);
     },
     onError(error, variables, context) {
