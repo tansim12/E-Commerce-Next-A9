@@ -5,6 +5,7 @@ import { getHistoryData } from "@/src/utils/productHistorySaveLC";
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import infiniteScrollFn from "@/src/utils/infiniteScrollFn";
+import NoFoundData from "../No Found/NoFoundData";
 
 const RelevantProducts = () => {
   const [allProductsData, setAllProductsData] = useState([]);
@@ -21,7 +22,7 @@ const RelevantProducts = () => {
     new Set(compareIds?.map((item: any) => item?.categoryId))
   );
 
-  const { data, isLoading, isSuccess } = usePublicRelevantProducts(
+  const { data, isPending, isSuccess } = usePublicRelevantProducts(
     ids?.length > 0 ? ids : [],
     page,
     pageSize,
@@ -49,7 +50,7 @@ const RelevantProducts = () => {
             {allProductsData?.map((item: any) => <ProductCard item={item} />)}
           </div>
         ) : (
-          <span className="text-center text-2xl">No Data </span>
+          !isPending && <NoFoundData />
         )}
       </div>
     </>

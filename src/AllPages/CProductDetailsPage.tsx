@@ -21,6 +21,7 @@ import { useAdditional } from "../Context/aditional.context";
 import { handleAddToCart } from "../utils/addToCartFn";
 import moment from "moment";
 import ProductCard from "../Components/ui/Products/ProductCard";
+import NoFoundData from "../Components/ui/No Found/NoFoundData";
 
 const CProductDetailsPage = ({ id }: { id: any }) => {
   const router = useRouter();
@@ -253,7 +254,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
             ))}
           </div>
         ) : (
-          <span>NO related data here</span>
+          !isProductDataPending && <NoFoundData />
         )}
       </div>
 

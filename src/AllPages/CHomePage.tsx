@@ -29,12 +29,11 @@ const CHomePage = () => {
       <div className="absolute">
         <ScrollToTopButton />
       </div>
-      
+
       {/* relevant products  */}
       <div>
         <RelevantProducts />
       </div>
-     
     </div>
   );
 };

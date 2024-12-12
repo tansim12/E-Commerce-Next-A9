@@ -10,6 +10,7 @@ import NoFoundData from "../Components/ui/No Found/NoFoundData";
 import { usePublicAllProducts } from "../hooks/product.hook";
 import ProductCard from "../Components/ui/Products/ProductCard";
 import { TQueryParams } from "../Types/Filter/filter.type";
+import ProductSkeleton from "../Components/Shared/ProductSkeleton";
 
 const CProductsPage = ({ searchParams }: { searchParams: any }) => {
   const newParams = Object.entries(searchParams).map(([key, value]) => ({
@@ -17,13 +18,12 @@ const CProductsPage = ({ searchParams }: { searchParams: any }) => {
     value: value,
   }));
 
-
   const { params } = useUser();
   const [allPostData, setAllPostData] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(6);
 
-  const { data, isLoading, isSuccess } = usePublicAllProducts(
+  const { data, isPending, isSuccess } = usePublicAllProducts(
     page,
     pageSize,
     // params
@@ -55,25 +55,31 @@ const CProductsPage = ({ searchParams }: { searchParams: any }) => {
   infiniteScrollFn(page, setPage, data?.meta?.total, pageSize);
 
   return (
-    <div>
-      {allPostData?.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
-          {allPostData?.length &&
-            allPostData?.map((item: TPost) => (
-              // <Post key={item?._id} post={item} />
-              <ProductCard item={item} showBuyButton={true} />
-            ))}
+    <>
+    {isPending && (
+        <div className="flex flex-wrap gap-3 justify-center items-center">
+          {" "}
+          {[1, 2, 3, 4, 5, 6].map((item: any) => (
+            <ProductSkeleton />
+          ))}
         </div>
-      ) : (
-        !isLoading && <NoFoundData />
       )}
+      <div>
+        {allPostData?.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
+            {allPostData?.length &&
+              allPostData?.map((item: TPost) => (
+                // <Post key={item?._id} post={item} />
+                <ProductCard item={item} showBuyButton={true} />
+              ))}
+          </div>
+        ) : (
+          !isPending && <NoFoundData />
+        )}
 
-      {isLoading && !isSuccess && (
-        <div className="w-full flex justify-center items-center my-10">
-          <Spinner label="Loading..." color="success" labelColor="success" />
-        </div>
-      )}
-    </div>
+       
+      </div>
+    </>
   );
 };
 
