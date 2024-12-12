@@ -66,15 +66,17 @@ const PostFilterSidebar = () => {
   //   const searchTerm = useDebounce(searchValue, 700);
   useEffect(() => {
     const priceRange = [
-      { name: "priceStart", value: 0 },
-      { name: "priceEnd", value: 10000 },
+      { name: "priceStart", value: value?.[0] ? value?.[0] : 0 },
+      { name: "priceEnd", value: value?.[1] ? value?.[1] : 10000 },
     ];
-    setParams([...filters, ...priceRange]);
-
-    console.log([...filters, ...priceRange], ".........");
+    if (value?.[1] === 10000 && value?.[0] === 0) {
+      setParams(filters);
+    } else {
+      setParams([...filters, ...priceRange]);
+    }
 
     // setParams([...filters]);
-  }, [filters, searchTerm]);
+  }, [filters, searchTerm, value]);
 
   return (
     <div>
