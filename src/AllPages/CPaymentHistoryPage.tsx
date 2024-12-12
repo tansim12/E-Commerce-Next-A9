@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { TQueryParams } from "../Types/Filter/filter.type";
 import toast from "react-hot-toast";
 import {
+  Button,
   Input,
   Table,
   TableBody,
@@ -11,10 +12,11 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
+  useDisclosure,
 } from "@nextui-org/react";
 import moment from "moment";
 import { FiSearch } from "react-icons/fi";
-import { FaSort } from "react-icons/fa";
+import { FaEdit, FaSort } from "react-icons/fa";
 import useDebounce from "../hooks/useDebounce";
 import ComponentsLoading from "../Components/ui/Loading/ComponentsLoading";
 
@@ -22,13 +24,16 @@ import CreateAtSort from "../Components/Shared/CreateAtSort";
 import CustomPagination from "../Components/Shared/CustomPagination";
 
 import { useMyAllPaymentHistory } from "../hooks/payment.hook";
+import CustomModal from "../Components/ui/Custom Modal/CustomModal";
+import UserPaymentReviewForm from "../Components/ui/Payment/UserPaymentReviewForm";
 
 const CPaymentHistoryPage = () => {
   const [sortValue, setSortValue] = useState("desc");
   const handleSort = () => {
     setSortValue((prev) => (prev === "desc" ? "asc" : "desc"));
   };
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [backdrop, _setBackdrop] = useState("blur");
   const [searchValue, setSearchValue] = useState("");
   const [params, setParams] = useState<TQueryParams[] | []>([]);
   const [page, setPage] = useState(1);
@@ -65,10 +70,26 @@ const CPaymentHistoryPage = () => {
     }
   }, []);
 
-  console.log(historyData);
-
+  const [defaultValue, setDefaultValue] = useState({});
+  const handleEditProduct = (pd: any) => {
+    setDefaultValue(pd);
+  };
   return (
     <div>
+      {/* edit category modal  */}
+      <div>
+        <CustomModal
+          title="Edit Category"
+          isOpen={isOpen}
+          backdrop={backdrop as "opaque" | "blur" | "transparent"}
+          onCancel={onClose}
+          cancelText="Cancel"
+          size="4xl"
+        >
+          <UserPaymentReviewForm onClose={onClose} defaultValue={defaultValue} />
+          {/* <ProductUpdateFrom defaultValue={defaultValue} onClose={onClose} /> */}
+        </CustomModal>{" "}
+      </div>
       {/* sort and filter section  */}
       <div className=" flex justify-end items-center gap-5 my-4  ">
         <div></div>
@@ -116,6 +137,7 @@ const CPaymentHistoryPage = () => {
 
               <TableColumn>Created At</TableColumn>
               <TableColumn>Updated At</TableColumn>
+              <TableColumn>Action</TableColumn>
             </TableHeader>
             {historyData?.result?.length > 0 ? (
               <TableBody>
@@ -175,6 +197,22 @@ const CPaymentHistoryPage = () => {
                       {moment(pd?.updatedAt).isValid()
                         ? moment(pd?.updatedAt).format("LL")
                         : "N/A"}
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={() => {
+                          onOpen();
+                          handleEditProduct({
+                            paymentId: pd?.id,
+                            review: pd?.productReview?.[0],
+                          });
+                        }}
+                        className="flex justify-center items-center gap-2"
+                        color="success"
+                        size="sm"
+                      >
+                        Review
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

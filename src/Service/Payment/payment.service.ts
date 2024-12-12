@@ -101,3 +101,16 @@ export const paymentUpdateAction = async (paymentId: string, payload: any) => {
     //   console.log(error);
   }
 };
+export const userCreateReviewPaymentByProductsAction = async (paymentId: string, payload: any) => {
+  try {
+    console.log(payload);
+    
+    const res = await axiosInstance.put(
+      `/product/payment/review/${paymentId}`,
+      payload
+    );
+    return res?.data?.data;
+  } catch (error) {
+    //   console.log(error);
+  }
+};

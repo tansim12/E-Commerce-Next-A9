@@ -5,6 +5,7 @@ import {
   paymentCreateAction,
   paymentUpdateAction,
   shopAllPaymentHistoryAction,
+  userCreateReviewPaymentByProductsAction,
 } from "../Service/Payment/payment.service";
 import toast from "react-hot-toast";
 import { TQueryParams } from "../Types/Filter/filter.type";
@@ -74,6 +75,30 @@ export const useUpdatePayment = () => {
       payload: any;
     }) => {
       return await paymentUpdateAction(paymentId, payload);
+    },
+    onSuccess: (_data, _variables) => {
+ 
+      queryClient.refetchQueries(["ADMIN_ALL_PAYMENT_HISTORY"] as any);
+      queryClient.refetchQueries(["SHOP_ALL_PAYMENT_HISTORY"] as any);
+      queryClient.refetchQueries(["MY_ALL_PAYMENT_HISTORY"] as any);
+    },
+    onError(error, variables, context) {
+      toast.error("Payment Some thing went wrong, please new add to cart");
+    },
+  });
+};
+export const useUserCreateReviewPaymentByProducts = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["UPDATE_PAYMENT"],
+    mutationFn: async ({
+      paymentId,
+      payload,
+    }: {
+      paymentId: any;
+      payload: any;
+    }) => {
+      return await userCreateReviewPaymentByProductsAction(paymentId, payload);
     },
     onSuccess: (_data, _variables) => {
  

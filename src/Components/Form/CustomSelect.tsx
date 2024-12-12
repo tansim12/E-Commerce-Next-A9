@@ -5,7 +5,7 @@ import "./labelColor.css";
 type TPHSelectProps = {
   label: string;
   name: string;
-  options: { value: string; label: string; disabled?: boolean }[] | undefined;
+  options: { value: string | any; label: string; disabled?: boolean }[] | undefined;
   customStyle?: string;
   disabled?: boolean;
   mode?: "multiple" | undefined; // multiple selection mode
