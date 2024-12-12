@@ -82,7 +82,7 @@ const CManageProducts = () => {
   }, []);
 
   const handleEditProduct = (pd: any) => {
-    const payload = {
+    let payload = {
       id: pd?.id,
       isAvailable: pd?.isAvailable,
       productName: pd?.productName,
@@ -98,9 +98,18 @@ const CManageProducts = () => {
       description: pd?.description,
       isDelete: pd?.isDelete,
       allImages: pd?.images,
-      flashSaleStartDate: pd?.flashSaleStartDate,
-      flashSaleEndDate: pd?.flashSaleEndDate,
+      flashSaleStartDate: pd.flashSaleStartDate
+        ? pd.flashSaleStartDate
+        : new Date().toISOString(),
+      flashSaleEndDate: pd.flashSaleEndDate
+        ? pd.flashSaleEndDate
+        : new Date().toISOString(),
     };
+    // if (pd?.flashSaleStartDate && pd?.flashSaleEndDate) {
+    //   payload.flashSaleStartDate =  pd?.flashSaleStartDate
+    //   payload.flashSaleEndDate = pd?.flashSaleEndDate
+
+    // }
 
     setDefaultValue(payload);
   };
@@ -135,7 +144,7 @@ const CManageProducts = () => {
               aria-label="Search"
               fullWidth
               endContent={<FiSearch size={20} />}
-              onChange={(e:any) => setSearchValue(e.target.value)}
+              onChange={(e: any) => setSearchValue(e.target.value)}
             />
           </div>
 

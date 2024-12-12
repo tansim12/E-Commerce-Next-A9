@@ -95,8 +95,12 @@ const CViewProductPage = () => {
       description: pd?.description,
       isDelete: pd?.isDelete,
       allImages: pd?.images,
-      flashSaleStartDate: pd?.flashSaleStartDate,
-      flashSaleEndDate: pd?.flashSaleEndDate,
+      flashSaleStartDate: pd.flashSaleStartDate
+        ? pd.flashSaleStartDate
+        : new Date().toISOString(),
+      flashSaleEndDate: pd.flashSaleEndDate
+        ? pd.flashSaleEndDate
+        : new Date().toISOString(),
     };
 
     setDefaultValue(payload);

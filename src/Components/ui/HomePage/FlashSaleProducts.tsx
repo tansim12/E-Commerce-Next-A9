@@ -40,7 +40,7 @@ const FlashSaleProducts = () => {
 
         {productData?.result?.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-3">
-          {productData?.result?.map((pd: any) => <ProductCard item={pd} showBuyButton={true}/>)}
+          {productData?.result?.map((pd: any) => <ProductCard item={pd} isFlashSale={true} showBuyButton={true}/>)}
         </div>
       ) : (
         !isProductDataPending && <NoFoundData />
