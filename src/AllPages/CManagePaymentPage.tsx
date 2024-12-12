@@ -23,15 +23,14 @@ import ComponentsLoading from "../Components/ui/Loading/ComponentsLoading";
 import CreateAtSort from "../Components/Shared/CreateAtSort";
 import CustomPagination from "../Components/Shared/CustomPagination";
 
-import {
-  useShopAllPaymentHistory,
-} from "../hooks/payment.hook";
+import { useShopAllPaymentHistory } from "../hooks/payment.hook";
 import CustomModal from "../Components/ui/Custom Modal/CustomModal";
 import PaymentUpdateForm from "../Components/ui/Products/PaymentUpdateForm";
+import AdminAndVendorUpdateRepliedForm from "../Components/ui/Payment/AdminAndVendorUpdateRepliedForm";
 
 const CManagePaymentPage = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [defaultValue, setDefaultValue] = useState({});
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, _setBackdrop] = useState("blur");
   const [sortValue, setSortValue] = useState("desc");
   const handleSort = () => {
@@ -81,8 +80,6 @@ const CManagePaymentPage = () => {
     };
     setDefaultValue(payload);
   };
-
-  console.log(historyData);
 
   return (
     <>
@@ -148,6 +145,10 @@ const CManagePaymentPage = () => {
 
               <TableColumn>Created At</TableColumn>
               <TableColumn>Updated At</TableColumn>
+              <TableColumn>User Review</TableColumn>
+              <TableColumn>User Raging</TableColumn>
+              <TableColumn>Admin Or Vendor Reply</TableColumn>
+
               <TableColumn>Actions</TableColumn>
             </TableHeader>
             {historyData?.result?.length > 0 ? (
@@ -209,6 +210,28 @@ const CManagePaymentPage = () => {
                         ? moment(pd?.updatedAt).format("LL")
                         : "N/A"}
                     </TableCell>
+
+                    {/* review  */}
+                    <TableCell width={500}>
+                      {pd?.productReview?.[0]?.userMessage
+                        ? pd?.productReview?.[0]?.userMessage
+                        : "N/A"}
+                    </TableCell>
+                    <TableCell>
+                      {pd?.productReview?.[0]?.rating
+                        ? pd?.productReview?.[0]?.rating
+                        : "N/A"}
+                    </TableCell>
+                    <TableCell width={500}>
+                      {pd?.productReview?.[0]?.shopMessage ? (
+                        pd?.productReview?.[0]?.shopMessage
+                      ) : (
+                        <AdminAndVendorUpdateRepliedForm
+                          info={{ paymentId: pd?.id, userId: pd?.userId }}
+                        />
+                      )}
+                    </TableCell>
+
                     {/* Actions */}
                     <TableCell>
                       <Button

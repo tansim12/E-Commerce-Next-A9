@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   adminAllPaymentHistoryAction,
+  adminAndVendorReviewReplayPaymentByProductAction,
   myAllPaymentHistoryAction,
   paymentCreateAction,
   paymentUpdateAction,
@@ -18,7 +19,6 @@ export const useCreatePayment = () => {
       return await paymentCreateAction(payload);
     },
     onSuccess: (_data, _variables) => {
-     
       queryClient.refetchQueries(["MY_ALL_PAYMENT_HISTORY"] as any);
       queryClient.refetchQueries(["ADMIN_ALL_PAYMENT_HISTORY"] as any);
       queryClient.refetchQueries(["SHOP_ALL_PAYMENT_HISTORY"] as any);
@@ -77,7 +77,6 @@ export const useUpdatePayment = () => {
       return await paymentUpdateAction(paymentId, payload);
     },
     onSuccess: (_data, _variables) => {
- 
       queryClient.refetchQueries(["ADMIN_ALL_PAYMENT_HISTORY"] as any);
       queryClient.refetchQueries(["SHOP_ALL_PAYMENT_HISTORY"] as any);
       queryClient.refetchQueries(["MY_ALL_PAYMENT_HISTORY"] as any);
@@ -90,7 +89,7 @@ export const useUpdatePayment = () => {
 export const useUserCreateReviewPaymentByProducts = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationKey: ["UPDATE_PAYMENT"],
+    mutationKey: ["USER_CREATE_PAYMENTBASE_REVIEW"],
     mutationFn: async ({
       paymentId,
       payload,
@@ -101,10 +100,25 @@ export const useUserCreateReviewPaymentByProducts = () => {
       return await userCreateReviewPaymentByProductsAction(paymentId, payload);
     },
     onSuccess: (_data, _variables) => {
- 
       queryClient.refetchQueries(["ADMIN_ALL_PAYMENT_HISTORY"] as any);
       queryClient.refetchQueries(["SHOP_ALL_PAYMENT_HISTORY"] as any);
       queryClient.refetchQueries(["MY_ALL_PAYMENT_HISTORY"] as any);
+    },
+    onError(error, variables, context) {
+      toast.error("Payment Some thing went wrong, please new add to cart");
+    },
+  });
+};
+export const useAdminAndVendorReviewReplayPaymentByProduct = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["ADMIN_REPLIES_PAYMENT_PRODUCT_REVIEW"],
+    mutationFn: async ({ payload }: {  payload: any }) => {
+      return await adminAndVendorReviewReplayPaymentByProductAction(payload);
+    },
+    onSuccess: (_data, _variables) => {
+      queryClient.refetchQueries(["ADMIN_ALL_PAYMENT_HISTORY"] as any);
+      queryClient.refetchQueries(["SHOP_ALL_PAYMENT_HISTORY"] as any);
     },
     onError(error, variables, context) {
       toast.error("Payment Some thing went wrong, please new add to cart");

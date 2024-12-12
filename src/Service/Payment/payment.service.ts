@@ -101,12 +101,27 @@ export const paymentUpdateAction = async (paymentId: string, payload: any) => {
     //   console.log(error);
   }
 };
-export const userCreateReviewPaymentByProductsAction = async (paymentId: string, payload: any) => {
+export const userCreateReviewPaymentByProductsAction = async (
+  paymentId: string,
+  payload: any
+) => {
   try {
     console.log(payload);
-    
+
     const res = await axiosInstance.put(
       `/product/payment/review/${paymentId}`,
+      payload
+    );
+    return res?.data?.data;
+  } catch (error) {
+    //   console.log(error);
+  }
+};
+export const adminAndVendorReviewReplayPaymentByProductAction = async (payload: any) => {
+  
+  try {
+    const res = await axiosInstance.post(
+      `/product/payment/review-replied`,
       payload
     );
     return res?.data?.data;

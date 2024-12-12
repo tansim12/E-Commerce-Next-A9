@@ -102,11 +102,7 @@ export const sidebarItems: {
       path: "/user/dashboard",
       icon: <FiHome />,
     },
-    {
-      name: "My Posts",
-      path: "/user/my-posts",
-      icon: <BsFillFileEarmarkPostFill />,
-    },
+    
     {
       name: "Payments",
       path: "/user/payment-history",
