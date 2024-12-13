@@ -268,19 +268,9 @@ const CUserDashboard = () => {
         <div className="border-b mt-8">
           <div className="container mx-auto px-4">
             <Tabs aria-label="Profile Tabs" color="primary" variant="bordered">
+              
               <Tab
-                key="activities"
-                title={
-                  <div className="flex items-center space-x-2">
-                    <FiImage /> {/* Image icon */}
-                    <span>Activities</span>
-                  </div>
-                }
-              >
-                activities
-              </Tab>
-              <Tab
-                key="Followers"
+                key="Following"
                 title={
                   <div className="flex items-center space-x-2">
                     <RxAvatar />

@@ -1,4 +1,4 @@
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaUser } from "react-icons/fa";
 import { TbCategory, TbTransactionDollar } from "react-icons/tb";
 import { ReactNode } from "react"; // Import ReactNode for JSX types
 import { FiHome, FiSettings, FiUsers } from "react-icons/fi";
@@ -29,6 +29,11 @@ export const sidebarItems: {
       icon: <FaHome />,
     },
 
+    {
+      name: "Admin Profile",
+      path: "/admin/profile",
+      icon: <FaUser />,
+    },
     {
       name: "Manage User",
       path: "/admin/manage-user",
@@ -68,6 +73,11 @@ export const sidebarItems: {
       name: "Dashboard",
       path: "/vendor/dashboard",
       icon: <FaHome />,
+    },
+    {
+      name: "Vendor Profile",
+      path: "/vendor/profile",
+      icon: <FaUser />,
     },
     {
       name: "Shop Management",

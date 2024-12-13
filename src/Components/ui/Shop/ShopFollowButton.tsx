@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const ShopFollowButton = ({ shopId }: { shopId: any }) => {
   const router = useRouter();
   const { user } = useUser();
-  const { data } = useFindSingleUserFollow();
+  const { data } = useFindSingleUserFollow(shopId);
   const { mutate: handleCreateFollowAndUnFollow } =
     useCreateFollowAndUnFollowShop();
 
@@ -38,6 +38,7 @@ const ShopFollowButton = ({ shopId }: { shopId: any }) => {
     };
     handleCreateFollowAndUnFollow(payload);
   };
+  console.log(data);
 
   return (
     <>

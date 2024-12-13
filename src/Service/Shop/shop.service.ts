@@ -80,9 +80,9 @@ export const publicFindSingleShopAction = async (
   }
 };
 
-export const findSingleUserFollowAction = async () => {
+export const findSingleUserFollowAction = async (shopId: string) => {
   try {
-    const res = await axiosInstance.get(`/shop/user/shop-following`);
+    const res = await axiosInstance.get(`/shop/user/shop-following/${shopId}`);
     return res?.data?.data;
   } catch (error) {
     console.log(error);
@@ -91,7 +91,7 @@ export const findSingleUserFollowAction = async () => {
 export const createFollowAndUnFollowShopAction = async (payload: any) => {
   try {
     console.log(payload);
-    
+
     const res = await axiosInstance.post(`/shop/user/shop-following`, payload);
     return res?.data?.data;
   } catch (error) {

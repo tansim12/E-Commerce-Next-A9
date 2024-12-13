@@ -76,10 +76,10 @@ export const usePublicFindSingleShop = (
   });
 };
 
-export const useFindSingleUserFollow = () => {
+export const useFindSingleUserFollow = (shopId:string) => {
   return useQuery({
-    queryKey: ["SINGLE_USER_SHOP_FOLLOW"],
-    queryFn: async () => await findSingleUserFollowAction(),
+    queryKey: [shopId,"SINGLE_USER_SHOP_FOLLOW"],
+    queryFn: async () => await findSingleUserFollowAction(shopId),
   });
 };
 
