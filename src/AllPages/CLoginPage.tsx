@@ -39,7 +39,7 @@ const CLoginPage = () => {
   return (
     <>
       {/* {isPending && <Loading />} */}
-      <div className="flex justify-center items-center h-screen w-screen ">
+      <div className="flex justify-center items-center h-screen w-screen container mx-auto px-2 ">
         <div className="max-w-3xl  p-6 shadow-md sm:px-8 sm:py-10 lg:px-12 lg:py-16 ">
           <div className="flex flex-col justify-between space-x-0 sm:flex-row sm:space-x-12">
             <div className="mb-8 w-full sm:mb-0 sm:w-1/2">
