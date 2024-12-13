@@ -1,53 +1,64 @@
-# Next.js & NextUI Template
+# Tech Tips & Tricks Hub
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+## Introduction
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+The **E-Commerce** Application is designed to provide a complete online shopping experience for users, vendors, and administrators. It serves as a platform where users can browse and purchase products, vendors can manage their shops and inventories, and administrators can control and monitor the entire system. The application focuses on being intuitive, responsive, and secure, providing a seamless experience for all user roles. The core of this project is to build a scalable, high-performance system using modern web development technologies. It leverages Node.js and Express.js for the backend, React.js (or Next.js) for the front end, and PostgreSQL for data storage. The application integrates with third-party services for payments and file storage, ensuring a professional, enterprise-grade solution.
+
+## 🔗 Live URL
+
+[E-Commerce](https://e-commerce-next-a9.vercel.app/)
 
 ## Technologies Used
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+- Next.js
+- TypeScript
+- React hook form
+- tanstack/react-query
 
-## How to Use
+  **Clone the repository**
 
-### Use the template with create-next-app
+  ```sh
+  git clone https://github.com/tansim12/E-Commerce-Next-A9.git
 
-To create a new project based on this template using `create-next-app`, run the following command:
+  cd E-Commerce-Next-A9
+
+  ```
+
+````
+📦 Install Dependencies
+
+---
+```bash
+
+$ yarn install
+
+````
+
+# ⚙️ Configure Environment Variables
+
+## Create a `.env.local` file in the root of the project and add the following environment variables:
 
 ```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
+
+NEXT_PUBLIC_BASE_API=
+NEXT_PUBLIC_FRONTEND_URL=
+IMAGE_BB_API_KEY=
+
+
 ```
 
-### Install dependencies
+# Running the app
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
-
-```bash
-npm install
+```TYPESCRIPT
+$ yarn run dev
 ```
 
-### Run the development server
+# Build the app
 
-```bash
-npm run dev
+```TYPESCRIPT
+$ yarn run build
+
+
 ```
 
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+The server should be running on http://localhost:3000.
