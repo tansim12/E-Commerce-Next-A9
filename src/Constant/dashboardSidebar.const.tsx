@@ -58,7 +58,7 @@ export const sidebarItems: {
       icon: <TbCategory />,
     },
     {
-      name: "Payments",
+      name: "My Payments",
       path: "/admin/payment-history",
       icon: <TbTransactionDollar />,
     },
@@ -90,11 +90,11 @@ export const sidebarItems: {
         { name: "view Product", path: "/vendor/manage-product/view-product" },
       ],
     },
-    // {
-    //   name: "Payments",
-    //   path: "/vendor/payment-history",
-    //   icon: <TbTransactionDollar />,
-    // },
+    {
+      name: "My Payments",
+      path: "/vendor/payment-history",
+      icon: <TbTransactionDollar />,
+    },
   ],
   user: [
     {
@@ -102,7 +102,7 @@ export const sidebarItems: {
       path: "/user/dashboard",
       icon: <FiHome />,
     },
-    
+
     {
       name: "Payments",
       path: "/user/payment-history",

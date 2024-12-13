@@ -12,6 +12,7 @@ import CustomInput from "../Components/Form/CustomInput";
 import CustomButton from "../Components/ui/Button/CustomButton";
 import SocialLogin from "../Components/Shared/SocialLogin";
 import { useUserLogin } from "../hooks/auth.hook";
+import Loading from "../Components/ui/Loading/Loading";
 
 
 const CLoginPage = () => {
@@ -38,7 +39,7 @@ const CLoginPage = () => {
 
   return (
     <>
-      {/* {isPending && <Loading />} */}
+      {isPending && <Loading />}
       <div className="flex justify-center items-center h-screen w-screen container mx-auto px-2 ">
         <div className="max-w-3xl  p-6 shadow-md sm:px-8 sm:py-10 lg:px-12 lg:py-16 ">
           <div className="flex flex-col justify-between space-x-0 sm:flex-row sm:space-x-12">

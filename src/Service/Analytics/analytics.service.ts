@@ -10,3 +10,11 @@ export const adminAnalyticsAction = async () => {
     // console.log(error);
   }
 };
+export const shopAnalyticsAction = async () => {
+  try {
+    const res = await axiosInstance.get("/analytics/shop"); 
+    return res?.data?.data;
+  } catch (error) {
+    // console.log(error);
+  }
+};
