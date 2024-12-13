@@ -4,6 +4,7 @@ import {
   createFollowAndUnFollowShopAction,
   createShopAction,
   findSingleUserFollowAction,
+  isExistShopAction,
   publicFindSingleShopAction,
   shopUpdateAction,
   vendorFindHisShopAction,
@@ -76,10 +77,16 @@ export const usePublicFindSingleShop = (
   });
 };
 
-export const useFindSingleUserFollow = (shopId:string) => {
+export const useFindSingleUserFollow = (shopId: string) => {
   return useQuery({
-    queryKey: [shopId,"SINGLE_USER_SHOP_FOLLOW"],
+    queryKey: [shopId, "SINGLE_USER_SHOP_FOLLOW"],
     queryFn: async () => await findSingleUserFollowAction(shopId),
+  });
+};
+export const useIsExistShop = () => {
+  return useQuery({
+    queryKey: ["ISEXIST"],
+    queryFn: async () => await isExistShopAction(),
   });
 };
 

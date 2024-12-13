@@ -26,7 +26,13 @@ import CustomRangePicker from "../../Form/CustomRangePicker";
 import { useCreateProduct } from "@/src/hooks/product.hook";
 import { productSchema } from "@/src/Schemas/product.schema";
 import { getDateRange } from "@/src/utils/getDateRange";
-const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
+const ProductFrom = ({
+  isCreate = true,
+  shopExistStatus,
+}: {
+  isCreate?: boolean;
+  shopExistStatus?: any;
+}) => {
   const [onChangeValue, setOnChangeValue] = useState<any>();
   const [getCategoryId, setGetCategoryId] = useState(null);
   const { data: existAllCategoryData } = useExistAllCategory();
@@ -34,7 +40,6 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
     label: item?.categoryName,
     value: item?.id,
   }));
-  console.log(onChangeValue?.start, onChangeValue?.end);
 
   const router = useRouter();
   const {
@@ -43,6 +48,8 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
     isSuccess,
     isError,
   } = useCreateProduct();
+
+  console.log(shopExistStatus);
 
   const [selectImages, setSelectImages] = useState([]);
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -155,7 +162,11 @@ const ProductFrom = ({ isCreate = true }: { isCreate?: boolean }) => {
             label="Images *"
           />
 
-          <CustomButton name="Submit" customCss="w-full" />
+          {!isCreate && shopExistStatus === 200 || isCreate && shopExistStatus === 200 ? (
+            <CustomButton name="Submit" customCss="w-full" />
+          ) : (
+            <span className="font-bold flex justify-center items-center text-red-600 text-xl">Please Shop Create First</span>
+          )}
         </FXForm>
       </div>
     </>

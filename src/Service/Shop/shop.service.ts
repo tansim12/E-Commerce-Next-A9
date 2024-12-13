@@ -90,9 +90,17 @@ export const findSingleUserFollowAction = async (shopId: string) => {
 };
 export const createFollowAndUnFollowShopAction = async (payload: any) => {
   try {
-    console.log(payload);
-
     const res = await axiosInstance.post(`/shop/user/shop-following`, payload);
+    return res?.data?.data;
+  } catch (error) {
+    // console.log(error);
+  }
+};
+export const isExistShopAction = async () => {
+  try {
+    const res = await axiosInstance.get(`/shop/vendor/check/isExist-shop`);
+    console.log(res?.data?.data);
+    
     return res?.data?.data;
   } catch (error) {
     // console.log(error);
