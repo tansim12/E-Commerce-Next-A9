@@ -20,6 +20,7 @@ import CustomReactQuill from "../Components/Form/CustomReactQuill";
 import CustomInput from "../Components/Form/CustomInput";
 import CustomSelect from "../Components/Form/CustomSelect";
 import UserInfo from "../Components/ui/User/UserInfo";
+import Loading from "../Components/ui/Loading/Loading";
 
 const CUserDashboard = () => {
   const [isLoadingC, setIsLoadingC] = useState(false);
@@ -93,6 +94,7 @@ const CUserDashboard = () => {
 
   return (
     <>
+      {isUserProfileDataLoading && <Loading />}
       {/* cover photo update  */}
       {(modalType === "profilePhoto" || modalType === "coverPhoto") && (
         <CustomModal
@@ -268,18 +270,34 @@ const CUserDashboard = () => {
         <div className="border-b mt-8">
           <div className="container mx-auto px-4">
             <Tabs aria-label="Profile Tabs" color="primary" variant="bordered">
-              
               <Tab
                 key="Following"
                 title={
                   <div className="flex items-center space-x-2">
                     <RxAvatar />
                     {/* Music icon */}
-                    <span>Followers</span>
+                    <span>Following</span>
                   </div>
                 }
               >
-                followers
+                {userProfileData?.shopFollow?.length > 0 ? (
+                  <div className=" grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 min-h-[20vh] ">
+                    {userProfileData?.shopFollow?.map((item: any) => (
+                      <div className="flex  items-center gap-2">
+                        <Image
+                          src={item?.shop?.logo}
+                          alt="logo"
+                          width={50}
+                          height={50}
+                          className="object-cover rounded-full border border-primary"
+                        />
+                        <p>{item?.shop?.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <span> You have no following</span>
+                )}
               </Tab>
               <Tab
                 key="Settings"
