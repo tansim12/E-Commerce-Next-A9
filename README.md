@@ -1,4 +1,4 @@
-# Tech Tips & Tricks Hub
+# E-Commerce
 
 ## Introduction
 
