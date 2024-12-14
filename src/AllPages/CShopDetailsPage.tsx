@@ -84,6 +84,10 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
                 <span className=" font-semibold mr-3">Shop Register : </span>
                 <span> {moment(data?.createdAt).format("ll")}</span>
               </div>
+              <div className="flex items-center mb-2">
+                <span className=" font-semibold mr-3">Shop Followers : </span>
+                <span>{data?._count?.shopFollow}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -133,35 +137,3 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
 
 export default CShopDetailsPage;
 
-// const data = {
-//   id: "b4c4e012-5e67-4ed2-af9f-f3ecb170207e",
-//   name: "Shopno",
-//   vendorId: "3ec29976-46e5-4745-ac69-e72885508a09",
-//   description:
-//     '<p><span style="background-color: rgb(13, 17, 23); color: rgb(240, 246, 252);">their shops and inventories, and administrators can control and monitor the entire system. The application focuses on being intuitive, responsive, and secure, providing a seamless experience for all user roles.&nbsp;The core of this project is to build a scalable, high-performance system using modern web development technologies. It leverages Node.js and Express.js for the backend, React.js (or Next.js) for the front end, and PostgreSQL for data storage. The application integrates with third-party services for payments and file storage, ensuring a professional,</span></p>',
-//   averageRating: 0,
-//   isDelete: false,
-//   logo: "https://i.ibb.co/59Qnc32/istockphoto-519319260-612x612.jpg",
-//   shopType: "e-commerce",
-//   address: "Pabna Sadar",
-//   contactNumber: "01849184000",
-//   createdAt: "2024-12-05T07:03:14.643Z",
-//   updatedAt: "2024-12-06T09:58:00.668Z",
-//   shopReview: [],
-//   vendor: {
-//     name: "v4",
-//     email: "v4@gmail.com",
-//     userProfile: [
-//       {
-//         profilePhoto: null,
-//       },
-//     ],
-//   },
-//   shopFollow: [],
-//   _count: {
-//     shopReview: 0,
-//     shopFollow: 0,
-//     product: 7,
-//     payment: 25,
-//   },
-// };

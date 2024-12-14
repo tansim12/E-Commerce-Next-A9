@@ -209,3 +209,14 @@ export const publicProductCompareAction = async (payload: any) => {
     // console.log(error);
   }
 };
+
+export const publicSingleProductReviewShowAction = async (productId: any) => {
+  try {
+    const res = await axiosInstance.get(
+      `/product/public/payment/review-info/${productId}`
+    );
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

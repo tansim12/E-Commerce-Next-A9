@@ -9,6 +9,7 @@ import {
   publicPromoCheckAction,
   publicRelevantProductActions,
   publicSingleProductAction,
+  publicSingleProductReviewShowAction,
   publicTopSaleProductsAction,
   updateProductAction,
 } from "../Service/Product/product.service";
@@ -138,5 +139,16 @@ export const useGetCompareProducts = (payload: any) => {
   return useQuery({
     queryKey: ["COMPARE_PRODUCTS", payload],
     queryFn: async () => await publicProductCompareAction(payload),
+  });
+};
+
+export const usePublicSingleProductReview = (
+  productId: any,
+
+) => {
+  return useQuery({
+    queryKey: ["PRODUCT_REVIEW", productId,],
+    queryFn: async () =>
+      await publicSingleProductReviewShowAction(productId),
   });
 };

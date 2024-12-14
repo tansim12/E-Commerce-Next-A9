@@ -22,6 +22,7 @@ import { handleAddToCart } from "../utils/addToCartFn";
 import moment from "moment";
 import ProductCard from "../Components/ui/Products/ProductCard";
 import NoFoundData from "../Components/ui/No Found/NoFoundData";
+import SingleProductReviewShow from "../Components/ui/Products/SingleProductReviewShow";
 
 const CProductDetailsPage = ({ id }: { id: any }) => {
   const router = useRouter();
@@ -193,7 +194,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
                     id: productDetails?.id,
                     shopName: productDetails?.shop?.name,
                     image: productDetails?.images?.[0],
-                    buyQuantity:1,
+                    buyQuantity: 1,
                     productName: productDetails?.productName,
                     shopId: productDetails?.shopId,
                     price: discountPrice(
@@ -221,7 +222,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
                     id: productDetails?.id,
                     shopName: productDetails?.shop?.name,
                     image: productDetails?.images?.[0],
-                    buyQuantity:1,
+                    buyQuantity: 1,
                     productName: productDetails?.productName,
                     shopId: productDetails?.shopId,
                     price: discountPrice(
@@ -322,9 +323,8 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
                 </div>
               }
             >
-              {/* // todo review section  */}
               <div className="text-center py-10">
-                <span>Review</span>
+                <SingleProductReviewShow productId={id} />
               </div>
             </Tab>
           </Tabs>
