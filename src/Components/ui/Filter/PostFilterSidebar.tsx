@@ -69,7 +69,7 @@ const PostFilterSidebar = () => {
       { name: "priceStart", value: value?.[0] ? value?.[0] : 0 },
       { name: "priceEnd", value: value?.[1] ? value?.[1] : 100000 },
     ];
-    if (value?.[1] === 10000 && value?.[0] === 0) {
+    if (value?.[1] === 100000 && value?.[0] === 0) {
       setParams(filters);
     } else {
       setParams([...filters, ...priceRange]);
