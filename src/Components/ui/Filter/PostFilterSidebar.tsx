@@ -10,7 +10,7 @@ import { FiSearch } from "react-icons/fi";
 import { Slider } from "@nextui-org/react";
 
 const PostFilterSidebar = () => {
-  const [value, setValue] = React.useState([0, 10000]);
+  const [value, setValue] = React.useState([0, 100000]);
 
   const { data: categories } = usePublicFindAllCategoryAndSubCategory();
   const { setParams } = useUser();
@@ -67,7 +67,7 @@ const PostFilterSidebar = () => {
   useEffect(() => {
     const priceRange = [
       { name: "priceStart", value: value?.[0] ? value?.[0] : 0 },
-      { name: "priceEnd", value: value?.[1] ? value?.[1] : 10000 },
+      { name: "priceEnd", value: value?.[1] ? value?.[1] : 100000 },
     ];
     if (value?.[1] === 10000 && value?.[0] === 0) {
       setParams(filters);
@@ -100,7 +100,7 @@ const PostFilterSidebar = () => {
             className="max-w-md"
             formatOptions={{ style: "currency", currency: "BDT" }}
             label="Budget"
-            maxValue={10000}
+            maxValue={100000}
             minValue={0}
             step={1000}
             value={value}
