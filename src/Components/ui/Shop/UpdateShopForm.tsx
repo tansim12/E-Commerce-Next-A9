@@ -43,13 +43,13 @@ const UpdateShopForm = ({
     const payload = {
       name: data?.name,
       isDelete: data?.isDelete,
+      isBlocked: data?.isBlocked,
       description: data?.description,
       contactNumber: data?.contactNumber,
       shopType: data?.shopType,
       address: data?.address,
       logo: images?.[0] ? images?.[0] : defaultValue?.logo,
     };
-
     handleUpdateShop({ shopId: defaultValue?.id, payload: payload as any });
   };
   useEffect(() => {
@@ -100,6 +100,7 @@ const UpdateShopForm = ({
             {defaultValue && isAdminUpdate && (
               <div className="basis-2/5">
                 <CustomToggle label="Is Delete" name="isDelete" />
+                <CustomToggle label="Is Blocked" name="isBlocked" />
               </div>
             )}
             {defaultValue?.logo && (

@@ -56,6 +56,11 @@ const shopUpdateSchema = z.object({
       required_error: "isDelete is required!",
     })
     .optional(),
+    isBlocked: z
+    .boolean({
+      required_error: "isBlocked is required!",
+    })
+    .optional(),
 });
 
 export const shopSchema = {

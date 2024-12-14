@@ -150,6 +150,7 @@ const CManageShopsPage = () => {
               <TableColumn>Shop Type</TableColumn>
               <TableColumn>Contact Number</TableColumn>
               <TableColumn>Is Delete</TableColumn>
+              <TableColumn>Is Blocked</TableColumn>
               <TableColumn>Created At</TableColumn>
               <TableColumn>Updated At</TableColumn>
               <TableColumn>Actions</TableColumn>
@@ -197,6 +198,14 @@ const CManageShopsPage = () => {
                       }
                     >
                       {pd?.isDelete?.toString() || "false"}
+                    </TableCell>
+                    {/* Is Blocked */}
+                    <TableCell
+                      className={
+                        pd?.isBlocked ? "text-red-500" : "text-gray-500"
+                      }
+                    >
+                      {pd?.isBlocked?.toString() || "false"}
                     </TableCell>
 
                     {/* Created At */}
