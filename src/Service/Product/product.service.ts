@@ -220,3 +220,26 @@ export const publicSingleProductReviewShowAction = async (productId: any) => {
     console.log(error);
   }
 };
+
+
+
+
+export const vendorFindAllProductsAction = async () => {
+  try {
+    const res = await axiosInstance.get(`/product/vendor/find-his-all-product`);
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const vendorFindSingleProductsAction = async (productId: any) => {
+  try {
+    const res = await axiosInstance.get(
+      `/product/vendor/find-one-product/${productId}`
+    );
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

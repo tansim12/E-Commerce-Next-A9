@@ -26,6 +26,7 @@ import CustomRangePicker from "../../Form/CustomRangePicker";
 import { useCreateProduct } from "@/src/hooks/product.hook";
 import { productSchema } from "@/src/Schemas/product.schema";
 import { getDateRange } from "@/src/utils/getDateRange";
+// import CopyProduct from "./CopyProduct";
 const ProductFrom = ({
   isCreate = true,
   shopExistStatus,
@@ -49,12 +50,13 @@ const ProductFrom = ({
     isError,
   } = useCreateProduct();
 
-  console.log(shopExistStatus);
-
   const [selectImages, setSelectImages] = useState([]);
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { offerDateRange, ...newData } = data;
     const images = await uploadImagesToImgBB(selectImages);
+    if (images?.length < 1) {
+      return toast.error("Please Select image");
+    }
     const payload = {
       payload: {
         ...newData,
@@ -88,12 +90,19 @@ const ProductFrom = ({
     value: item?.id,
   }));
 
+  // const [copyProduct, setCopyProduct] = useState({});
+  // todo  copy product pore korte hobe
+
   return (
     <>
       {isPending && <Loading />}
       <p className="text-center text-2xl font-semibold mb-5 ">
         Create Products
       </p>
+      {/* <div className="flex justify-end items-center ">
+        <CopyProduct setCopyProduct={setCopyProduct} />
+      </div> */}
+
       <div className="my-10">
         <FXForm
           onSubmit={onSubmit}
@@ -162,10 +171,13 @@ const ProductFrom = ({
             label="Images *"
           />
 
-          {!isCreate && shopExistStatus === 200 || isCreate && shopExistStatus === 200 ? (
+          {(!isCreate && shopExistStatus === 200) ||
+          (isCreate && shopExistStatus === 200) ? (
             <CustomButton name="Submit" customCss="w-full" />
           ) : (
-            <span className="font-bold flex justify-center items-center text-red-600 text-xl">Please Shop Create First</span>
+            <span className="font-bold flex justify-center items-center text-red-600 text-xl">
+              Please Shop Create First
+            </span>
           )}
         </FXForm>
       </div>

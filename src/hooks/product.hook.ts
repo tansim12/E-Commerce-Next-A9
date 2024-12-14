@@ -12,6 +12,8 @@ import {
   publicSingleProductReviewShowAction,
   publicTopSaleProductsAction,
   updateProductAction,
+  vendorFindAllProductsAction,
+  vendorFindSingleProductsAction,
 } from "../Service/Product/product.service";
 import { TQueryParams } from "../Types/Filter/filter.type";
 
@@ -142,13 +144,22 @@ export const useGetCompareProducts = (payload: any) => {
   });
 };
 
-export const usePublicSingleProductReview = (
-  productId: any,
-
-) => {
+export const usePublicSingleProductReview = (productId: any) => {
   return useQuery({
-    queryKey: ["PRODUCT_REVIEW", productId,],
-    queryFn: async () =>
-      await publicSingleProductReviewShowAction(productId),
+    queryKey: ["PRODUCT_REVIEW", productId],
+    queryFn: async () => await publicSingleProductReviewShowAction(productId),
+  });
+};
+
+export const useVendorFindAllProducts = () => {
+  return useQuery({
+    queryKey: ["VENDOR_FIND_ALL_PRODUCTS"],
+    queryFn: async () => await vendorFindAllProductsAction(),
+  });
+};
+export const useVendorFindSingleProducts = (productId: any) => {
+  return useQuery({
+    queryKey: ["VENDOR_FIND_SINGLE_PRODUCTS", productId],
+    queryFn: async () => await vendorFindSingleProductsAction(productId),
   });
 };
