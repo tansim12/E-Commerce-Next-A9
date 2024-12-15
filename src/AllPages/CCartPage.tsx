@@ -11,13 +11,13 @@ import emptyPhoto from "../assets/empty-cart.png";
 import Image from "next/image";
 import { useUser } from "../Context/user.context";
 import { useRouter } from "next/navigation";
-
+import { FaArrowRight } from "react-icons/fa";
 
 const CCartPage = () => {
   const router = useRouter();
   const [cartData, setCartData] = useState<any[]>([]);
   const [removeItem, setRemoveItem] = useState<any>(false);
-  const [promoValue, setPromoValue] = useState({});
+  const [promoValue, setPromoValue] = useState<any>({});
   const [discount, setDiscount] = useState<number>(0); // Store the discount
   const { setIsLoadingAdditional } = useAdditional();
   const { user } = useUser();
@@ -56,7 +56,9 @@ const CCartPage = () => {
   // Handle promo code submission
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!promoValue) return toast.error("Please enter a promo code");
+    console.log(promoValue);
+    
+    if (!promoValue?.id) return toast.error("Please enter a promo code");
     const payload = {
       payload: { ...promoValue },
     };
@@ -84,7 +86,6 @@ const CCartPage = () => {
     const total = calculateTotal();
     return total - (total * discount) / 100;
   };
-
 
   if (!cartData.length) {
     return (
@@ -115,7 +116,6 @@ const CCartPage = () => {
   };
   return (
     <>
-      
       <div className="p-6">
         <div className="mx-auto border-primary border shadow-md rounded-lg overflow-hidden">
           <div className="p-6 border-b">
@@ -147,7 +147,7 @@ const CCartPage = () => {
                       />
                     </td>
                     <td className="p-4">{item?.productName}</td>
-                    <td className="p-1">
+                    <td className="p-1 flex items-center mt-2">
                       <input
                         required
                         onChange={(e) =>
@@ -160,8 +160,12 @@ const CCartPage = () => {
                         className="w-24 h-10 border border-gray-300 rounded px-2"
                         type="text"
                       />
-                      <button onClick={onSubmit} type="submit">
-                        <AiOutlineArrowRight size={20} />
+                      <button
+                        type="submit"
+                        onClick={onSubmit}
+                        className="bg-primary p-3 ml-2 rounded-lg"
+                      >
+                        <FaArrowRight />
                       </button>
                     </td>
                     <td className="p-4">
