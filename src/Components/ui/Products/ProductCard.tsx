@@ -88,7 +88,6 @@ const ProductCard = ({
                       quantity: item?.quantity,
                     });
                   }
-                  
                 }}
                 size={38}
                 className="text-black cursor-pointer"
@@ -111,11 +110,12 @@ const ProductCard = ({
         <br />
         <br />
         {/* img div */}
-        <div className="flex justify-center items-center  hover:cursor-pointer">
+
+        <div className="flex justify-center items-center hover:cursor-pointer h-52 w-full overflow-hidden ">
           <Image
             height={128}
-            width={200}
-            className="object-cover rounded-md"
+            width={250}
+            className="object-cover md:rounded-md"
             src={item?.images?.[0] as string}
             alt="Product image"
           />
