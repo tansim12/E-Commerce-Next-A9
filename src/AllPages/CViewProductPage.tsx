@@ -95,11 +95,11 @@ const CViewProductPage = () => {
       description: pd?.description,
       isDelete: pd?.isDelete,
       allImages: pd?.images,
-      flashSaleStartDate: pd.flashSaleStartDate
-        ? pd.flashSaleStartDate
+      flashSaleStartDate: pd?.flashSaleStartDate
+        ? pd?.flashSaleStartDate
         : new Date().toISOString(),
-      flashSaleEndDate: pd.flashSaleEndDate
-        ? pd.flashSaleEndDate
+      flashSaleEndDate: pd?.flashSaleEndDate
+        ? pd?.flashSaleEndDate
         : new Date().toISOString(),
     };
 

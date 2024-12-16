@@ -8,6 +8,7 @@ import {
   useVendorFindAllProducts,
   useVendorFindSingleProducts,
 } from "@/src/hooks/product.hook";
+import Loading from "../Loading/Loading";
 
 const CopyProduct = ({ setCopyProduct }: { setCopyProduct: any }) => {
   const [selectProductId, setSelectProductId] = useState<string | null>(null);
@@ -20,28 +21,49 @@ const CopyProduct = ({ setCopyProduct }: { setCopyProduct: any }) => {
     value: item?.id,
   }));
 
-  const { data: singleProduct } = useVendorFindSingleProducts(selectProductId);
-
+  const { data: singleProduct, isPending } =
+    useVendorFindSingleProducts(selectProductId);
   useEffect(() => {
     const payload = {
+      isAvailable: singleProduct?.isAvailable,
       productName: singleProduct?.productName,
+      isFlashSaleOffer: singleProduct?.isFlashSaleOffer,
+      flashSaleDiscount: singleProduct?.flashSaleDiscount,
+      promo: singleProduct?.promo,
+      discount: singleProduct?.discount,
+      isActivePromo: singleProduct?.isActivePromo,
       quantity: singleProduct?.quantity,
+      price: singleProduct?.price,
+      categoryId: singleProduct?.categoryId,
+      subCategoryId: singleProduct?.subCategoryId,
+      description: singleProduct?.description,
+      isDelete: singleProduct?.isDelete,
+      allImages: singleProduct?.images,
+      flashSaleStartDate: singleProduct?.flashSaleStartDate
+        ? singleProduct?.flashSaleStartDate
+        : new Date().toISOString(),
+      flashSaleEndDate: singleProduct?.flashSaleEndDate
+        ? singleProduct?.flashSaleEndDate
+        : new Date().toISOString(),
     };
     setCopyProduct(payload);
-  }, [singleProduct]);
+  }, [singleProduct,selectProductId]);
 
   return (
-    <div className="w-96">
-      <FXForm onSubmit={handleSubmit}>
-        <CustomSelectWithWatch
-          name="productId"
-          label="Copy Product"
-          changeOnValue={setSelectProductId}
-          options={allProductOptions}
-          placeholder="Select Product"
-        />
-      </FXForm>
-    </div>
+    <>
+      {isPending && <Loading />}
+      <div className="w-96">
+        <FXForm onSubmit={handleSubmit}>
+          <CustomSelectWithWatch
+            name="productId"
+            label="Copy Product"
+            changeOnValue={setSelectProductId}
+            options={allProductOptions}
+            placeholder="Select Product"
+          />
+        </FXForm>
+      </div>
+    </>
   );
 };
 

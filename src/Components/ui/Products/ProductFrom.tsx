@@ -26,6 +26,8 @@ import CustomRangePicker from "../../Form/CustomRangePicker";
 import { useCreateProduct } from "@/src/hooks/product.hook";
 import { productSchema } from "@/src/Schemas/product.schema";
 import { getDateRange } from "@/src/utils/getDateRange";
+import CopyProduct from "./CopyProduct";
+import CopyProductForm from "./CopyProductForm";
 // import CopyProduct from "./CopyProduct";
 const ProductFrom = ({
   isCreate = true,
@@ -90,8 +92,7 @@ const ProductFrom = ({
     value: item?.id,
   }));
 
-  // const [copyProduct, setCopyProduct] = useState({});
-  // todo  copy product pore korte hobe
+  const [copyProduct, setCopyProduct] = useState<any>({});
 
   return (
     <>
@@ -99,88 +100,99 @@ const ProductFrom = ({
       <p className="text-center text-2xl font-semibold mb-5 ">
         Create Products
       </p>
-      {/* <div className="flex justify-end items-center ">
+      <div className="flex justify-end items-center ">
         <CopyProduct setCopyProduct={setCopyProduct} />
-      </div> */}
-
-      <div className="my-10">
-        <FXForm
-          onSubmit={onSubmit}
-          resolver={zodResolver(productSchema.createProductValidationSchema)}
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <CustomInput
-              name="productName"
-              label="Product Name *"
-              type="text"
-            />
-            <CustomInput name="price" label="Price *" type="number" />
-            <CustomInput name="quantity" label="Quantity *" type="number" />
-
-            {/* discount  */}
-            <CustomToggle label="Is Active Promo" name="isActivePromo" />
-            <CustomInput name="discount" label="Discount" type="number" />
-            <CustomInput name="promo" label="Promo" type="text" />
-
-            {/* flash sale */}
-            <CustomToggle label="Is Flash Sale Offer" name="isFlashSaleOffer" />
-            <CustomInput
-              name="flashSaleDiscount"
-              label="FlashSale Discount"
-              type="number"
-            />
-            <CustomRangePicker
-              name="offerDateRange"
-              label="Offer Date Range"
-              changeOnValue={setOnChangeValue}
-            />
-          </div>
-
-          <div className=" flex gap-10 w-full items-center my-3">
-            <div className="basis-3/5">
-              <CustomSelectWithWatch
-                changeOnValue={setGetCategoryId}
-                label="Category *"
-                name="categoryId"
-                options={categoryOptions}
-                placeholder="Select Category"
-              />
-            </div>
-            <div className="basis-3/5">
-              <CustomSelect
-                label="Sub Category"
-                name="subCategoryId"
-                options={subCategoryOptions}
-                placeholder="Select Sub Category"
-              />
-            </div>
-            {!isCreate && (
-              <div className="basis-2/5">
-                <CustomToggle label="Is Delete" name="isDelete" />
-              </div>
-            )}
-          </div>
-          <div className="mb-16">
-            {/* @ts-ignore */}
-            <CustomReactQuill name="description" label="Description *" />
-          </div>
-
-          <CustomFileUpload
-            changeOnValue={setSelectImages}
-            name="images"
-            label="Images *"
-          />
-
-          {(!isCreate && shopExistStatus === 200) ||
-          (isCreate && shopExistStatus === 200) ? (
-            <CustomButton name="Submit" customCss="w-full" />
-          ) : (
-            <span className="font-bold flex justify-center items-center text-red-600 text-xl">
-              Please Shop Create First
-            </span>
-          )}
-        </FXForm>
       </div>
+
+      {copyProduct?.productName ? (
+        <CopyProductForm
+          defaultValue={copyProduct}
+          isCreate={true}
+          shopExistStatus={shopExistStatus}
+        />
+      ) : (
+        <div className="my-10">
+          <FXForm
+            onSubmit={onSubmit}
+            resolver={zodResolver(productSchema.createProductValidationSchema)}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <CustomInput
+                name="productName"
+                label="Product Name *"
+                type="text"
+              />
+              <CustomInput name="price" label="Price *" type="number" />
+              <CustomInput name="quantity" label="Quantity *" type="number" />
+
+              {/* discount  */}
+              <CustomToggle label="Is Active Promo" name="isActivePromo" />
+              <CustomInput name="discount" label="Discount" type="number" />
+              <CustomInput name="promo" label="Promo" type="text" />
+
+              {/* flash sale */}
+              <CustomToggle
+                label="Is Flash Sale Offer"
+                name="isFlashSaleOffer"
+              />
+              <CustomInput
+                name="flashSaleDiscount"
+                label="FlashSale Discount"
+                type="number"
+              />
+              <CustomRangePicker
+                name="offerDateRange"
+                label="Offer Date Range"
+                changeOnValue={setOnChangeValue}
+              />
+            </div>
+
+            <div className=" flex gap-10 w-full items-center my-3">
+              <div className="basis-3/5">
+                <CustomSelectWithWatch
+                  changeOnValue={setGetCategoryId}
+                  label="Category *"
+                  name="categoryId"
+                  options={categoryOptions}
+                  placeholder="Select Category"
+                />
+              </div>
+              <div className="basis-3/5">
+                <CustomSelect
+                  label="Sub Category"
+                  name="subCategoryId"
+                  options={subCategoryOptions}
+                  placeholder="Select Sub Category"
+                />
+              </div>
+              {!isCreate && (
+                <div className="basis-2/5">
+                  <CustomToggle label="Is Delete" name="isDelete" />
+                </div>
+              )}
+            </div>
+            <div className="mb-16">
+              {/* @ts-ignore */}
+              <CustomReactQuill name="description" label="Description *" />
+            </div>
+
+            <CustomFileUpload
+              changeOnValue={setSelectImages}
+              name="images"
+              label="Images *"
+            />
+
+            {(!isCreate && shopExistStatus === 200) ||
+            (isCreate && shopExistStatus === 200) ? (
+              <CustomButton name="Submit" customCss="w-full" />
+            ) : (
+              <span className="font-bold flex justify-center items-center text-red-600 text-xl">
+                Please Shop Create First
+              </span>
+            )}
+          </FXForm>
+        </div>
+      )}
     </>
   );
 };
