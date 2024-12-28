@@ -1,5 +1,7 @@
-import CRegisterPage from "@/src/AllPages/CRegisterPage";
-import React from "react";
+// import CRegisterPage from "@/src/AllPages/CRegisterPage";
+import dynamic from "next/dynamic";
+const CRegisterPage = dynamic(() => import("@/src/AllPages/CRegisterPage"), { ssr: false });
+
 
 const RegisterPage = () => {
   return (
