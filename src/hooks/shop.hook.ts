@@ -5,11 +5,24 @@ import {
   createShopAction,
   findSingleUserFollowAction,
   isExistShopAction,
+  publicFindAllShopAction,
   publicFindSingleShopAction,
   shopUpdateAction,
   vendorFindHisShopAction,
 } from "../Service/Shop/shop.service";
 import { TQueryParams } from "../Types/Filter/filter.type";
+
+export const usePublicAllShop = (
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["PUBLIC_FIND_ALL_SHOP", page, pageSize, params],
+    queryFn: async () => await publicFindAllShopAction(page, pageSize, params),
+  });
+};
+
 
 export const useVendorFindHisShop = () => {
   return useQuery({

@@ -136,4 +136,3 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
 };
 
 export default CShopDetailsPage;
-
