@@ -2,9 +2,8 @@
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-
 import { useUser } from "../Context/user.context";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import FXForm from "../Components/Form/FXForm";
 import { authSchemas } from "../Schemas/auth.schema";
@@ -13,7 +12,7 @@ import CustomButton from "../Components/ui/Button/CustomButton";
 import SocialLogin from "../Components/Shared/SocialLogin";
 import { useUserLogin } from "../hooks/auth.hook";
 import Loading from "../Components/ui/Loading/Loading";
-
+import { Button } from "@nextui-org/button";
 
 const CLoginPage = () => {
   const navigate = useRouter();
@@ -37,6 +36,11 @@ const CLoginPage = () => {
     }
   }, [isPending, isSuccess]);
 
+  const loginDemo = (data: any) => {
+    handleLogin(data as any);
+    userSetLoading(true);
+  };
+
   return (
     <>
       {isPending && <Loading />}
@@ -45,9 +49,10 @@ const CLoginPage = () => {
           <div className="flex flex-col justify-between space-x-0 sm:flex-row sm:space-x-12">
             <div className="mb-8 w-full sm:mb-0 sm:w-1/2">
               {/* Left side form */}
-              <h2 className="mb-6 text-3xl font-semibold tracking-tight light:text-lightText">
+              <h2 className="mb-6 text-3xl font-bold tracking-tight light:text-lightText">
                 Sign In
               </h2>
+
               <FXForm
                 onSubmit={onSubmit}
                 resolver={zodResolver(authSchemas.loginSchema)}
@@ -106,7 +111,50 @@ const CLoginPage = () => {
               </button>
               <p className="my-4 text-center light:text-lightText">OR</p>
               <div>
-                <SocialLogin />
+                <div className="mb-6">
+                  <h2 className="mb-3 text-blue-500">Login Demo Credential:</h2>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="bg-blue-500 hover:bg-blue-600"
+                      onClick={() =>
+                        loginDemo({
+                          email: "u1@gmail.com",
+                          password: "password123",
+                        })
+                      }
+                    >
+                      User Credentials
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="bg-blue-500 hover:bg-blue-600"
+                      onClick={() =>
+                        loginDemo({
+                          email: "v1@gmail.com",
+                          password: "password123",
+                        })
+                      }
+                    >
+                      Vendor Credentials
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="bg-blue-500 hover:bg-blue-600"
+                      onClick={() =>
+                        loginDemo({
+                          email: "a1@gmail.com",
+                          password: "password123",
+                        })
+                      }
+                    >
+                      Admin Credentials
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
