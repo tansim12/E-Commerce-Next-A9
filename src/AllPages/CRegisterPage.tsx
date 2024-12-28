@@ -14,18 +14,20 @@ import FXForm from "../Components/Form/FXForm";
 import { authSchemas } from "../Schemas/auth.schema";
 import CustomInput from "../Components/Form/CustomInput";
 import CustomButton from "../Components/ui/Button/CustomButton";
-import SocialLogin from "../Components/Shared/SocialLogin";
 import { useUserRegister } from "../hooks/auth.hook";
 import Loading from "../Components/ui/Loading/Loading";
+import { LuArrowLeft } from "react-icons/lu";
+import Lottie from "lottie-react";
+import regAnimation from "../assets/Animation/register (1).json";
 
 const CRegisterPage = () => {
   const navigate = useRouter();
   const { setIsLoading: userSetLoading } = useUser();
-    const { mutate: handleRegister, isPending, isSuccess } = useUserRegister();
+  const { mutate: handleRegister, isPending, isSuccess } = useUserRegister();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
-    
+
     if (data?.password !== data?.confirmPassword) {
       return toast.error("Password are not same");
     }
@@ -33,19 +35,31 @@ const CRegisterPage = () => {
     handleRegister(payload as any);
     userSetLoading(true);
   };
-    useEffect(() => {
-      if (!isPending && isSuccess) {
-        navigate.push("/");
-      }
-    }, [isPending, isSuccess]);
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      navigate.push("/");
+    }
+  }, [isPending, isSuccess]);
   return (
     <>
       {isPending && <Loading />}
-      <div className="flex justify-center items-center min-h-screen light:text-lightText">
+      <div className="flex  flex-col-reverse md:flex-row md:flex md:justify-center gap-4 items-center min-h-screen light:text-lightText">
+        <div>
+          <Lottie
+            animationData={regAnimation}
+            loop={true}
+            autoplay={true}
+          ></Lottie>
+        </div>
+
         <div className=" space-y-6 rounded-lg  p-10 shadow-lg mt-5 w-screen sm:max-w-lg">
           <div className="flex flex-col space-y-1">
-            <h3 className="text-3xl font-bold tracking-tight text-white">
-              Sign Up
+            <h3 className="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
+              <LuArrowLeft
+                onClick={() => navigate.push("/login")}
+                className="cursor-pointer"
+              />{" "}
+              Register
             </h3>
             <p className="text-sm light:text-lightText">
               Please fill in the form to create an account.
@@ -104,18 +118,13 @@ const CRegisterPage = () => {
                 </span>{" "}
                 <span
                   onClick={() => {
-                      navigate.push("/login");
+                    navigate.push("/login");
                   }}
                   className="text-sky-500 underline hover:cursor-pointer"
                 >
                   ?Signin
                 </span>{" "}
               </span>
-            </div>
-
-            {/* social login  */}
-            <div className="mt-5">
-              <SocialLogin />
             </div>
           </div>
         </div>

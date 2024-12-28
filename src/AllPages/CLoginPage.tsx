@@ -9,10 +9,10 @@ import FXForm from "../Components/Form/FXForm";
 import { authSchemas } from "../Schemas/auth.schema";
 import CustomInput from "../Components/Form/CustomInput";
 import CustomButton from "../Components/ui/Button/CustomButton";
-import SocialLogin from "../Components/Shared/SocialLogin";
 import { useUserLogin } from "../hooks/auth.hook";
 import Loading from "../Components/ui/Loading/Loading";
 import { Button } from "@nextui-org/button";
+import { LuArrowLeft } from "react-icons/lu";
 
 const CLoginPage = () => {
   const navigate = useRouter();
@@ -49,7 +49,12 @@ const CLoginPage = () => {
           <div className="flex flex-col justify-between space-x-0 sm:flex-row sm:space-x-12">
             <div className="mb-8 w-full sm:mb-0 sm:w-1/2">
               {/* Left side form */}
-              <h2 className="mb-6 text-3xl font-bold tracking-tight light:text-lightText">
+
+              <h2 className="mb-6 text-3xl font-bold tracking-tight light:text-lightText flex items-center gap-3">
+                <LuArrowLeft
+                  onClick={() => navigate.push("/")}
+                  className="cursor-pointer"
+                />{" "}
                 Sign In
               </h2>
 
