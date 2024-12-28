@@ -1,15 +1,11 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import PublicReview from "../Components/ui/Review/PublicReview";
 const EmblaCarousel = dynamic(() => import("../Components/ui/Slider/EmblaCarousel"), { ssr: false });
 const TopSaleProducts = dynamic(() => import("../Components/ui/HomePage/TopSaleProducts"), { ssr: false });
 const FlashSaleProducts = dynamic(() => import("../Components/ui/HomePage/FlashSaleProducts"), { ssr: false });
 const ScrollToTopButton = dynamic(() => import("../Components/ui/ScrollTopButton/ScrollToTopButton"), { ssr: false });
 const RelevantProducts = dynamic(() => import("../Components/ui/Products/RelevantProducts"), { ssr: false });
-
-// import TopSaleProducts from "../Components/ui/HomePage/TopSaleProducts";
-// import FlashSaleProducts from "../Components/ui/HomePage/FlashSaleProducts";
-// import ScrollToTopButton from "../Components/ui/ScrollTopButton/ScrollToTopButton";
-// import RelevantProducts from "../Components/ui/Products/RelevantProducts";
 
 export interface TSlides {
   img: string;
@@ -39,6 +35,9 @@ const CHomePage = () => {
       {/* relevant products  */}
       <div>
         <RelevantProducts />
+      </div>
+      <div>
+        <PublicReview />
       </div>
     </div>
   );
