@@ -77,8 +77,6 @@ const PublicReview = () => {
   return (
     <main className="bg-black" ref={container}>
       <section className="text-white h-[70vh] w-full bg-slate-950 grid place-content-center">
-        <div className="absolute bottom-0 left-0 right-0 top-0 "></div>
-
         <h1 className="2xl:text-7xl text-5xl px-8 font-semibold text-center tracking-tight leading-[120%]">
           What Our Customers Say <br /> Scroll down to read more! 👇
         </h1>
