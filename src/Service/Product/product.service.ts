@@ -221,9 +221,6 @@ export const publicSingleProductReviewShowAction = async (productId: any) => {
   }
 };
 
-
-
-
 export const vendorFindAllProductsAction = async () => {
   try {
     const res = await axiosInstance.get(`/product/vendor/find-his-all-product`);
@@ -238,6 +235,14 @@ export const vendorFindSingleProductsAction = async (productId: any) => {
     const res = await axiosInstance.get(
       `/product/vendor/find-one-product/${productId}`
     );
+    return res?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const userFindHisAllProductReviewAction = async () => {
+  try {
+    const res = await axiosInstance.get(`/product/user/find-his-review`);
     return res?.data?.data;
   } catch (error) {
     console.log(error);

@@ -1,13 +1,10 @@
 import { FaHome, FaUser } from "react-icons/fa";
 import { TbCategory, TbTransactionDollar } from "react-icons/tb";
 import { ReactNode } from "react"; // Import ReactNode for JSX types
-import { FiHome, FiSettings, FiUsers } from "react-icons/fi";
-import { BsFillFileEarmarkPostFill } from "react-icons/bs";
-import {
-  MdOutlineManageAccounts,
-  MdOutlineManageSearch,
-  MdPayment,
-} from "react-icons/md";
+import { FiHome } from "react-icons/fi";
+
+import { MdOutlineManageAccounts, MdOutlineManageSearch } from "react-icons/md";
+import { GoCodeReview } from "react-icons/go";
 
 // Define the type for the sidebar items
 interface SidebarItem {
@@ -117,6 +114,11 @@ export const sidebarItems: {
       name: "Payments",
       path: "/user/payment-history",
       icon: <TbTransactionDollar />,
+    },
+    {
+      name: "Review",
+      path: "/user/product-review",
+      icon: <GoCodeReview />,
     },
   ],
 };
