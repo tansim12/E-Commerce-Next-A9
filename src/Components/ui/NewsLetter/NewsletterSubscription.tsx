@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { CampingBackground } from "./CampingBackground";
 import { ThankYouMessage } from "./ThankYouMessage";
+import { useNewsLetterCreate } from "@/src/hooks/analytics.hook";
+import toast from "react-hot-toast";
 
 export function NewsletterSubscription() {
   const [email, setEmail] = useState("");
@@ -22,13 +24,16 @@ export function NewsletterSubscription() {
     return () => observer.disconnect();
   }, []);
 
+  const { isSuccess, mutate } = useNewsLetterCreate();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       alert("Please enter a valid email address.");
       return;
     }
-    setIsSubscribed(true);
+
+    mutate({ payload: { email } });
+    toast.success("Thank you Join Our Camping ");
   };
 
   return (
