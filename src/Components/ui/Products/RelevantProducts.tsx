@@ -41,7 +41,7 @@ const RelevantProducts = () => {
 
   return (
     <>
-      <div className="my-28">
+      <div className="mt-28 mb-16">
         <div>
           <p className="text-3xl text-center my-10 font-bold">Your Products</p>
         </div>
