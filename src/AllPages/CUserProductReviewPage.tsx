@@ -36,9 +36,7 @@ const CUserProductReviewPage = ({ data }: { data: any }) => {
                         key={index}
                         className="flex justify-around overscroll-x-auto w-96  "
                       >
-                        <p>
-                          {product?.product?.productName} 
-                        </p>
+                        <p>{product?.product?.productName}</p>
                         <img
                           src={product?.product?.images[0]}
                           alt={product?.product?.productName}
@@ -66,11 +64,7 @@ const CUserProductReviewPage = ({ data }: { data: any }) => {
               </TableRow>
             ))
           ) : (
-            <TableRow>
-              <TableCell colSpan={6} className="text-center">
-                No rows to display.
-              </TableCell>
-            </TableRow>
+            <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
           )}
         </TableBody>
       </Table>
