@@ -67,7 +67,7 @@ const CUserProductReviewPage = ({ data }: { data: any }) => {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={9} className="text-center">
+              <TableCell colSpan={6} className="text-center">
                 No rows to display.
               </TableCell>
             </TableRow>
