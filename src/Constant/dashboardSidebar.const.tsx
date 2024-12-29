@@ -1,4 +1,4 @@
-import { FaHome, FaUser } from "react-icons/fa";
+import { FaHome, FaRegNewspaper, FaUser } from "react-icons/fa";
 import { TbCategory, TbTransactionDollar } from "react-icons/tb";
 import { ReactNode } from "react"; // Import ReactNode for JSX types
 import { FiHome } from "react-icons/fi";
@@ -63,6 +63,11 @@ export const sidebarItems: {
       name: "My Payments",
       path: "/admin/payment-history",
       icon: <TbTransactionDollar />,
+    },
+    {
+      name: "News Letter",
+      path: "/admin/newsletter",
+      icon: <FaRegNewspaper />,
     },
   ],
   vendor: [
