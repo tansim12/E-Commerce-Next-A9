@@ -11,13 +11,19 @@ import {
 import moment from "moment";
 import { userUserAllReview } from "../hooks/product.hook";
 import Loading from "../Components/ui/Loading/Loading";
+import ComponentsLoading from "../Components/ui/Loading/ComponentsLoading";
 const CUserProductReviewPage = () => {
   const { data, isLoading } = userUserAllReview();
   return (
     <>
       {isLoading && <Loading />}
       <div className="overflow-x-auto">
-        <Table aria-label="Product Review Table">
+        <Table
+          aria-label="Product Management Table with Actions"
+          className=" table-auto"
+          fullWidth={false}
+          bottomContent={isLoading && <ComponentsLoading />}
+        >
           <TableHeader>
             <TableColumn>User Message</TableColumn>
             <TableColumn>Shop Message</TableColumn>
@@ -26,9 +32,9 @@ const CUserProductReviewPage = () => {
             <TableColumn>Created At</TableColumn>
             <TableColumn>Updated At</TableColumn>
           </TableHeader>
-          <TableBody>
-            {data?.length > 0 ? (
-              data?.map((item: any, index: any) => (
+          {data?.length > 0 ? (
+            <TableBody>
+              {data?.map((item: any, index: any) => (
                 <TableRow key={index}>
                   <TableCell>{item?.userMessage}</TableCell>
                   <TableCell>{item?.shopMessage || "N/A"}</TableCell>
@@ -67,11 +73,11 @@ const CUserProductReviewPage = () => {
                       : "N/A"}
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
-            )}
-          </TableBody>
+              ))}
+            </TableBody>
+          ) : (
+            <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
+          )}
         </Table>
       </div>
     </>
