@@ -12,6 +12,7 @@ import {
   publicSingleProductReviewShowAction,
   publicTopSaleProductsAction,
   updateProductAction,
+  userFindHisAllProductReviewAction,
   vendorFindAllProductsAction,
   vendorFindSingleProductsAction,
 } from "../Service/Product/product.service";
@@ -161,5 +162,11 @@ export const useVendorFindSingleProducts = (productId: any) => {
   return useQuery({
     queryKey: ["VENDOR_FIND_SINGLE_PRODUCTS", productId],
     queryFn: async () => await vendorFindSingleProductsAction(productId),
+  });
+};
+export const userUserAllReview = () => {
+  return useQuery({
+    queryKey: ["PRODUCT_REVIEW"],
+    queryFn: async () => await userFindHisAllProductReviewAction(),
   });
 };
