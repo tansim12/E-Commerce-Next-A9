@@ -134,7 +134,7 @@ const ProductCard = ({
         {/* Product Info */}
         <div className="p-4 space-y-2">
           <h3 className="text-sm font-medium text-white line-clamp-2">
-            {item?.productName?.slice(0,30)}
+            {item?.productName?.slice(0, 30)}
           </h3>
 
           {/* Stock Status and Orders */}
@@ -153,7 +153,7 @@ const ProductCard = ({
 
           {/* Price Section */}
           <div className="flex items-center gap-2 pt-1">
-            <span className="text-base font-bold text-gray-900">
+            <span className="text-xl font-bold text-primary">
               {discountPrice(
                 item?.price,
                 isFlashSale ? item?.flashSaleDiscount : item?.discount
