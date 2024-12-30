@@ -34,3 +34,14 @@ export const findAllNewsLetterAction = async () => {
     // console.log(error);
   }
 };
+export const newsletterGroupMessageSendAction = async (payload: any) => {
+  try {
+    const res = await axiosInstance.post(
+      "/analytics/newsletter/group-message",
+      payload
+    );
+    return res?.data?.data;
+  } catch (error) {
+    // console.log(error);
+  }
+};
