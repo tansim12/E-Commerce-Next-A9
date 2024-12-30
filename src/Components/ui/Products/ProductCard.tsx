@@ -22,22 +22,24 @@ const ProductCard = ({
   item: any;
   isFlashSale?: boolean;
 }) => {
-  //   const updateAddToCart = useAppDispatch();
-  const [hoverOption, setHoverOption] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const router = useRouter();
-
-  const handleMouseEnter = () => {
-    setHoverOption(true);
-  };
-
-  const handleMouseLeave = () => {
-    setHoverOption(false);
-  };
-
-  const clickDetailsPage = (id: string) => {
-    router.push(`/product-details/${id}`);
-  };
   const { setIsLoadingAdditional } = useAdditional();
+  const { user } = useUser();
+  const { mutate, isSuccess } = useCreateUserWishlist();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Wishlist product added");
+    }
+  }, [isSuccess]);
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+
+  const clickDetailsPage = (id: string) =>
+    router.push(`/product-details/${id}`);
+
   const handleAddToCartButton = (data: any) => {
     const result = handleAddToCart(data);
     if (result?.status === true) {
@@ -48,162 +50,152 @@ const ProductCard = ({
     }
   };
 
-  const { user } = useUser();
-  const { mutate, isSuccess } = useCreateUserWishlist();
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("wishlist product added");
-    }
-  }, [isSuccess]);
-
   return (
-    <div className=" border border-white  shadow-2xl rounded-lg overflow-hidden relative">
-      {/* main div  */}
-      <div
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="relative"
-      >
-        {/* is hover div  */}
-        {hoverOption && (
-          <div className=" absolute top-0 flex items-center justify-center bg-gray-200  h-[50%] w-[100%]  opacity-70 rounded-b-full">
-            <div className=" text-black font-extrabold flex items-center justify-center gap-3 my-auto">
-              {/* details */}
-
-              <TbListDetails
-                onClick={() => clickDetailsPage(item?.id as string)}
-                size={38}
-                className="text-black font-extrabold cursor-pointer"
-              />
-
-              {/* wishlist */}
-
-              <FaRegHeart
-                onClick={() => {
-                  if (!user?.id) {
-                    return router.push("/login");
-                  } else {
-                    mutate({ payload: { productId: item?.id } });
-                  }
-                }}
-                size={38}
-                className="text-black font-extrabold cursor-pointer"
-              />
-
-              {/* add to cart */}
-
-              <IoCartOutline
-                onClick={() => {
-                  if (item?.isAvailable !== true) {
-                    toast.error("This Product Stock Out 😢");
-                  } else {
-                    handleAddToCartButton({
-                      id: item?.id,
-                      shopName: item?.shop?.name,
-                      image: item?.images?.[0],
-                      buyQuantity: 1,
-                      productName: item?.productName,
-                      shopId: item?.shopId,
-                      price: discountPrice(item?.price, item?.discount),
-                      quantity: item?.quantity,
-                    });
-                  }
-                }}
-                size={38}
-                className="text-black font-extrabold cursor-pointer"
-              />
+    <div
+      className="bg-[#27272a] rounded-lg shadow-sm hover:shadow-md transition-all duration-300 "
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="relative">
+        {/* Discount Badge */}
+        {(item?.discount > 0 || isFlashSale) && (
+          <div
+            className={`absolute z-10 left-2 top-2 w-12 h-12 flex items-center justify-center rounded-full text-xs font-bold 
+            ${item?.discount >= 400 || isFlashSale ? "bg-red-500" : "bg-primary"} text-white`}
+          >
+            <div className="text-center leading-tight">
+              <span>
+                {isFlashSale ? item?.flashSaleDiscount : item?.discount}৳
+              </span>
+              <br />
+              <span className="text-[10px]">OFF</span>
             </div>
           </div>
         )}
 
-        {/* discount */}
-        {item?.discount !== undefined && item?.discount > 0 && !isFlashSale && (
-          <div className="absolute bg-secondary text-white top-5 py-1 px-2 text-sm rounded-r-full">
-            <p>Save: {item?.discount}৳</p>
-          </div>
-        )}
-        {isFlashSale && (
-          <div className="absolute bg-primary text-white top-5 py-1 px-2 text-sm rounded-r-full">
-            <p>Flash Offer: {item?.flashSaleDiscount}৳</p>
-          </div>
-        )}
-        <br />
-        <br />
-        {/* img div */}
-
-        <div className="flex justify-center items-center hover:cursor-pointer h-52 w-full overflow-hidden ">
+        {/* Product Image with Hover Effects */}
+        <div className="relative aspect-square overflow-hidden rounded-t-lg">
           <Image
-            height={128}
-            width={250}
-            className="object-cover md:rounded-md"
+            height={220}
+            width={220}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             src={item?.images?.[0] as string}
-            alt="Product image"
+            alt={item?.productName || "Product image"}
           />
+
+          {/* Hover Overlay with Actions */}
+          {isHovered && (
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex flex-col items-center justify-center gap-4 transition-opacity duration-200">
+              <button
+                onClick={() => clickDetailsPage(item?.id as string)}
+                className="bg-white text-gray-800 px-6 py-2 rounded-full text-sm font-medium 
+                  transform transition-transform duration-200 hover:scale-105 hover:bg-gray-100"
+              >
+                View Details
+              </button>
+
+              <div className="flex items-center gap-3">
+                <IconButton
+                  icon={<FaRegHeart size={18} />}
+                  onClick={() => {
+                    if (!user?.id) {
+                      return router.push("/login");
+                    } else {
+                      mutate({ payload: { productId: item?.id } });
+                    }
+                  }}
+                  label="Wishlist"
+                />
+                <IconButton
+                  icon={<IoCartOutline size={18} />}
+                  onClick={() => {
+                    if (item?.isAvailable !== true) {
+                      toast.error("This Product is Out of Stock 😢");
+                    } else {
+                      handleAddToCartButton({
+                        id: item?.id,
+                        shopName: item?.shop?.name,
+                        image: item?.images?.[0],
+                        buyQuantity: 1,
+                        productName: item?.productName,
+                        shopId: item?.shopId,
+                        price: discountPrice(item?.price, item?.discount),
+                        quantity: item?.quantity,
+                      });
+                    }
+                  }}
+                  label="Add to Cart"
+                />
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* description div */}
-        <div className="px-3 text-sm">
-          <span>
-            <span className="font-bold">Name</span>:{" "}
-            {item?.productName?.slice(0, 30)}
-          </span>
+        {/* Product Info */}
+        <div className="p-4 space-y-2">
+          <h3 className="text-sm font-medium text-white line-clamp-2">
+            {item?.productName}
+          </h3>
 
-          <div className="flex justify-between items-center my-3">
-            <p>
-              <span className="font-bold text-sm">Available:</span>
-              {item?.isAvailable === true && (
-                <span className="text-secondary text-sm"> In Stock</span>
-              )}
-
-              {item?.isAvailable !== true && (
-                <span className="text-red-600 text-sm"> Stock-Out</span>
-              )}
-            </p>
-            <p>
-              <span className="font-bold">Orders:</span> {item?.totalBuy}{" "}
-            </p>
+          {/* Stock Status and Orders */}
+          <div className="flex items-center justify-between">
+            <span
+              className={`text-xs font-medium ${
+                item?.isAvailable ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {item?.isAvailable ? "In Stock" : "Out of Stock"}
+            </span>
+            <span className="text-xs text-gray-200">
+              Orders: {item?.totalBuy}
+            </span>
           </div>
 
-          <p
-            onClick={() => clickDetailsPage(item?.id as string)}
-            className="font-light mt-3 hover:underline hover:text-primary hover:cursor-pointer"
-            dangerouslySetInnerHTML={{
-              __html: item?.description?.slice(0, 35),
-            }}
-          ></p>
-        </div>
-
-        {/* price div */}
-        <div className="my-3 p-3 flex items-center gap-2">
-          {/* real price */}
-          <p className="font-bold text-2xl text-primary">
-            {" "}
-            {discountPrice(
-              item?.price,
-              isFlashSale ? item?.flashSaleDiscount : item?.discount
+          {/* Price Section */}
+          <div className="flex items-center gap-2 pt-1">
+            <span className="text-base font-bold text-gray-900">
+              {discountPrice(
+                item?.price,
+                isFlashSale ? item?.flashSaleDiscount : item?.discount
+              )}
+              ৳
+            </span>
+            {item?.discount > 0 && (
+              <span className="text-sm text-gray-500 line-through">
+                {item?.price}৳
+              </span>
             )}
-            ৳
-          </p>
-          {item?.discount && (
-            <p className="text-gray-500 line-through">
-              {item?.price as number}৳
-            </p>
+          </div>
+
+          {/* Buy and Compare Buttons */}
+          {showBuyButton && (
+            <div className="space-y-2 pt-2">
+              <NewCustomButton item={item} name="Buy Now" />
+              <CompareButton item={item} />
+            </div>
           )}
         </div>
       </div>
-      {/* buy button div */}
-      {showBuyButton && (
-        <div className="px-3 ">
-          <NewCustomButton item={item} name="Buy Now" />
-        </div>
-      )}
-      {showBuyButton && (
-        <div className="px-3 ">
-          <CompareButton item={item} />
-        </div>
-      )}
     </div>
   );
 };
+
+const IconButton = ({
+  icon,
+  onClick,
+  label,
+}: {
+  icon: any;
+  onClick: any;
+  label: any;
+}) => (
+  <button
+    onClick={onClick}
+    className="bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full transition-all duration-200 hover:scale-105"
+    title={label}
+  >
+    {icon}
+  </button>
+);
 
 export default ProductCard;

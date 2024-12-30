@@ -41,7 +41,7 @@ const NewCustomButton = ({ name, item }: { name: any; item: any }) => {
             }
           }}
           disabled={item?.isAvailable !== true}
-          className="group relative z-10 h-10 w-full overflow-hidden bg-white text-xl text-black  font-bold  border-2 rounded-md hover:cursor-pointer"
+          className="group relative z-10 h-8 w-full overflow-hidden border-gray-500 bg-white text-xl text-black  font-bold  border-2 rounded-md hover:cursor-pointer"
         >
           <span className="absolute -inset-8 origin-left rotate-12 scale-x-0 transform bg-white transition-transform duration-700 group-hover:scale-x-50 group-hover:duration-300"></span>
           <span className="absolute -inset-[80px] origin-left rotate-12 scale-x-0 transform bg-sky-700 transition-transform duration-500 group-hover:scale-x-100 group-hover:duration-700"></span>

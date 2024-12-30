@@ -19,7 +19,7 @@ const CompareButton = ({ item }: { item: any }) => {
   };
 
   return (
-    <div className="text-sm w-full flex justify-center items-center mb-2 border border-white rounded-xl p-2 cursor-pointer">
+    <div className="text-sm w-full flex justify-center items-center mb-2 border border-white rounded-xl p-1   cursor-pointer">
       <button
         onClick={handleClick}
         className="flex justify-center items-center gap-2"
