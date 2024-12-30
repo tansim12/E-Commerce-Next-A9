@@ -47,7 +47,7 @@ export const Navbar = () => {
       <div>
         <NextUINavbar
           maxWidth="full"
-          className={`fixed flex py-2 px-2 border-b z-[1] bg-bgColor backdrop-filter-blur transition-all duration-400 ${
+          className={`fixed flex py-2 px-2 border-b z-[1] bg-bgColor backdrop-filter-blur  transition-all duration-400 ${
             toHide ? "opacity-0 -translate-y-full" : "opacity-100 translate-y-0"
           }`}
         >

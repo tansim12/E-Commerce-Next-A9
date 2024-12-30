@@ -8,7 +8,7 @@ const CommonLayout = ({ children }: childrenProps) => {
   return (
     <div>
       <Navbar />
-      <div className="mb-10 pt-20  w-full">
+      <div className="mb-10 pt-20 w-full  ">
         <CategoryAndSubCategory />
       </div>
       <div className="">{children}</div>

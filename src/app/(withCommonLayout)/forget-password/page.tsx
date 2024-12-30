@@ -3,7 +3,7 @@ import React from "react";
 
 const ForgetPasswordPage = ({ searchParams }: { searchParams: any }) => {
   return (
-    <div>
+    <div className='container mx-auto px-2 sm:px-2'>
       <CForgetPasswordPage searchParams={searchParams} />
     </div>
   );

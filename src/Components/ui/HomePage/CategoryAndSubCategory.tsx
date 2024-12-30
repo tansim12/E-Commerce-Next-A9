@@ -27,12 +27,12 @@ const CategoryAndSubCategory = () => {
   };
 
   return (
-    <div className=" ">
-      <div className=" relative flex flex-wrap   items-center   shadow-md border-2 border-primary py-1 rounded-xl">
+    <div className="mx-10 ">
+      <div className=" relative flex flex-wrap   items-center   shadow-md border border-r-0 border-t-0 border-l-0 border-b-primary py-1  ">
         {categories?.map((category: Category) => (
           <div key={category.id} className="group relative">
             <button
-              className=" font-medium hover:text-orange-500 p-3"
+              className=" font-medium hover:text-orange-500 mx-3 my-1"
               onClick={() => handleNavigate("category", category.id)}
             >
               {category.categoryName}

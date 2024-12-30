@@ -2,6 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import PublicReview from "../Components/ui/Review/PublicReview";
 import { NewsletterSubscription } from "../Components/ui/NewsLetter/NewsletterSubscription";
+import { Banner } from "../Components/ui/Banner/Banner";
 const EmblaCarousel = dynamic(
   () => import("../Components/ui/Slider/EmblaCarousel"),
   { ssr: false }
@@ -31,31 +32,32 @@ const CHomePage = () => {
   return (
     <div className="relative">
       {/* slider Section  */}
-      <div className="mx-2">
-        <EmblaCarousel />
+      <div className="mx-2 overflow-x-hidden static ">
+        {/* <EmblaCarousel /> */}
+        <Banner />
       </div>
       {/* top sale  product */}
-      <div className="my-10">
+      <div className="my-10 container mx-auto px-2 sm:px-2">
         <TopSaleProducts />
       </div>
       {/* flash sale product */}
-      <div className="my-10">
+      <div className="my-10 container mx-auto px-2 sm:px-2">
         <FlashSaleProducts />
       </div>
 
       {/* scroll button  */}
-      <div className="absolute">
+      <div className="absolute container mx-auto px-2 sm:px-2">
         <ScrollToTopButton />
       </div>
 
       {/* relevant products  */}
-      <div>
+      <div className="container mx-auto px-2 sm:px-2">
         <RelevantProducts />
       </div>
-      <div>
+      <div className="container mx-auto px-2 sm:px-2">
         <NewsletterSubscription />
       </div>
-      <div>
+      <div className="container mx-auto px-2 sm:px-2">
         <PublicReview />
       </div>
     </div>

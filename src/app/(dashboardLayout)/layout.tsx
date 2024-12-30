@@ -5,7 +5,7 @@ import React from "react";
 
 const DashboardLayout = ({ children }: childrenProps) => {
   return (
-    <div className=" mx-auto p-2">
+    <div className=" mx-auto p-2 container px-2 sm:px-2">
       <div className="mb-3">
         <DashboardNav />
       </div>
