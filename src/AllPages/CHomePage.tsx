@@ -3,10 +3,7 @@ import dynamic from "next/dynamic";
 import PublicReview from "../Components/ui/Review/PublicReview";
 import { NewsletterSubscription } from "../Components/ui/NewsLetter/NewsletterSubscription";
 import { Banner } from "../Components/ui/Banner/Banner";
-const EmblaCarousel = dynamic(
-  () => import("../Components/ui/Slider/EmblaCarousel"),
-  { ssr: false }
-);
+
 const TopSaleProducts = dynamic(
   () => import("../Components/ui/HomePage/TopSaleProducts"),
   { ssr: false }
