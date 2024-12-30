@@ -1,4 +1,4 @@
-import { FaHome, FaRegNewspaper, FaUser } from "react-icons/fa";
+import { FaHeart, FaHome, FaRegNewspaper, FaUser } from "react-icons/fa";
 import { TbCategory, TbTransactionDollar } from "react-icons/tb";
 import { ReactNode } from "react"; // Import ReactNode for JSX types
 import { FiHome } from "react-icons/fi";
@@ -69,6 +69,11 @@ export const sidebarItems: {
       path: "/admin/newsletter",
       icon: <FaRegNewspaper />,
     },
+    {
+      name: "Wishlist",
+      path: "/admin/wishlist",
+      icon: <FaHeart />,
+    },
   ],
   vendor: [
     {
@@ -107,6 +112,11 @@ export const sidebarItems: {
       path: "/vendor/payment-history",
       icon: <TbTransactionDollar />,
     },
+    {
+      name: "Wishlist",
+      path: "/vendor/wishlist",
+      icon: <FaHeart />,
+    },
   ],
   user: [
     {
@@ -124,6 +134,11 @@ export const sidebarItems: {
       name: "Review",
       path: "/user/product-review",
       icon: <GoCodeReview />,
+    },
+    {
+      name: "Wishlist",
+      path: "/user/wishlist",
+      icon: <FaHeart />,
     },
   ],
 };

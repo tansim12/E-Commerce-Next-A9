@@ -3,7 +3,10 @@ import { TQueryParams } from "../Types/Filter/filter.type";
 import {
   adminFindAllUserAction,
   adminUserUpdateAction,
+  createUserWishlistAction,
+  findHisAllWishlistAction,
   findMyProfileAction,
+  singleDeleteWishListAction,
   updateMyProfileAction,
 } from "../Service/User/user.service";
 import { TUser } from "../Types/User/user.types";
@@ -61,6 +64,44 @@ export const useUpdateMyProfile = () => {
     onSuccess: (_data, variables) => {
       // Revalidate queries based on userId or other parameters
       queryClient.refetchQueries(["FIND_MY_PROFILE"] as any);
+    },
+  });
+};
+export const useCreateUserWishlist = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["CREATE_WISHLIST"], // A unique mutation key
+    mutationFn: async ({ payload }: { payload: any }) => {
+      return await createUserWishlistAction(payload); // Perform the API call to update user info
+    },
+    onSuccess: (_data, variables) => {
+      // Revalidate queries based on userId or other parameters
+      queryClient.refetchQueries(["FIND_ALL_USER_WISHLIST"] as any);
+    },
+  });
+};
+
+export const useFindHisAllWishlist = (
+  page: number,
+  pageSize: number,
+  params: TQueryParams[]
+) => {
+  return useQuery({
+    queryKey: ["FIND_ALL_USER_WISHLIST", page, pageSize, params], // queryKey with userId
+    queryFn: async () => await findHisAllWishlistAction(page, pageSize, params),
+  });
+};
+
+export const useSingleDeleteWishList = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["DELETE_WISHLIST"],
+    mutationFn: async ({ wishListId }: { wishListId: any }) => {
+      return await singleDeleteWishListAction(wishListId); // Perform the API call to update user info
+    },
+    onSuccess: (_data, variables) => {
+      // Revalidate queries based on userId or other parameters
+      queryClient.refetchQueries(["FIND_ALL_USER_WISHLIST"] as any);
     },
   });
 };

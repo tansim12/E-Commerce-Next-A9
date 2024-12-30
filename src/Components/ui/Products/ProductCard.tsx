@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { TbListDetails } from "react-icons/tb";
@@ -10,6 +10,8 @@ import NewCustomButton from "./NewCustomButton";
 import { handleAddToCart } from "@/src/utils/addToCartFn";
 import { useAdditional } from "@/src/Context/aditional.context";
 import CompareButton from "../Button/CompareButton";
+import { useCreateUserWishlist } from "@/src/hooks/user.hook";
+import { useUser } from "@/src/Context/user.context";
 
 const ProductCard = ({
   showBuyButton,
@@ -46,6 +48,14 @@ const ProductCard = ({
     }
   };
 
+  const { user } = useUser();
+  const { mutate, isSuccess } = useCreateUserWishlist();
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("wishlist product added");
+    }
+  }, [isSuccess]);
+
   return (
     <div className=" border border-white  shadow-2xl rounded-lg overflow-hidden relative">
       {/* main div  */}
@@ -68,7 +78,17 @@ const ProductCard = ({
 
               {/* wishlist */}
 
-              <FaRegHeart size={38} className="text-black cursor-pointer" />
+              <FaRegHeart
+                onClick={() => {
+                  if (!user?.id) {
+                    return router.push("/login");
+                  } else {
+                    mutate({ payload: { productId: item?.id } });
+                  }
+                }}
+                size={38}
+                className="text-black cursor-pointer"
+              />
 
               {/* add to cart */}
 
