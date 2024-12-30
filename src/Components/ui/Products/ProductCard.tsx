@@ -66,14 +66,14 @@ const ProductCard = ({
       >
         {/* is hover div  */}
         {hoverOption && (
-          <div className=" absolute top-0 flex items-center justify-center bg-gray-500  h-[50%] w-[100%]  opacity-70 rounded-b-full">
-            <div className=" text-black flex items-center justify-center gap-3 my-auto">
+          <div className=" absolute top-0 flex items-center justify-center bg-gray-200  h-[50%] w-[100%]  opacity-70 rounded-b-full">
+            <div className=" text-black font-extrabold flex items-center justify-center gap-3 my-auto">
               {/* details */}
 
               <TbListDetails
                 onClick={() => clickDetailsPage(item?.id as string)}
                 size={38}
-                className="text-black cursor-pointer"
+                className="text-black font-extrabold cursor-pointer"
               />
 
               {/* wishlist */}
@@ -87,7 +87,7 @@ const ProductCard = ({
                   }
                 }}
                 size={38}
-                className="text-black cursor-pointer"
+                className="text-black font-extrabold cursor-pointer"
               />
 
               {/* add to cart */}
@@ -110,7 +110,7 @@ const ProductCard = ({
                   }
                 }}
                 size={38}
-                className="text-black cursor-pointer"
+                className="text-black font-extrabold cursor-pointer"
               />
             </div>
           </div>
