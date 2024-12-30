@@ -46,7 +46,7 @@ const RelevantProducts = () => {
           <p className="text-3xl text-center my-10 font-bold">Your Products</p>
         </div>
         {allProductsData?.length ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-3">
             {allProductsData?.map((item: any) => <ProductCard item={item} />)}
           </div>
         ) : (
