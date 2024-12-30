@@ -134,7 +134,7 @@ const ProductCard = ({
         {/* Product Info */}
         <div className="p-4 space-y-2">
           <h3 className="text-sm font-medium text-white line-clamp-2">
-            {item?.productName}
+            {item?.productName?.slice(0,30)}
           </h3>
 
           {/* Stock Status and Orders */}

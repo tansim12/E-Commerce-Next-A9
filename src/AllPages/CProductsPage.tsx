@@ -66,7 +66,7 @@ const CProductsPage = ({ searchParams }: { searchParams: any }) => {
       )}
       <div>
         {allPostData?.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
             {allPostData?.length &&
               allPostData?.map((item: TPost) => (
                 // <Post key={item?._id} post={item} />
