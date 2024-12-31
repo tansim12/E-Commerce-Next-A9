@@ -12,40 +12,40 @@ const projects = [
     description:
       "Originally hailing from Austria, Berlin-based photographer Matthias Leindinger is a young creative brimming with talent and ideas.",
     src: "rock.jpg",
-    link: "https://i.ibb.co.com/7gCnPwW/brooke-cagle-6cz9-KUvnx-M-unsplash.jpg",
-    color: "#163580",
+    link: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1735627985/brooke-cagle-_6cz9KUvnxM-unsplash_m9mcuy.jpg",
+    gradient: "from-purple-400 to-pink-600",
   },
   {
     title: "Clément Chapillon",
     description:
-      "This is a story on the border between reality and imaginary, about the contradictory feelings that the insularity of a rocky, arid, and wild territory provokes”—so French photographer Clément.",
+      "This is a story on the border between reality and imaginary, about the contradictory feelings that the insularity of a rocky, arid, and wild territory provokes—so French photographer Clément.",
     src: "tree.jpg",
-    link: "https://i.ibb.co.com/7NMLbGH/good-faces-DSj40n6be-Gk-unsplash.jpg",
-    color: "#5196fd",
+    link: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1735627984/good-faces-DSj40n6beGk-unsplash_oa6qvr.jpg",
+    gradient: "from-blue-400 to-teal-500",
   },
   {
     title: "Zissou",
     description:
-      "Though he views photography as a medium for storytelling, Zissou’s images don’t insist on a narrative. Both crisp and ethereal.",
+      "Though he views photography as a medium for storytelling, Zissou's images don't insist on a narrative. Both crisp and ethereal.",
     src: "water.jpg",
-    link: "https://i.ibb.co.com/8M2wWqq/desola-lanre-ologun-7d4-LREDSPy-Q-unsplash.jpg",
-    color: "#6d33da",
+    link: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1735627984/desola-lanre-ologun-7d4LREDSPyQ-unsplash_njpn1i.jpg",
+    gradient: "from-indigo-500 to-purple-600",
   },
   {
     title: "Mathias Svold and Ulrik Hasemann",
     description:
       "The coastlines of Denmark are documented in tonal colors in a pensive new series by Danish photographers Ulrik Hasemann and Mathias Svold; an ongoing project investigating how humans interact with and disrupt the Danish coast.",
     src: "house.jpg",
-    link: "https://i.ibb.co.com/0CZQyHL/brooke-cagle-LCc-FI-26di-A-unsplash.jpg",
-    color: "#5ed6a2",
+    link: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1735627985/brooke-cagle-LCcFI_26diA-unsplash_n8k4t0.jpg",
+    gradient: "from-green-400 to-cyan-500",
   },
   {
     title: "Mark Rammers",
     description:
-      "Dutch photographer Mark Rammers has shared with IGNANT the first chapter of his latest photographic project, ‘all over again’—captured while in residency at Hektor, an old farm in Los Valles, Lanzarote.",
+      "Dutch photographer Mark Rammers has shared with IGNANT the first chapter of his latest photographic project, 'all over again'—captured while in residency at Hektor, an old farm in Los Valles, Lanzarote.",
     src: "cactus.jpg",
-    link: "https://i.ibb.co.com/yRKmB1v/brooke-cagle-Ypef-Hk-Uc8-BQ-unsplash.jpg",
-    color: "#a51196",
+    link: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1735627985/brooke-cagle-YpefHkUc8BQ-unsplash_vraezj.jpg",
+    gradient: "from-pink-500 to-yellow-500",
   },
 ];
 
@@ -75,14 +75,17 @@ const PublicReview = () => {
   }, []);
 
   return (
-    <main className="bg-black" ref={container}>
-      <section className="text-white h-[70vh] w-full bg-slate-950 grid place-content-center">
-        <h1 className="2xl:text-7xl text-5xl px-8 font-semibold text-center tracking-tight leading-[120%]">
-          What Our Customers Say <br /> Scroll down to read more! 👇
+    <main className="bg-gradient-to-b " ref={container}>
+      <section className=" text-white w-full grid place-content-center">
+        <h1 className="2xl:text-7xl text-5xl px-8 font-bold text-center tracking-tight leading-[120%] bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+          What Our Customers Say <br />
+          <span className="text-3xl font-normal">
+            Scroll down to read more! 👇
+          </span>
         </h1>
       </section>
 
-      <section className="text-white w-full bg-slate-950">
+      <section className="text-white w-full">
         {projects?.map((project, i) => {
           const targetScale = 1 - (projects.length - i) * 0.05;
           return (
@@ -90,9 +93,8 @@ const PublicReview = () => {
               key={`p_${i}`}
               i={i}
               url={project?.link}
-              src={project?.src}
               title={project?.title}
-              color={project?.color}
+              gradient={project?.gradient}
               description={project?.description}
               progress={scrollYProgress}
               range={[i * 0.25, 1]}
@@ -111,9 +113,8 @@ interface CardProps {
   i: number;
   title: string;
   description: string;
-  src: string;
   url: string;
-  color: string;
+  gradient: string;
   progress: MotionValue<number>;
   range: [number, number];
   targetScale: number;
@@ -123,9 +124,9 @@ export const Card: React.FC<CardProps> = ({
   i,
   title,
   description,
-  src,
+
   url,
-  color,
+  gradient,
   progress,
   range,
   targetScale,
@@ -146,41 +147,47 @@ export const Card: React.FC<CardProps> = ({
     >
       <motion.div
         style={{
-          backgroundColor: color,
           scale,
           top: `calc(-5vh + ${i * 25}px)`,
         }}
-        className={`flex flex-col relative -top-[25%] h-[450px] w-[100%] md:w-[70%] rounded-md p-10 origin-top`}
+        className={`flex flex-col relative -top-[25%] h-[450px] w-[90%] md:w-[70%] rounded-xl p-8 origin-top bg-gradient-to-br ${gradient} shadow-lg`}
       >
-        <h2 className="text-2xl text-center font-semibold">{title}</h2>
-        <div className={`flex h-full mt-5 gap-10`}>
-          <div className={`w-[40%] relative top-[10%]`}>
-            <p className="text-sm">{description}</p>
-            <span className="flex items-center gap-2 pt-2">
-              <Link href={"/products"} className="underline cursor-pointer">
-                Sell Products
-              </Link>
+        <h2 className="text-3xl text-center font-bold mb-4">{title}</h2>
+        <div className={`flex flex-col md:flex-row h-full gap-6 md:gap-10`}>
+          <div className={`w-full md:w-[40%] relative`}>
+            <p className="text-sm md:text-base leading-relaxed">
+              {description}
+            </p>
+            <Link
+              href={"/products"}
+              className="inline-flex items-center mt-4 px-4 py-2 bg-white text-gray-900 rounded-full font-semibold transition-all hover:bg-gray-200"
+            >
+              Sell Products
               <svg
-                width="22"
-                height="12"
-                viewBox="0 0 22 12"
+                className="ml-2 w-5 h-5"
                 fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M21.5303 6.53033C21.8232 6.23744 21.8232 5.76256 21.5303 5.46967L16.7574 0.696699C16.4645 0.403806 15.9896 0.403806 15.6967 0.696699C15.4038 0.989592 15.4038 1.46447 15.6967 1.75736L19.9393 6L15.6967 10.2426C15.4038 10.5355 15.4038 11.0104 15.6967 11.3033C15.9896 11.5962 16.4645 11.5962 16.7574 11.3033L21.5303 6.53033ZM0 6.75L21 6.75V5.25L0 5.25L0 6.75Z"
-                  fill="black"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
                 />
               </svg>
-            </span>
+            </Link>
           </div>
 
-          <div className={`relative w-[60%] h-full rounded-lg overflow-hidden`}>
+          <div
+            className={`relative w-full md:w-[60%] h-64 md:h-full rounded-lg overflow-hidden`}
+          >
             <motion.div
               className={`w-full h-full`}
               style={{ scale: imageScale }}
             >
-              <Image fill src={url} alt="image" className="object-cover" />
+              <Image fill src={url} alt={title} className="object-cover" />
             </motion.div>
           </div>
         </div>

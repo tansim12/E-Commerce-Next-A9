@@ -1,6 +1,5 @@
 import "./footer.css";
-import waveImage from "../../../assets/wave.png";
-import Image from "next/image";
+
 const Footer = () => {
   return (
     <>
@@ -9,15 +8,7 @@ const Footer = () => {
       </div> */}
       <div className="backgroundImage">
         <footer className="text-white">
-          <div className="mx-auto max-w-screen-xl px-4 pb-8 pt-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-md">
-              <strong className="block text-center text-xl font-bold text-red sm:text-3xl">
-                Want us to email you with the latest blockbuster news?
-              </strong>
-
-            
-            </div>
-
+          <div className="mx-auto max-w-screen-xl px-4 pb-8 pt-5 sm:px-6 lg:px-8">
             <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-32">
               <div className="mx-auto max-w-sm lg:max-w-none">
                 <p className="mt-4 text-center  lg:text-left lg:text-lg">
