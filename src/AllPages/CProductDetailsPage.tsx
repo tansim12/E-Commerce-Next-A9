@@ -245,21 +245,6 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
         </div>
       </div>
 
-      {/* related products  */}
-      <div className="my-10">
-        <p className="text-3xl font-bold text-center mb-5">Related Products</p>
-
-        {relatedProductData?.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {relatedProductData?.map((item: any) => (
-              <ProductCard item={item} showBuyButton={true} />
-            ))}
-          </div>
-        ) : (
-          !isProductDataPending && <NoFoundData />
-        )}
-      </div>
-
       {/* Tabs Section */}
 
       <div className="border-b my-8 min-h-[40vh]">
@@ -329,6 +314,21 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
             </Tab>
           </Tabs>
         </div>
+      </div>
+
+      {/* related products  */}
+      <div className="my-10">
+        <p className="text-3xl font-bold text-center mb-5">Related Products</p>
+
+        {relatedProductData?.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {relatedProductData?.map((item: any) => (
+              <ProductCard item={item} showBuyButton={true} />
+            ))}
+          </div>
+        ) : (
+          !isProductDataPending && <NoFoundData />
+        )}
       </div>
     </div>
   );
