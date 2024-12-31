@@ -27,8 +27,6 @@ export const uploadImagesToImgBB = async (files: any) => {
     // Wait for all uploads to complete
     const secureUrls = await Promise.all(uploadPromises);
 
-    console.log({secureUrls});
-
     return secureUrls;
   } catch (error) {
     console.error("Error uploading images:", error);
