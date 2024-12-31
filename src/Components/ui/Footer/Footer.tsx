@@ -12,9 +12,10 @@ const Footer = () => {
             <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-32">
               <div className="mx-auto max-w-sm lg:max-w-none">
                 <p className="mt-4 text-center  lg:text-left lg:text-lg">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Praesentium natus quod eveniet aut perferendis distinctio
-                  iusto repudiandae, provident velit earum?
+                  Enjoy shopping with special discounts and offers. Discover new
+                  products and trendy items on our platform.From electronics and
+                  fashion to home essentials, find everything you need on our
+                  e-commerce site with ease.
                 </p>
 
                 <div className="mt-6 flex justify-center gap-4 lg:justify-start">
