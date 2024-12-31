@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface BannerSlideProps {
   image: string;
@@ -10,9 +10,18 @@ interface BannerSlideProps {
   icon: string;
 }
 
-export const BannerSlide: React.FC<BannerSlideProps> = ({ image, title, tagline, offer, gradient, icon }) => {
+export const BannerSlide: React.FC<BannerSlideProps> = ({
+  image,
+  title,
+  tagline,
+  offer,
+  gradient,
+  icon,
+}) => {
   return (
-    <div className={`relative w-full h-[60vh] overflow-hidden bg-gradient-to-r ${gradient}`}>
+    <div
+      className={`relative w-full h-[60vh] overflow-hidden bg-gradient-to-r ${gradient}`}
+    >
       <motion.div
         className="absolute inset-0 bg-white/10 backdrop-blur-sm"
         initial={{ opacity: 0 }}
@@ -60,7 +69,7 @@ export const BannerSlide: React.FC<BannerSlideProps> = ({ image, title, tagline,
           <motion.div
             animate={{
               y: [0, -10, 0],
-              rotate: [0, 2, 0, -2, 0],
+              rotate: [0, 5, 0, -3, 0],
             }}
             transition={{
               duration: 5,
@@ -94,11 +103,18 @@ export const BannerSlide: React.FC<BannerSlideProps> = ({ image, title, tagline,
         animate={{ rotate: 360 }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       >
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-white opacity-10">
-          <path fill="currentColor" d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,89.1,-0.5C88.1,15.3,83.5,30.5,75.2,43.5C66.9,56.4,54.8,67,41.2,74.4C27.6,81.7,13.8,85.9,-0.4,86.5C-14.6,87.1,-29.2,84.1,-41.6,76.8C-54.1,69.5,-64.4,57.9,-73.4,44.7C-82.4,31.4,-90,15.7,-91.7,-1.1C-93.4,-17.9,-89.1,-35.8,-79.6,-49.6C-70.1,-63.4,-55.3,-73.2,-40.4,-79.9C-25.5,-86.7,-12.7,-90.4,1.3,-92.6C15.3,-94.8,30.6,-83.6,44.7,-76.4Z" transform="translate(100 100)" />
+        <svg
+          viewBox="0 0 200 200"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full text-white opacity-10"
+        >
+          <path
+            fill="currentColor"
+            d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,89.1,-0.5C88.1,15.3,83.5,30.5,75.2,43.5C66.9,56.4,54.8,67,41.2,74.4C27.6,81.7,13.8,85.9,-0.4,86.5C-14.6,87.1,-29.2,84.1,-41.6,76.8C-54.1,69.5,-64.4,57.9,-73.4,44.7C-82.4,31.4,-90,15.7,-91.7,-1.1C-93.4,-17.9,-89.1,-35.8,-79.6,-49.6C-70.1,-63.4,-55.3,-73.2,-40.4,-79.9C-25.5,-86.7,-12.7,-90.4,1.3,-92.6C15.3,-94.8,30.6,-83.6,44.7,-76.4Z"
+            transform="translate(100 100)"
+          />
         </svg>
       </motion.div>
     </div>
   );
 };
-
