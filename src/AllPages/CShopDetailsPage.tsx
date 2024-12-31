@@ -41,96 +41,110 @@ const CShopDetailsPage = ({ params: urlParams }: { params: any }) => {
 
   return (
     <>
-      {isShopDataPending && <ComponentsLoading />}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 justify-between items-center">
-        {/* shop details div  */}
+      {isShopDataPending ? (
+        <ComponentsLoading />
+      ) : (
         <div>
-          <div className="">
-            <h1 className="text-2xl font-bold">{data?.name}</h1>
-            <div className="flex items-center mt-2">
-              <Rating style={{ maxWidth: 150 }} value={data?.averageRating} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 justify-between items-center">
+            {/* shop details div  */}
+            <div>
+              <div className="">
+                <h1 className="text-2xl font-bold">{data?.name}</h1>
+                <div className="flex items-center mt-2">
+                  <Rating
+                    style={{ maxWidth: 150 }}
+                    value={data?.averageRating}
+                  />
 
-              <span className="ml-2 text-gray-600">
-                ({data?._count?.payment} orders)
-              </span>
-              {data?.isDelete === false && (
-                <span className="ml-2 text-green-600"> Active</span>
-              )}
+                  <span className="ml-2 text-gray-600">
+                    ({data?._count?.payment} orders)
+                  </span>
+                  {data?.isDelete === false && (
+                    <span className="ml-2 text-green-600"> Active</span>
+                  )}
 
-              {data?.isDelete === true && (
-                <span className="ml-2 text-red-600"> Deleted</span>
-              )}
+                  {data?.isDelete === true && (
+                    <span className="ml-2 text-red-600"> Deleted</span>
+                  )}
+                </div>
+
+                <div className="mt-4">
+                  <div className="flex items-center mb-2">
+                    <span className=" font-semibold mr-3">Shop Type:</span>
+                    <span> {data?.shopType}</span>
+                  </div>
+
+                  <div className="flex items-center mb-2">
+                    <span className=" font-semibold mr-3">Contact Number:</span>
+                    <span>
+                      {" "}
+                      {data?.contactNumber ? data?.contactNumber : "N/A"}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center mb-2">
+                    <span className=" font-semibold mr-3">Address :</span>
+                    <span> {data?.address ? data?.address : "N/A"}</span>
+                  </div>
+                  <div className="flex items-center mb-2">
+                    <span className=" font-semibold mr-3">
+                      Shop Register :{" "}
+                    </span>
+                    <span> {moment(data?.createdAt).format("ll")}</span>
+                  </div>
+                  <div className="flex items-center mb-2">
+                    <span className=" font-semibold mr-3">
+                      Shop Followers :{" "}
+                    </span>
+                    <span>{data?._count?.shopFollow}</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="mt-4">
-              <div className="flex items-center mb-2">
-                <span className=" font-semibold mr-3">Shop Type:</span>
-                <span> {data?.shopType}</span>
-              </div>
+            {/* shop logo  */}
+            <div>
+              <div>
+                <div className="flex items-center justify-center my-5">
+                  <img
+                    className="object-contain rounded-full"
+                    alt="shop"
+                    src={
+                      "https://i.ibb.co/59Qnc32/istockphoto-519319260-612x612.jpg"
+                    }
+                  />
+                </div>
+                <div className="flex justify-center items-center my-3">
+                  <ShopFollowButton shopId={data?.id} />
+                </div>
 
-              <div className="flex items-center mb-2">
-                <span className=" font-semibold mr-3">Contact Number:</span>
-                <span>
-                  {" "}
-                  {data?.contactNumber ? data?.contactNumber : "N/A"}
-                </span>
-              </div>
-
-              <div className="flex items-center mb-2">
-                <span className=" font-semibold mr-3">Address :</span>
-                <span> {data?.address ? data?.address : "N/A"}</span>
-              </div>
-              <div className="flex items-center mb-2">
-                <span className=" font-semibold mr-3">Shop Register : </span>
-                <span> {moment(data?.createdAt).format("ll")}</span>
-              </div>
-              <div className="flex items-center mb-2">
-                <span className=" font-semibold mr-3">Shop Followers : </span>
-                <span>{data?._count?.shopFollow}</span>
+                <div
+                  className="text-center"
+                  dangerouslySetInnerHTML={{
+                    __html: data?.description ? data?.description : "N/A",
+                  }}
+                ></div>
               </div>
             </div>
+          </div>
+
+          {/* product show div  */}
+          <div className="my-10">
+            <p className="text-2xl text-center font-bold mb-10">
+              Shop Products{" "}
+            </p>
+            {allProductsData?.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {allProductsData?.map((item: any) => (
+                  <ProductCard item={item} showBuyButton={true} />
+                ))}
+              </div>
+            ) : (
+              <span>There is no products</span>
+            )}
           </div>
         </div>
-
-        {/* shop logo  */}
-        <div>
-          <div>
-            <div className="flex items-center justify-center my-5">
-              <img
-                className="object-contain rounded-full"
-                alt="shop"
-                src={
-                  "https://i.ibb.co/59Qnc32/istockphoto-519319260-612x612.jpg"
-                }
-              />
-            </div>
-            <div className="flex justify-center items-center my-3">
-              <ShopFollowButton shopId={data?.id} />
-            </div>
-
-            <div
-              className="text-center"
-              dangerouslySetInnerHTML={{
-                __html: data?.description ? data?.description : "N/A",
-              }}
-            ></div>
-          </div>
-        </div>
-      </div>
-
-      {/* product show div  */}
-      <div className="my-10">
-        <p className="text-2xl text-center font-bold mb-10">Shop Products </p>
-        {allProductsData?.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {allProductsData?.map((item: any) => (
-              <ProductCard item={item} showBuyButton={true} />
-            ))}
-          </div>
-        ) : (
-          <span>There is no products</span>
-        )}
-      </div>
+      )}
     </>
   );
 };
