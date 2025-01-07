@@ -17,7 +17,7 @@ export const Banner: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden h-[60vh]">
+    <div className="relative w-full overflow-hidden h-[50vh]">
       <AnimatePresence>
         <motion.div
           key={currentSlide}

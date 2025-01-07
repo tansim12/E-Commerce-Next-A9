@@ -20,7 +20,7 @@ export const BannerSlide: React.FC<BannerSlideProps> = ({
 }) => {
   return (
     <div
-      className={`relative w-full h-[60vh] overflow-hidden bg-gradient-to-r ${gradient}`}
+      className={`relative w-full h-[50vh] overflow-hidden bg-gradient-to-r ${gradient}`}
     >
       <motion.div
         className="absolute inset-0 bg-white/10 backdrop-blur-sm"
@@ -61,7 +61,7 @@ export const BannerSlide: React.FC<BannerSlideProps> = ({
           </motion.div>
         </motion.div>
         <motion.div
-          className="w-full md:w-1/2 h-[200px] md:h-[300px] lg:h-[400px] relative mt-8 md:mt-0"
+          className="w-full md:w-1/2 h-[180px] md:h-[250px] lg:h-[350px] relative mt-8 md:mt-0"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}

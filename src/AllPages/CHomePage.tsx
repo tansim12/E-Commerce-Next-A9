@@ -29,7 +29,7 @@ const CHomePage = () => {
   return (
     <div className="relative">
       {/* slider Section  */}
-      <div className="mx-2 overflow-x-hidden static h-[60vh] ">
+      <div className="h-[50vh] ">
         {/* <EmblaCarousel /> */}
         <Banner />
       </div>
