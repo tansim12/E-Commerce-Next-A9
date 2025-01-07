@@ -1,5 +1,8 @@
-import CLoginPage from "@/src/AllPages/CLoginPage";
+import dynamic from "next/dynamic";
 import React from "react";
+const CLoginPage = dynamic(() => import("@/src/AllPages/CLoginPage"), {
+  ssr: false,
+});
 
 const LoginPage = () => {
   return (
