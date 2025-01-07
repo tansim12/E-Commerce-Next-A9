@@ -13,7 +13,6 @@ const projects = [
       "Originally hailing from Austria, Berlin-based photographer Matthias Leindinger is a young creative brimming with talent and ideas.",
     src: "rock.jpg",
     link: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1735627985/brooke-cagle-_6cz9KUvnxM-unsplash_m9mcuy.jpg",
-    gradient: "from-purple-400 to-pink-600",
   },
   {
     title: "Clément Chapillon",
@@ -21,7 +20,6 @@ const projects = [
       "This is a story on the border between reality and imaginary, about the contradictory feelings that the insularity of a rocky, arid, and wild territory provokes—so French photographer Clément.",
     src: "tree.jpg",
     link: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1735627984/good-faces-DSj40n6beGk-unsplash_oa6qvr.jpg",
-    gradient: "from-blue-400 to-teal-500",
   },
   {
     title: "Zissou",
@@ -29,10 +27,9 @@ const projects = [
       "Though he views photography as a medium for storytelling, Zissou's images don't insist on a narrative. Both crisp and ethereal.",
     src: "water.jpg",
     link: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1735627984/desola-lanre-ologun-7d4LREDSPyQ-unsplash_njpn1i.jpg",
-    gradient: "from-indigo-500 to-purple-600",
   },
   {
-    title: "Mathias Svold and Ulrik Hasemann",
+    title: "Mathias Svold",
     description:
       "The coastlines of Denmark are documented in tonal colors in a pensive new series by Danish photographers Ulrik Hasemann and Mathias Svold; an ongoing project investigating how humans interact with and disrupt the Danish coast.",
     src: "house.jpg",
@@ -45,7 +42,6 @@ const projects = [
       "Dutch photographer Mark Rammers has shared with IGNANT the first chapter of his latest photographic project, 'all over again'—captured while in residency at Hektor, an old farm in Los Valles, Lanzarote.",
     src: "cactus.jpg",
     link: "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1735627985/brooke-cagle-YpefHkUc8BQ-unsplash_vraezj.jpg",
-    gradient: "from-pink-500 to-yellow-500",
   },
 ];
 
@@ -94,7 +90,6 @@ const PublicReview = () => {
               i={i}
               url={project?.link}
               title={project?.title}
-              gradient={project?.gradient}
               description={project?.description}
               progress={scrollYProgress}
               range={[i * 0.25, 1]}
@@ -114,7 +109,7 @@ interface CardProps {
   title: string;
   description: string;
   url: string;
-  gradient: string;
+
   progress: MotionValue<number>;
   range: [number, number];
   targetScale: number;
@@ -124,9 +119,7 @@ export const Card: React.FC<CardProps> = ({
   i,
   title,
   description,
-
   url,
-  gradient,
   progress,
   range,
   targetScale,
@@ -150,14 +143,17 @@ export const Card: React.FC<CardProps> = ({
           scale,
           top: `calc(-5vh + ${i * 25}px)`,
         }}
-        className={`flex flex-col relative -top-[25%] h-[450px] w-[90%] md:w-[70%] rounded-xl p-8 origin-top bg-gradient-to-br ${gradient} shadow-lg`}
+        className="flex flex-col relative -top-[25%] h-[450px] w-[90%] md:w-[70%] rounded-xl p-8 origin-top bg-gray-800 shadow-lg"
       >
-        <h2 className="text-3xl text-center font-bold mb-4">{title}</h2>
-        <div className={`flex flex-col md:flex-row h-full gap-6 md:gap-10`}>
-          <div className={`w-full md:w-[40%] relative`}>
-            <p className="text-sm md:text-base leading-relaxed">
-              {description}
-            </p>
+        <div className="flex flex-col md:flex-row h-full gap-6 md:gap-10 items-center">
+          <div className="w-full md:w-[40%] relative">
+            <div>
+              <h2 className="text-3xl text-center font-bold  mb-10">{title}</h2>
+              <p className="text-sm md:text-base leading-relaxed">
+                {description}
+              </p>
+            </div>
+
             <Link
               href={"/products"}
               className="inline-flex items-center mt-4 px-4 py-2 bg-white text-gray-900 rounded-full font-semibold transition-all hover:bg-gray-200"
@@ -180,13 +176,8 @@ export const Card: React.FC<CardProps> = ({
             </Link>
           </div>
 
-          <div
-            className={`relative w-full md:w-[60%] h-64 md:h-full rounded-lg overflow-hidden`}
-          >
-            <motion.div
-              className={`w-full h-full`}
-              style={{ scale: imageScale }}
-            >
+          <div className="relative w-full md:w-[60%] h-64 md:h-full rounded-lg overflow-hidden">
+            <motion.div className="w-full h-full" style={{ scale: imageScale }}>
               <Image fill src={url} alt={title} className="object-cover" />
             </motion.div>
           </div>

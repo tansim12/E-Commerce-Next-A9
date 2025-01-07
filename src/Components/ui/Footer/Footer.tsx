@@ -79,31 +79,31 @@ const Footer = () => {
 
                   <ul className="mt-6 space-y-1">
                     <li>
-                      <Link className=" transition " href="/">
+                      <Link className=" transition  hover:text-primary" href="/">
                         {" "}
                         Home{" "}
                       </Link>
                     </li>
                     <li>
-                      <Link className=" transition " href="/products">
+                      <Link className=" transition hover:text-primary" href="/products">
                         {" "}
                         Products{" "}
                       </Link>
                     </li>
                     <li>
-                      <Link className=" transition " href="/shop">
+                      <Link className=" transition hover:text-primary " href="/shop">
                         {" "}
                         Shops{" "}
                       </Link>
                     </li>
                     <li>
-                      <Link className=" transition " href="/compare">
+                      <Link className=" transition hover:text-primary" href="/compare">
                         {" "}
                         Compare{" "}
                       </Link>
                     </li>
                     <li>
-                      <Link className=" transition " href="/history">
+                      <Link className=" transition hover:text-primary" href="/history">
                         {" "}
                         History{" "}
                       </Link>

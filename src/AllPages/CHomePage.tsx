@@ -38,7 +38,7 @@ const CHomePage = () => {
         <TopSaleProducts />
       </div>
       {/* flash sale product */}
-      <div className="my-10 container mx-auto px-2 sm:px-2">
+      <div className="my-24 container mx-auto px-2 sm:px-2">
         <FlashSaleProducts />
       </div>
 

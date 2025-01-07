@@ -43,7 +43,7 @@ const RelevantProducts = () => {
     <>
       <div className="mt-28 mb-16">
         <div>
-          <p className="text-3xl text-center my-10 font-bold">Your Products</p>
+          <p className="text-3xl text-center my-16 font-bold">Your Relevant Products</p>
         </div>
         {allProductsData?.length ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-3">
