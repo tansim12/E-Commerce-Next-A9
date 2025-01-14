@@ -69,7 +69,7 @@ const PaymentUpdateForm = ({ defaultValue }: { defaultValue: any }) => {
               ]}
               defaultValue={[defaultValue?.paymentStatus]}
               placeholder="Select PaymentStatus"
-              label="User Role"
+              label="Status"
               name="paymentStatus"
             />
           </div>

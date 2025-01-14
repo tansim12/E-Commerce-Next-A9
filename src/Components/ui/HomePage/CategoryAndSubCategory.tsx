@@ -38,7 +38,7 @@ const CategoryAndSubCategory = () => {
               {category.categoryName}
             </button>
             {category.subCategory.length > 0 && (
-              <div className="absolute z-50 left-0 top-10 mt-2 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
+              <div className="absolute z-50 left-0 top-5 mt-2 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                 <ul className="py-1">
                   {category.subCategory.map((sub) => (
                     <li

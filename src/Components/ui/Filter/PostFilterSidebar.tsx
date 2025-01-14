@@ -109,29 +109,29 @@ const PostFilterSidebar = () => {
         </div>
 
         {/* Categories rendering */}
-        {categories?.reverse()?.map((category: any) => (
-          <section key={category.id} className="mt-2">
+        {categories?.map((category: any) => (
+          <section key={category?.id} className="mt-2">
             <details className="rounded-md p-1" open={false}>
               <summary className="cursor-pointer text-white p-2 rounded-md">
-                {category.categoryName}
+                {category?.categoryName}
               </summary>
 
               <div className="mt-2 pl-4">
                 {/* Render Subcategories only if they exist */}
-                {category.subCategory.length > 0
+                {category?.subCategory?.length > 0
                   ? category.subCategory.map((sub: any) => (
                       <label
-                        key={sub.id}
+                        key={sub?.id}
                         className="text-sm text-gray-500 flex items-center gap-2 mt-1"
                       >
                         <input
                           type="checkbox"
                           name="subCategoryId"
-                          value={sub.id}
+                          value={sub?.id}
                           className="h-4 w-4"
                           onChange={handleFilterChange} // Handle checkbox changes
                         />
-                        {sub.categoryName}
+                        {sub?.categoryName}
                       </label>
                     ))
                   : ""}
