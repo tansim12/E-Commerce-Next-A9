@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-
-import { programmingGarments } from "../data/garments";
-import exampleHumans from "../data/human";
+// import { programmingGarments } from "../data/garments";
 import { motion } from "framer-motion";
 import {
   FaRegClock as Clock,
@@ -25,10 +23,24 @@ import {
 } from "../Components/ui/Virtual-try/card";
 import { Button } from "@nextui-org/button";
 
+const exampleHumans = [
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033063/maleOne_nzpz5l.png",
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033059/femaleOne_dm6a6m.png",
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033060/maleTwo_fbupft.png",
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033060/femaleTwo_q2wqsu.png",
+];
+const programmingGarments = [
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033063/maleOne_nzpz5l.png",
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033059/femaleOne_dm6a6m.png",
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033060/maleTwo_fbupft.png",
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033060/femaleTwo_q2wqsu.png",
+];
+
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
-const API_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ||
-  "https://virtual-tryon-server.onrender.com/api/virtual-tryon";
+const API_URL = "http://localhost:5000";
+// const API_URL =
+//   process.env.NEXT_PUBLIC_API_BASE_URL ||
+//   "https://virtual-tryon-server.onrender.com/api/virtual-tryon";
 export default function VirtualTryOn() {
   const [humanImage, setHumanImage] = useState<string | null>(null);
   const [humanFile, setHumanFile] = useState<File | null>(null);
@@ -59,7 +71,6 @@ export default function VirtualTryOn() {
     }
   };
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-
 
   const handleImageUpload = (
     event:
@@ -106,6 +117,7 @@ export default function VirtualTryOn() {
     }
   };
 
+  console.log(exampleHumans);
 
   const handleExampleClick = async (
     imageSrc: string,
@@ -285,7 +297,7 @@ export default function VirtualTryOn() {
                 className="mb-4 text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600"
               />
               <div className="flex flex-wrap gap-3">
-                {exampleHumans.map((src, index) => (
+                {exampleHumans?.map((src, index) => (
                   <motion.img
                     key={index}
                     src={src}
