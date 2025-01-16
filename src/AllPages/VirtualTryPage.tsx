@@ -22,26 +22,30 @@ import {
   CardTitle,
 } from "../Components/ui/Virtual-try/card";
 import { Button } from "@nextui-org/button";
+import { usePublicAllProducts } from "../hooks/product.hook";
+import { TQueryParams } from "../Types/Filter/filter.type";
 
-const exampleHumans = [
-  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033063/maleOne_nzpz5l.png",
-  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033059/femaleOne_dm6a6m.png",
-  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033060/maleTwo_fbupft.png",
-  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033060/femaleTwo_q2wqsu.png",
-];
-const programmingGarments = [
-  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033063/maleOne_nzpz5l.png",
-  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033059/femaleOne_dm6a6m.png",
-  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033060/maleTwo_fbupft.png",
-  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033060/femaleTwo_q2wqsu.png",
-];
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
-const API_URL = "http://localhost:5000";
-// const API_URL =
-//   process.env.NEXT_PUBLIC_API_BASE_URL ||
-//   "https://virtual-tryon-server.onrender.com/api/virtual-tryon";
-export default function VirtualTryOn() {
+// const API_URL = "http://localhost:5000";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  "https://virtual-tryon-server.onrender.com/api/virtual-tryon";
+export default function VirtualTryOn({ searchParams }: { searchParams: any }) {
+  const newParams = [
+    {
+      name: "categoryId",
+      value: "266888de-62ff-46cb-b959-e7e6fa70e444",
+    },
+  ];
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(6);
+  const { data } = usePublicAllProducts(
+    page,
+    pageSize,
+    // params
+    [...(newParams as TQueryParams[])]
+  );
+
   const [humanImage, setHumanImage] = useState<string | null>(null);
   const [humanFile, setHumanFile] = useState<File | null>(null);
   const [garmentImage, setGarmentImage] = useState<string | null>(null);
@@ -49,6 +53,18 @@ export default function VirtualTryOn() {
   const [outputImage, setOutputImage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [timer, setTimer] = useState(0);
+
+  const [productImage, setProductImage] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (searchParams?.image) {
+      setProductImage([searchParams?.image]);
+    } else {
+      const productImages =
+        data?.result?.map((item: any) => item?.images?.[0]) || [];
+      setProductImage(productImages);
+    }
+  }, [searchParams, data]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -116,8 +132,6 @@ export default function VirtualTryOn() {
       reader.readAsDataURL(file);
     }
   };
-
-  console.log(exampleHumans);
 
   const handleExampleClick = async (
     imageSrc: string,
@@ -251,7 +265,7 @@ export default function VirtualTryOn() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white p-8">
+    <div className="min-h-screen bg-gradient-to-br  ">
       <GPUQuotaCountdown />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -259,9 +273,24 @@ export default function VirtualTryOn() {
         transition={{ duration: 0.5 }}
         className="container mx-auto"
       >
-        <h1 className="text-4xl font-bold mb-8 text-center text-gray-50">
-          Virtual Try-On <Sparkles className="inline-block ml-2" />
-        </h1>
+        <div className="overflow-hidden whitespace-nowrap">
+          <motion.div
+            className="flex gap-8"
+            animate={{ x: ["100%", "-100%"] }}
+            transition={{
+              repeat: Infinity,
+              duration: 15,
+              ease: "linear",
+            }}
+          >
+            <h1 className="text-3xl font-bold mb-8 text-center text-gray-50">
+              Virtual Try-On <Sparkles className="inline-block ml-2" />
+            </h1>
+            <h1 className="text-3xl font-bold mb-8 text-center text-gray-50">
+              Please Wait Minimum Wait 1 Minute.
+            </h1>
+          </motion.div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Card className="bg-gray-800 border-gray-700 text-gray-50">
             <CardHeader>
@@ -322,7 +351,7 @@ export default function VirtualTryOn() {
           <Card className="bg-gray-800 border-gray-700 text-gray-50">
             <CardHeader>
               <CardTitle className="text-xl font-semibold">
-                Garment Image
+                Product Image
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -352,13 +381,13 @@ export default function VirtualTryOn() {
                 }
                 className="mb-4 text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600"
               />
-              <div className="flex flex-wrap gap-3 items-center justify-center">
-                {programmingGarments.map((src, index) => (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 items-center justify-center">
+                {productImage.map((src, index) => (
                   <motion.img
                     key={index}
                     src={src}
                     alt={`Example garment ${index + 1}`}
-                    className="w-auto h-24 object-cover cursor-pointer rounded-md flex-1"
+                    className="w-full h-24 object-cover cursor-pointer rounded-lg shadow-md transition-all duration-300"
                     onClick={() =>
                       handleExampleClick(
                         src,
@@ -367,8 +396,8 @@ export default function VirtualTryOn() {
                         setGarmentFile
                       )
                     }
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   />
                 ))}
               </div>
@@ -443,3 +472,10 @@ export default function VirtualTryOn() {
     </div>
   );
 }
+
+const exampleHumans = [
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033063/maleOne_nzpz5l.png",
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033059/femaleOne_dm6a6m.png",
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033060/maleTwo_fbupft.png",
+  "https://res.cloudinary.com/dgm9w4vwh/image/upload/v1737033060/femaleTwo_q2wqsu.png",
+];

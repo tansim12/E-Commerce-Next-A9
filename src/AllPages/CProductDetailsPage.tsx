@@ -241,6 +241,13 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
             >
               Go To Shop
             </Button>
+            <Button
+              onClick={() =>
+                router.push(`/virtual-try?image=${productDetails?.images?.[0]}`)
+              }
+            >
+              Virtual-Try
+            </Button>
           </div>
         </div>
       </div>
@@ -271,7 +278,7 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
                 {/* raging div  */}
                 <div className="w-1/3">
                   <div>
-                    <span className="text-[70px] font-bold italic">
+                    <span className="text-[50px] md:text-[70px] font-bold italic">
                       {Math.ceil(productDetails?.averageRating).toFixed(2)}
                     </span>
                     <span>Raging</span>
