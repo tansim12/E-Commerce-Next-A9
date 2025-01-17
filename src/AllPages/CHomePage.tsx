@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import PublicReview from "../Components/ui/Review/PublicReview";
 import { NewsletterSubscription } from "../Components/ui/NewsLetter/NewsletterSubscription";
 import { Banner } from "../Components/ui/Banner/Banner";
-import HomePageVirtualTry from "../Components/ui/Virtual-try/HomePageVirtualTry";
 
 const TopSaleProducts = dynamic(
   () => import("../Components/ui/HomePage/TopSaleProducts"),
@@ -19,6 +18,10 @@ const ScrollToTopButton = dynamic(
 );
 const RelevantProducts = dynamic(
   () => import("../Components/ui/Products/RelevantProducts"),
+  { ssr: false }
+);
+const HomePageVirtualTry = dynamic(
+  () => import("../Components/ui/Virtual-try/HomePageVirtualTry"),
   { ssr: false }
 );
 
