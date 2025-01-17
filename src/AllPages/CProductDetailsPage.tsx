@@ -45,7 +45,6 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
     );
   }, [productDetails, productData, isSuccess]);
 
-  console.log(productDetails);
 
   // const {result, resentProducts} = productData
 
