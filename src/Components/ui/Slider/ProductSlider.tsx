@@ -16,11 +16,12 @@ const ProductSlider = ({ slides }: { slides: string[] }) => {
     <div>
       <div className="">
         <CarouselProvider
-          naturalSlideWidth={100}
+          naturalSlideWidth={85}
           naturalSlideHeight={75}
           totalSlides={slides?.length}
           currentSlide={currentSlide}
           isPlaying={true}
+          
         >
           <Slider>
             {slides?.map((slide, index) => (
@@ -42,7 +43,7 @@ const ProductSlider = ({ slides }: { slides: string[] }) => {
             <img
               src={slide}
               alt={`Thumbnail ${index + 1}`}
-              className=" h-20 w-40 object-cover"
+              className=" h-20 w-28 object-cover"
             />
           </button>
         ))}
