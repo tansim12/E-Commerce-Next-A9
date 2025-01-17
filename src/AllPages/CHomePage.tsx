@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import PublicReview from "../Components/ui/Review/PublicReview";
 import { NewsletterSubscription } from "../Components/ui/NewsLetter/NewsletterSubscription";
 import { Banner } from "../Components/ui/Banner/Banner";
+import { HomePageVirtualTry } from "../Components/ui/Virtual-try/HomePageVirtualTry";
 
 const TopSaleProducts = dynamic(
   () => import("../Components/ui/HomePage/TopSaleProducts"),
@@ -38,7 +39,7 @@ const CHomePage = () => {
         <TopSaleProducts />
       </div>
       {/* flash sale product */}
-      <div className="my-24 container mx-auto px-2 sm:px-2">
+      <div className="my-20 container mx-auto px-2 sm:px-2">
         <FlashSaleProducts />
       </div>
 
@@ -47,6 +48,10 @@ const CHomePage = () => {
         <ScrollToTopButton />
       </div>
 
+      {/* relevant products  */}
+      <div className="container mx-auto px-2 sm:px-2 mb-16">
+        <HomePageVirtualTry />
+      </div>
       {/* relevant products  */}
       <div className="container mx-auto px-2 sm:px-2">
         <RelevantProducts />

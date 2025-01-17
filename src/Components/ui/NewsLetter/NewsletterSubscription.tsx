@@ -68,7 +68,7 @@ export function NewsletterSubscription() {
   return (
     <section
       ref={ref}
-      className="min-h-screen flex items-center justify-center overflow-hidden bg-beige"
+      className=" flex items-center justify-center overflow-hidden bg-beige"
     >
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
         <motion.div
