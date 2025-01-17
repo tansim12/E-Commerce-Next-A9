@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import PublicReview from "../Components/ui/Review/PublicReview";
 import { NewsletterSubscription } from "../Components/ui/NewsLetter/NewsletterSubscription";
 import { Banner } from "../Components/ui/Banner/Banner";
-import { HomePageVirtualTry } from "../Components/ui/Virtual-try/HomePageVirtualTry";
+import HomePageVirtualTry from "../Components/ui/Virtual-try/HomePageVirtualTry";
 
 const TopSaleProducts = dynamic(
   () => import("../Components/ui/HomePage/TopSaleProducts"),
