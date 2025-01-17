@@ -6,8 +6,8 @@ import Lottie from "lottie-react";
 import { FaArrowRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-export function HomePageVirtualTry() {
-    const navigate = useRouter()
+const HomePageVirtualTry = () => {
+  const navigate = useRouter();
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
   const controls = useAnimation();
@@ -75,7 +75,7 @@ export function HomePageVirtualTry() {
             purchase. Try it virtually and shop with confidence!
           </motion.p>
           <motion.button
-          onClick={()=>navigate.push("/virtual-try")}
+            onClick={() => navigate.push("/virtual-try")}
             type="submit"
             className="px-8 py-3 text-lg font-semibold text-beige bg-primary rounded-lg hover:bg-brown focus:outline-none"
             whileHover={{ scale: 1.05 }}
@@ -113,4 +113,6 @@ export function HomePageVirtualTry() {
       </div>
     </section>
   );
-}
+};
+
+export default HomePageVirtualTry;
