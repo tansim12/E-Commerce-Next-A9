@@ -39,7 +39,7 @@ const CHomePage = () => {
         <TopSaleProducts />
       </div>
       {/* flash sale product */}
-      <div className="my-20 container mx-auto px-2 sm:px-2">
+      <div className="my-2 container mx-auto px-2 sm:px-2">
         <FlashSaleProducts />
       </div>
 
@@ -49,7 +49,7 @@ const CHomePage = () => {
       </div>
 
       {/* relevant products  */}
-      <div className="container mx-auto px-2 sm:px-2 mb-16">
+      <div className="container mx-auto px-2 sm:px-2 mb-16 mt-24">
         <HomePageVirtualTry />
       </div>
       {/* relevant products  */}
