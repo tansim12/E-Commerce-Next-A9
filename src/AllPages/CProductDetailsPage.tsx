@@ -45,6 +45,8 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
     );
   }, [productDetails, productData, isSuccess]);
 
+  console.log(productDetails);
+
   // const {result, resentProducts} = productData
 
   const [buyQuantity, setBuyQuantity] = useState(1);
@@ -241,13 +243,18 @@ const CProductDetailsPage = ({ id }: { id: any }) => {
             >
               Go To Shop
             </Button>
-            <Button
-              onClick={() =>
-                router.push(`/virtual-try?image=${productDetails?.images?.[0]}`)
-              }
-            >
-              Virtual-Try
-            </Button>
+            {productDetails?.categoryId ===
+              "266888de-62ff-46cb-b959-e7e6fa70e444" && (
+              <Button
+                onClick={() =>
+                  router.push(
+                    `/virtual-try?image=${productDetails?.images?.[0]}`
+                  )
+                }
+              >
+                Virtual-Try
+              </Button>
+            )}
           </div>
         </div>
       </div>
